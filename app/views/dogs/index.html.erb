@@ -1,2 +1,30 @@
-<h1>Dogs#index</h1>
-<p>Find me in app/views/dogs/index.html.erb</p>
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h1 class="fw-bold">Mes chiens</h1>
+        <p class="text-muted">
+          Gère les profils de tes chiens.
+        </p>
+      </div>
+            <div>
+              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "btn btn-doggy text-white " %>
+
+              <%= link_to "Ajouter un chien",
+                  new_dog_path,
+                  class: "btn btn-doggy text-white px-4" %>
+          </div>
+  </div>
+
+
+    <div class="cards">
+            <% @dogs.each do |dog| %>
+            <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
+              <h3 class="fw-bold"><%= link_to dog.name, dog_path(dog),
+                  class: "btn btn-dark text-white" %><% dog.name%></h3>
+            </div>
+            <% end %>
+    </div>
+
+
+</div>

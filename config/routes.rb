@@ -21,7 +21,9 @@ Rails.application.routes.draw do
   end
 
     # DOGS
-  resources :dogs
+  resources :dogs do
+    resources :conversations, only: [:create]
+  end
 
   # EVENTS
   resources :events do
