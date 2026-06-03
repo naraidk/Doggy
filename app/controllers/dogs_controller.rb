@@ -8,11 +8,12 @@ class DogsController < ApplicationController
   end
 
   def new
-    @dog = Dog.build
+    @dog = Dog.new
   end
 
   def create
-    Dog.build(dog_params)
+    @dog = Dog.new(dog_params)
+    @dog.user = current_user
     if @dog.save
       redirect_to dog_path(@dog), notice: "Profil du chien créé avec succès."
     else
@@ -34,10 +35,6 @@ class DogsController < ApplicationController
     end
   end
 
-  def save
-    @dog = Dog.save
-  end
-
   def destroy
     @dog = Dog.find(params[:id])
     @dog.destroy
@@ -47,6 +44,6 @@ class DogsController < ApplicationController
   private
 
   def dog_params
-    dog_params = params.require(:dog), permit(:name, :breed, :age, :description)
+    dog_params = params.require(:dog).permit(:name, :breed, :age, :description)
   end
 end

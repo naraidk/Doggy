@@ -1,5 +1,6 @@
 class Dog < ApplicationRecord
   belongs_to :user
+  has_one_attached :avatar
 
   validates :name, presence: true, length: { minimum: 2, maximum: 30 }
 
