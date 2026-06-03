@@ -1,0 +1,8 @@
+<div id="message-<%= message.id %>" class="message">
+  <small>
+    <strong><%= message.dog.name %></strong>
+    <i><%= message.created_at.strftime("%H:%M") %></i>
+  </small>
+
+  <p><%= message.content %></p>
+</div>
