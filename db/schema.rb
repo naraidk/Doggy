@@ -111,8 +111,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_03_104050) do
     t.text "content"
     t.bigint "conversation_id", null: false
     t.datetime "created_at", null: false
+    t.bigint "dog_id", null: false
     t.datetime "updated_at", null: false
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["dog_id"], name: "index_messages_on_dog_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -160,6 +162,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_03_104050) do
   add_foreign_key "event_participants", "events"
   add_foreign_key "events", "dogs"
   add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "dogs"
   add_foreign_key "posts", "dogs"
   add_foreign_key "woufs", "dogs"
   add_foreign_key "woufs", "posts"
