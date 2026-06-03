@@ -1,40 +1,4 @@
 Rails.application.routes.draw do
-  get "ai_messages/create"
-  get "ai_chats/show"
-  get "ai_chats/new"
-  get "ai_chats/create"
-  get "messages/create"
-  get "conversations/index"
-  get "conversations/show"
-  get "conversations/new"
-  get "conversations/create"
-  get "event_participants/create"
-  get "event_participants/destroy"
-  get "events/index"
-  get "events/show"
-  get "events/new"
-  get "events/create"
-  get "events/edit"
-  get "events/update"
-  get "events/destroy"
-  get "woufs/create"
-  get "woufs/destroy"
-  get "comments/create"
-  get "comments/destroy"
-  get "posts/index"
-  get "posts/show"
-  get "posts/new"
-  get "posts/create"
-  get "posts/edit"
-  get "posts/update"
-  get "posts/destroy"
-  get "dogs/index"
-  get "dogs/show"
-  get "dogs/new"
-  get "dogs/create"
-  get "dogs/edit"
-  get "dogs/update"
-  get "dogs/destroy"
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -49,4 +13,29 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # FEED (posts, comments, woufs)
+  resources :posts, only: [:index, :new, :create] do
+    resources :woufs, only: [:create, :destroy]
+    resources :comments, only: [:index, :create]
+  end
+
+    # DOGS
+  resources :dogs
+
+  # EVENTS
+  resources :events do
+    resources :event_participants, only: [:create, :destroy]
+  end
+
+  # CONVERSATIONS ENTRE CHIENS
+  resources :conversations, only: [:index, :show, :create] do
+    resources :messages, only: [:create]
+  end
+
+  # CHATBOT IA
+  resources :ai_chats, only: [:index, :show, :create] do
+    resources :ai_messages, only: [:create]
+  end
+
 end
