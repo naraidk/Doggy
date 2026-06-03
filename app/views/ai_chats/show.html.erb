@@ -1,2 +1,19 @@
-<h1>AiChats#show</h1>
-<p>Find me in app/views/ai_chats/show.html.erb</p>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <h4 id="ai_chat_title" class="mb-4">
+        <%= @ai_chat.title || "Nouvelle conversation" %>
+      </h4>
+
+      <div id="ai_messages" class="d-flex flex-column gap-3 mb-4">
+        <%= render "ai_messages/ai_messages", ai_messages: @ai_chat.ai_messages %>
+      </div>
+
+      <div id="new_ai_message_container">
+        <%= render "ai_messages/form", ai_chat: @ai_chat, ai_message: @ai_message %>
+      </div>
+
+    </div>
+  </div>
+</div>
