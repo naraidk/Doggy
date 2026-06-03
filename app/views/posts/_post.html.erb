@@ -1,0 +1,23 @@
+<div class="post">
+  <div class="dog-info">
+    <strong><%= post.dog.name %></strong>
+  </div>
+
+  <p><%= post.content %></p>
+
+  <% if post.image.attached? %>
+    <%= image_tag post.image.variant(resize_to_limit: [600, 600]) %>
+  <% end %>
+
+  <div class="actions">
+    <% if post.woufs.exists?(dog: current_dog) %>
+      <%= button_to "Retirer wouf", post_wouf_path(post, post.woufs.find_by(dog: current_dog)), method: :delete %>
+    <% else %>
+      <%= button_to "Wouf !", post_woufs_path(post) %>
+    <% end %>
+
+    <span><%= post.woufs.count %> woufs</span>
+  </div>
+
+  <%= link_to "Commentaires", post_comments_path(post) %>
+</div>

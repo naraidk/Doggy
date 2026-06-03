@@ -5,12 +5,6 @@ Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # FEED (posts, comments, woufs)
-  resources :posts, only: [:index, :new, :create] do
-    resources :woufs, only: [:create, :destroy]
-    resources :comments, only: [:index, :create]
-  end
-
   # DOGS + CHATBOT IA
   resources :dogs do
     resources :ai_chats, only: [:show, :create] do
@@ -18,14 +12,19 @@ Rails.application.routes.draw do
     end
   end
 
-  # EVENTS
-  resources :events do
-    resources :event_participants, only: [:create, :destroy]
-  end
-
-  # CONVERSATIONS ENTRE CHIENS
+   # CONVERSATIONS ENTRE CHIENS
   resources :conversations, only: [:index, :show, :create] do
     resources :messages, only: [:create]
   end
 
+  # FEED (posts, comments, woufs)
+  resources :posts, only: [:index, :new, :create] do
+    resources :woufs, only: [:create, :destroy]
+    resources :comments, only: [:index, :create]
+  end
+
+  # EVENTS
+  resources :events do
+    resources :event_participants, only: [:create, :destroy]
+  end
 end

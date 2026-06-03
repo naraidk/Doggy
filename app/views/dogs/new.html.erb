@@ -1,2 +1,21 @@
-<h1>Dogs#new</h1>
-<p>Find me in app/views/dogs/new.html.erb</p>
+<div class="container py-5">
+
+  <%= link_to "← Retour",
+      dogs_path,
+      class: "text-decoration-none text-muted" %>
+
+  <div class="card shadow-sm rounded-4 border-0 mt-3">
+
+    <div class="card-body p-4">
+
+      <h1 class="fw-bold mb-4">
+        Ajouter un chien
+      </h1>
+
+      <%= render "form" %>
+
+    </div>
+
+  </div>
+
+</div>
