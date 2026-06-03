@@ -10,3 +10,13 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+
+// Variables
+
+$doggy-orange: FF5D24;
+$doggy-shadow : rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+body {
+  background-color: white;
+}
