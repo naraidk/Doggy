@@ -1,5 +1,7 @@
 class Dog < ApplicationRecord
   belongs_to :user
+  has_many :ai_chats, dependent: :destroy  # ← ajouter cette ligne
+  # ... reste de tes associations existantes
   has_one_attached :avatar
 
   validates :name, presence: true, length: { minimum: 2, maximum: 30 }

@@ -15,6 +15,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+gem "ruby_llm", "~> 1.2.0"
 # Pudit
 gem "pundit"
 

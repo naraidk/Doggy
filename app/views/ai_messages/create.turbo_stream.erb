@@ -1,0 +1,12 @@
+<% if @ai_chat.title_previously_changed? %>
+  <%= turbo_stream.update "ai_chat_title", @ai_chat.title %>
+<% end %>
+
+<%= turbo_stream.append "ai_messages" do %>
+  <%= render "ai_messages/ai_message", ai_message: @ai_message %>
+  <%= render "ai_messages/ai_message", ai_message: @assistant_message %>
+<% end %>
+
+<%= turbo_stream.update "new_ai_message_container" do %>
+  <%= render "ai_messages/form", ai_chat: @ai_chat, ai_message: AiMessage.new %>
+<% end %>
