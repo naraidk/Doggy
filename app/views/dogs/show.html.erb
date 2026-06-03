@@ -1,2 +1,71 @@
-<h1>Dogs#show</h1>
-<p>Find me in app/views/dogs/show.html.erb</p>
+<div class="container py-5">
+
+  <%= link_to "← Retour",
+      dogs_path,
+      class: "text-decoration-none text-muted" %>
+      <h2 class="text-center fw-blod" ><%= current_user.email %></h2>
+
+  <div class="card shadow-sm rounded-4 border-0 mt-3">
+
+    <div class="card-body p-4">
+
+      <div class="d-flex justify-content-between align-items-start">
+
+        <div>
+
+          <h1 class="fw-bold">
+            <%= @dog.name %>
+          </h1>
+
+          <p class="text-muted">
+            <%= @dog.breed %>
+          </p>
+
+        </div>
+
+      </div>
+
+      <hr>
+
+      <p>
+        <strong>Âge :</strong>
+        <%= @dog.age || "Non renseigné" %>
+      </p>
+
+      <p>
+        <strong>Description :</strong>
+        <%= @dog.description.presence || "Aucune description." %>
+      </p>
+
+      <div class="d-flex gap-2 mt-4">
+
+        <%= button_to "Commencer une conversation",
+            conversation_path(@dog),
+            method: :post,
+            class: "btn btn-primary rounded-pill px-4" %>
+
+        <%= button_to "Supprimer",
+            dog_path(@dog),
+            method: :delete,
+            data: {
+              turbo_confirm: "Supprimer ce chien ?"
+            },
+            class: "btn btn-outline-danger rounded-pill px-4" %>
+
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+<div class="container">
+      <ul class="navbar-nav me-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item active">
+            <%# <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+            <% end %>
+          </li>
+</div>
+</div>

@@ -1,2 +1,16 @@
-<h1>Posts#new</h1>
-<p>Find me in app/views/posts/new.html.erb</p>
+<h1>Nouveau post</h1>
+
+<%= form_with model: @post, url: posts_path, local: true do |f| %>
+
+  <%= f.label :dog_id, "Publier en tant que :" %>
+  <%= f.collection_select :dog_id, current_user.dogs, :id, :name, prompt: "Choisir un chien" %>
+
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+
+  <%= f.label :image %>
+  <%= f.file_field :image %>
+
+  <%= f.submit "Publier" %>
+
+<% end %>
