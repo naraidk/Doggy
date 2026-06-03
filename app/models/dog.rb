@@ -11,4 +11,7 @@ class Dog < ApplicationRecord
   validates :age, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than: 30 }
 
   validates :user, presence: true
+
+  has_many :conversations_as_one, class_name: "Conversation", foreign_key: "dog_one_id", dependent: :destroy
+  has_many :conversations_as_two, class_name: "Conversation", foreign_key: "dog_two_id", dependent: :destroy
 end
