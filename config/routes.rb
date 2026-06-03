@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   end
 
   # CONVERSATIONS ENTRE CHIENS
-  resources :conversations, only: [:index, :show] do
+  resources :conversations, only: [:index, :show, :create] do
     resources :messages, only: [:create]
   end
 
@@ -39,4 +39,5 @@ Rails.application.routes.draw do
   resources :ai_chats, only: [:index, :show, :create] do
     resources :ai_messages, only: [:create]
   end
+
 end
