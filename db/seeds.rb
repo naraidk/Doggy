@@ -1,5 +1,7 @@
 puts "Cleaning database..."
 
+AiMessage.destroy_all
+AiChat.destroy_all
 Message.destroy_all
 Conversation.destroy_all
 Comment.destroy_all

@@ -2,7 +2,7 @@ class Message < ApplicationRecord
   belongs_to :conversation
   belongs_to :dog
 
-  after_create_commit :broadcast_message
+ after_create_commit :broadcast_message, unless: -> { Rails.env.production? && ENV["SEEDING"] == "true" }
 
   private
 
