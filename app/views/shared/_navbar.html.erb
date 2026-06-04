@@ -11,7 +11,7 @@
     <%= link_to "#", class:"nav-icon #{'active-nav' if current_page?(conversations_path)} text-dark fs-4", title:"Map" do %>
     <i class="fa-solid fa-map-location-dot"></i>
     <% end %>
-    <%= link_to "#", class:"nav-icon #{'active-nav' if current_page?(conversations_path)} text-dark fs-4", title:"Calendar" do %>
+    <%= link_to events_path, class:"nav-icon #{'active-nav' if current_page?(conversations_path)} text-dark fs-4", title:"Calendar" do %>
     <i class="fa-regular fa-calendar-days"></i>
     <% end %>
     <%= link_to conversations_path, class:"nav-icon #{'active-nav' if current_page?(conversations_path)} text-warning fs-4", title:"Chatbot" do %>
