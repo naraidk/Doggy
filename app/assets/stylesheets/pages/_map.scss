@@ -1,0 +1,11 @@
+.map-page {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 130px);
+}
+
+#map {
+  flex: 1;
+  width: 100%;
+  min-height: 400px;
+}

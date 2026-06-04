@@ -27,4 +27,7 @@ Rails.application.routes.draw do
   resources :events do
     resources :event_participants, only: [:create, :destroy]
   end
+
+  # MAP
+  get "map" => "maps#index", as: :map
 end

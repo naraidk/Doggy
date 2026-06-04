@@ -8,7 +8,7 @@
       <i class="fa-solid fa-house"></i>
     <% end %>
   <% end %>
-    <%= link_to "#", class:"nav-icon #{'active-nav' if current_page?(conversations_path)} text-dark fs-4", title:"Map" do %>
+    <%= link_to map_path, class:"nav-icon #{'active-nav' if current_page?(map_path)} text-dark fs-4", title:"Carte" do %>
     <i class="fa-solid fa-map-location-dot"></i>
     <% end %>
     <%= link_to "#", class:"nav-icon #{'active-nav' if current_page?(conversations_path)} text-dark fs-4", title:"Calendar" do %>
