@@ -1,4 +1,5 @@
 class AiMessagesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_ai_chat
 
   def create
