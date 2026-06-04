@@ -1,33 +1,35 @@
 <nav class="bottom-nav border-top bg-white d-flex justify-content-around align-items-center fixed-bottom py-3">
+
   <% if user_signed_in? %>
-    <%= link_to root_path, class: "nav-icon #{'active-nav' if current_page?(root_path)} fs-4", title: "Accueil" do %>
+    <%= link_to root_path, class: "nav-icon fs-4 #{current_page?(root_path) ? 'text-doggy' : 'text-dark'}", title: "Accueil" do %>
       <i class="fa-solid fa-house"></i>
     <% end %>
   <% else %>
-    <%= link_to new_user_session_path, class: "nav-icon #{'active-nav' if current_page?(user_session_path)} fs-4", title: "Accueil" do %>
+    <%= link_to new_user_session_path, class: "nav-icon fs-4 #{current_page?(new_user_session_path) ? 'text-doggy' : 'text-dark'}", title: "Accueil" do %>
       <i class="fa-solid fa-house"></i>
     <% end %>
   <% end %>
-    <%= link_to "#", class:"nav-icon #{'active-nav' if current_page?(conversations_path)} text-dark fs-4", title:"Map" do %>
+
+  <%= link_to "#", class: "nav-icon fs-4 #{current_page?('#') ? 'text-doggy' : 'text-dark'}", title: "Map" do %>
     <i class="fa-solid fa-map-location-dot"></i>
-    <% end %>
-    <%= link_to "#", class:"nav-icon #{'active-nav' if current_page?(conversations_path)} text-dark fs-4", title:"Calendar" do %>
+  <% end %>
+
+  <%= link_to "#", class: "nav-icon fs-4 #{current_page?('#') ? 'text-doggy' : 'text-dark'}", title: "Calendar" do %>
     <i class="fa-regular fa-calendar-days"></i>
-    <% end %>
-    <%= link_to conversations_path, class:"nav-icon #{'active-nav' if current_page?(conversations_path)} text-warning fs-4", title:"Chatbot" do %>
+  <% end %>
+
+  <%= link_to conversations_path, class: "nav-icon fs-4 #{current_page?(conversations_path) ? 'text-doggy' : 'text-dark'}", title: "Chatbot" do %>
     <i class="fa-solid fa-comment-dots"></i>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= link_to dogs_path, class: "nav-icon fs-4 #{current_page?(dogs_path) ? 'text-doggy' : 'text-dark'}", title: "Profil" do %>
+      <i class="fa-solid fa-user"></i>
     <% end %>
-    <% if user_signed_in? %>
-  <%= link_to dogs_path, class: "nav-icon #{'active-nav' if current_page?(root_path)} text-dark fs-4", title: "Profil" do %>
-    <i class="fa-solid fa-user"></i>
+  <% else %>
+    <%= link_to new_user_session_path, class: "nav-icon fs-4 #{current_page?(new_user_session_path) ? 'text-doggy' : 'text-dark'}", title: "Profil" do %>
+      <i class="fa-solid fa-user"></i>
+    <% end %>
   <% end %>
-<% else %>
-  <%= link_to new_user_session_path, class: "nav-icon #{'active-nav' if current_page?(new_user_session_path)} text-dark fs-4", title: "Profil" do %>
-    <i class="fa-solid fa-user"></i>
-  <% end %>
-<% end %>
-    <%# href="" class="text-dark fs-3" title="Carte"><i class="fa-solid fa-map-location-dot"></i>
-    href="#" class="text-dark fs-3" title="Calendrier"><i class="fa-solid fa-calendar-days"></i>
-    href="#" class="text-dark fs-3" title="Chatbot"><i class="fa-solid fa-comment-dots"></i>
-    href="#" class="text-dark fs-3" title="Profil"><i class="fa-solid fa-user"></i> %>
+
 </nav>
