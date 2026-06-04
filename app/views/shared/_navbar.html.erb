@@ -4,8 +4,8 @@
       <%= image_tag current_page?(root_path) ? "home_doggy.svg" : "home.svg", style: "width: 24px; height: 24px;" %>
       <% end %>
 
-      <%= link_to root_path, class: "nav-icon", title: "Accueil" do %>
-      <%= image_tag current_page?(root_path) ? "home_doggy.svg" : "home.svg", style: "width: 24px; height: 24px;" %>
+      <%= link_to map_path, class: "nav-icon", title: "Carte" do %>
+      <%= image_tag current_page?(map_path) ? "map_doggy.svg" : "map.svg", style: "width: 24px; height: 24px;" %>
       <% end %>
 
       <%= link_to events_path, class: "nav-icon", title: "Planning" do %>
