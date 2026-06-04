@@ -1,35 +1,23 @@
 <nav class="bottom-nav border-top bg-white d-flex justify-content-around align-items-center fixed-bottom py-3">
 
-  <% if user_signed_in? %>
-    <%= link_to root_path, class: "nav-icon fs-4 #{current_page?(root_path) ? 'text-doggy' : 'text-dark'}", title: "Accueil" do %>
-      <i class="fa-solid fa-house"></i>
-    <% end %>
-  <% else %>
-    <%= link_to new_user_session_path, class: "nav-icon fs-4 #{current_page?(new_user_session_path) ? 'text-doggy' : 'text-dark'}", title: "Accueil" do %>
-      <i class="fa-solid fa-house"></i>
-    <% end %>
-  <% end %>
+      <%= link_to root_path, class: "nav-icon", title: "Accueil" do %>
+      <%= image_tag current_page?(root_path) ? "home_doggy.svg" : "home.svg", style: "width: 24px; height: 24px;" %>
+      <% end %>
 
-  <%= link_to "#", class: "nav-icon fs-4 #{current_page?('#') ? 'text-doggy' : 'text-dark'}", title: "Map" do %>
-    <i class="fa-solid fa-map-location-dot"></i>
-  <% end %>
+      <%= link_to root_path, class: "nav-icon", title: "Accueil" do %>
+      <%= image_tag current_page?(root_path) ? "home_doggy.svg" : "home.svg", style: "width: 24px; height: 24px;" %>
+      <% end %>
 
-  <%= link_to "#", class: "nav-icon fs-4 #{current_page?('#') ? 'text-doggy' : 'text-dark'}", title: "Calendar" do %>
-    <i class="fa-regular fa-calendar-days"></i>
-  <% end %>
+      <%= link_to events_path, class: "nav-icon", title: "Planning" do %>
+      <%= image_tag current_page?(events_path) ? "calendar_doggy.svg" : "calendar.svg", style: "width: 24px; height: 24px;" %>
+      <% end %>
 
-  <%= link_to conversations_path, class: "nav-icon fs-4 #{current_page?(conversations_path) ? 'text-doggy' : 'text-dark'}", title: "Chatbot" do %>
-    <i class="fa-solid fa-comment-dots"></i>
-  <% end %>
+      <%= link_to conversations_path, class: "nav-icon", title: "Messagerie" do %>
+      <%= image_tag current_page?(conversations_path) ? "messages_doggy.svg" : "messages.svg", style: "width: 24px; height: 24px;" %>
+      <% end %>
 
-  <% if user_signed_in? %>
-    <%= link_to dogs_path, class: "nav-icon fs-4 #{current_page?(dogs_path) ? 'text-doggy' : 'text-dark'}", title: "Profil" do %>
-      <i class="fa-solid fa-user"></i>
-    <% end %>
-  <% else %>
-    <%= link_to new_user_session_path, class: "nav-icon fs-4 #{current_page?(new_user_session_path) ? 'text-doggy' : 'text-dark'}", title: "Profil" do %>
-      <i class="fa-solid fa-user"></i>
-    <% end %>
-  <% end %>
+       <%= link_to dogs_path, class: "nav-icon", title: "Messagerie" do %>
+      <%= image_tag current_page?(dogs_path) ? "user_doggy.svg" : "user.svg", style: "width: 24px; height: 24px;" %>
+      <% end %>
 
 </nav>

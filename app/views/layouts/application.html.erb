@@ -24,7 +24,9 @@
   </head>
 
   <body>
+      <% if user_signed_in? %>
       <%= render 'shared/navbar_top' %>
+      <% end %>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
       <%= render "shared/flashes" %>
