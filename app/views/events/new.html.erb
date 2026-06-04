@@ -1,2 +1,13 @@
-<h1>Events#new</h1>
-<p>Find me in app/views/events/new.html.erb</p>
+<div class="container py-4 mb-5">
+  <h1>Créer un événement</h1>
+
+  <%= simple_form_for @event do |f| %>
+    <%= f.input :title, label: "Titre" %>
+    <%= f.input :description, label: "Description" %>
+    <%= f.input :city, label: "Ville" %>
+    <%= f.input :date, label: "Date", as: :datetime, html5: true %>
+
+    <%= f.submit "Créer l'événement", class: "btn btn-primary" %>
+    <%= link_to "Annuler", events_path, class: "btn btn-outline-secondary" %>
+  <% end %>
+</div>

@@ -3,21 +3,42 @@
     <strong><%= post.dog.name %></strong>
   </div>
 
-  <p><%= post.content %></p>
-
   <% if post.image.attached? %>
-    <%= image_tag post.image.variant(resize_to_limit: [600, 600]) %>
+    <%= image_tag post.image, class: "post-image" %>
+  <% end %>
+<div class="actions">
+
+  <% if post.woufs.exists?(dog: current_dog) %>
+    <%= button_to post_wouf_path(post, post.woufs.find_by(dog: current_dog)),
+          method: :delete,
+          class: "paw-button active" do %>
+      <i class="fa-solid fa-paw"></i>
+    <% end %>
+  <% else %>
+    <%= button_to post_woufs_path(post),
+          class: "paw-button" do %>
+      <i class="fa-solid fa-paw"></i>
+    <% end %>
   <% end %>
 
-  <div class="actions">
-    <% if post.woufs.exists?(dog: current_dog) %>
-      <%= button_to "Retirer wouf", post_wouf_path(post, post.woufs.find_by(dog: current_dog)), method: :delete %>
-    <% else %>
-      <%= button_to "Wouf !", post_woufs_path(post) %>
+  <span><%= post.woufs.count %></span>
+
+  <%= link_to post_comments_path(post), class: "comment-icon" do %>
+    <i class="fa-solid fa-comment"></i>
+    <span><%= post.comments.count %></span>
+  <% end %>
+
+  <% if post.dog.user == current_user %>
+    <%= button_to post_path(post),
+          method: :delete,
+          class: "delete-button",
+          form: { data: { turbo_confirm: "Es-tu sûr de vouloir supprimer ce post ?" } } do %>
+      <i class="fa-solid fa-trash"></i>
     <% end %>
+  <% end %>
 
-    <span><%= post.woufs.count %> woufs</span>
-  </div>
+</div>
 
-  <%= link_to "Commentaires", post_comments_path(post) %>
+<p><%= post.content %></p>
+  <br><br><hr>
 </div>

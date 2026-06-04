@@ -1,2 +1,46 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<div class="container py-4 mb-5">
+  <%= link_to "← Retour", events_path, class: "text-decoration-none" %>
+
+  <div class="card mt-3 shadow-sm">
+    <div class="card-body">
+      <h1><%= @event.title %></h1>
+
+      <p class="text-muted"> <%= @event.city %></p>
+      <p> <%= @event.date.strftime("%d/%m/%Y à %H:%M") %></p>
+      <p> Organisé par <strong><%= @event.dog.name %></strong></p>
+
+      <hr>
+
+      <p><%= @event.description %></p>
+
+      <hr>
+
+      <% already_joined = @event.dogs.where(id: current_user.dogs.ids).exists? %>
+
+      <% if already_joined %>
+        <p class="text-success">Ton chien est déjà inscrit à cet événement.</p>
+      <% else %>
+        <%= button_to "Participer",
+            event_event_participants_path(@event),
+            method: :post,
+            class: "btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <h3>Participants</h3>
+
+    <% if @event.event_participants.any? %>
+      <% @event.event_participants.each do |participant| %>
+        <div class="card mb-2">
+          <div class="card-body">
+            <%= participant.dog.name %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-muted">Aucun participant pour le moment.</p>
+    <% end %>
+  </div>
+</div>
