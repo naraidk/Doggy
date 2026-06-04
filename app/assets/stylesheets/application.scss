@@ -11,12 +11,334 @@
 @import "components/index";
 @import "pages/index";
 
+/* ==========================================
+   STYLE COMPACT ET ACCESSIBLE POUR LE JURY
+   ========================================== */
 
-// Variables
+/* Ajustements pour que l'application prenne tout l'écran sans défiler */
+html, body {
+    height: 100%;
+    font-family: "DM Sans", sans-serif;
+    background-color: white;
+    padding-bottom: 60px;
+}
 
-$doggy-orange: FF5D24;
-$doggy-shadow : rgba(149, 157, 165, 0.2) 0px 8px 24px;
+/* Couleur Orange officielle extraite du logo SVG */
+.text-doggy {
+    color: #FF5D24;
+}
 
-body {
-  background-color: white;
+.background-doggy {
+  background-color: #FF5D24;
+}
+
+.message-content {
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.btn-doggy {
+    background-color: #FF5D24;
+    border-color: #FF5D24;
+}
+
+/* --- LOGIQUE DES BULLES DE CHAT --- */
+.chat-container {
+    scroll-behavior: smooth; /* Défilement fluide vers le bas */
+}
+
+/* Largeur maximale des bulles de messages */
+.message-wrapper {
+    max-width: 85%;
+    clear: both;
+}
+
+/* Positionnement à droite pour l'utilisateur */
+.user-wrapper {
+    margin-left: auto;
+    text-align: right;
+}
+
+/* Positionnement à gauche pour l'IA */
+.ai-wrapper {
+    margin-right: auto;
+    text-align: left;
+}
+
+h6 {
+font-style: italic;
+}
+
+/* Style de base d'une bulle de texte */
+.message {
+    display: inline-block;
+    word-wrap: break-word;
+    font-size: 0.95rem;
+    transition: transform 0.2s ease;
+}
+
+.message:hover {
+    animation: légerRebond 0.4s ease-in-out;
+    cursor: pointer;
+}
+
+@keyframes légerRebond {
+    0% {
+        transform: translateY(0); /* Position de départ */
+    }
+    40% {
+        transform: translateY(-6px); /* Elle monte de 6 pixels (léger) */
+    }
+    70% {
+        transform: translateY(2px); /* Elle redescend un tout petit peu trop bas */
+    }
+    100% {
+        transform: translateY(0); /* Elle revient à sa place initiale */
+    }
+}
+
+/* Bulle Utilisateur : fond gris clair, texte noir, angle droit en bas à droite */
+.user-message {
+    background-color: #e2e2e2;
+    color: #000;
+    border-bottom-right-radius: 4px !important;
+}
+
+/* Bulle IA Assistant : fond gris très clair, texte anthracite, angle droit en bas à gauche */
+.ai-message {
+    background-color: #f5f5f5;
+    color: #333;
+    border-bottom-left-radius: 4px !important;
+}
+
+/* --- ANIMATION DES ICONES DE LA NAVIGATION BASSE --- */
+.bottom-nav a {
+    text-decoration: none;
+    transition: transform 0.2s, color 0.2s;
+}
+
+/* Effet au survol de la souris : l'icône grandit et passe au orange Doggy */
+.bottom-nav a:hover {
+    transform: scale(1.15);
+    color: #FF5D24 !important;
+}
+
+/* Supprime le contour bleu de Bootstrap lors du clic dans le champ de texte */
+#userInput:focus {
+    border: 1px solid #cecece !important;
+    box-shadow: none !important;
+}
+
+.btn-orange {
+  background-color: #ff6e39;
+  color: white;
+  font-weight: 800;
+}
+
+.btn-orange-reverse {
+  background-color: transparent;
+  color: #ff6e39;
+  font-weight: 800;
+
+}
+
+.shadow-doggy {
+box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.bg-doggy {
+  background-color: #ff6e39;
+}
+
+.border-doggy {
+border-color: #ff6e39;
+border-radius: 8px;
+}
+.card {
+  padding: 0px;
+  margin-bottom: 10px;
+  background : rgba(255, 255, 255, 0.2);
+  border-radius : 15px;
+  box-shadow : 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter : blur(10px);
+  -webkit-backdrop-filter : blur(10px); /* Safari */
+  border : 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.card-chat {
+  padding: 15px;
+  margin-bottom: 10px;
+  background : rgba(255, 255, 255, 0.2);
+  border-radius : 15px;
+  // box-shadow : 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter : blur(10px);
+  -webkit-backdrop-filter : blur(10px); /* Safari */
+  border : 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+.nav-icon a {
+  color: black;
+  font-size: 28px;
+  transition: 0.2s ease;
+}
+
+
+.active-nav {
+  color: #ff5500;
+}
+
+#FEED_HOMEPAGE
+.notification {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  background: white;
+  padding: 8px 16px;
+  border: 1px solid rgb(235,235,235);
+}
+
+.notification .notification-content {
+  flex-grow: 1;
+  padding: 0 24px;
+}
+
+.notification p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.notification small {
+  color: #999999;
+  font-weight: bold;
+}
+.notification .notification-actions {
+  opacity: 0;
+  display: flex;
+  transition: ease .3s;
+}
+
+.notification:hover .notification-actions {
+  opacity: 1;
+}
+
+.notification .notification-actions a {
+  color: #999999;
+  margin-left: 16px;
+  font-size: 14px;
+}
+
+.notification .notification-actions a:hover {
+  color: #555555;
+}
+
+
+.split-background {
+  // Création du dégradé linéaire qui coupe l'écran en deux
+  background: linear-gradient(to right, #ff6600 50%, #ffffff 50%);
+  min-height: 100vh; // S'assure que le fond prend toute la hauteur
+  width: 100%;
+}
+
+
+h1, h1, h3, h4, h5 {
+      font-family: "DM Sans", sans-serif;
+
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 16px;
+  margin-bottom: 20px;
+}
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .dogs-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .dogs-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .dogs-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .dogs-cards {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .dogs-cards {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.card-category {
+  background-size: cover;
+  background-position: center;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+#form_session {
+
+color: black;
+}
+
+#CARD_PRODUCT
+
+.card-product {
+  overflow: hidden;
+  height: 120px;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+}
+
+.card-product img {
+  height: 100%;
+  width: 120px;
+  object-fit: cover;
+}
+
+.card-product h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-product p {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .7;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.card-product .card-product-infos {
+  padding: 16px;
 }
