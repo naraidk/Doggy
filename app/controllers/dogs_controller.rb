@@ -1,5 +1,5 @@
 class DogsController < ApplicationController
-  before_action :set_dog, only: [:show, :edit, :update, :destroy]
+  before_action :set_dog, only: %i[show edit update destroy]
 
   def index
     @dogs = current_user.dogs

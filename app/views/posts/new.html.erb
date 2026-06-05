@@ -1,15 +1,43 @@
-<h1>Nouveau post</h1>
 
-<%= form_with model: @post, url: posts_path, local: true do |f| %>
+  <div class="container vh-100 d-flex align-items-center justify-content-center">
+  <div class="row w-100 justify-content-center">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-5 bg">
 
-  <%= f.label :dog_id, "En tant que:" %>
-  <%= f.collection_select :dog_id, current_user.dogs, :id, :name, prompt: "chien(s)" %>
-<br><br>
-  <%= f.file_field :image, class: "image-upload" %>
+    <div class="border-light rounded-6">
+      <div class="container d-flex justify-content-center pb-4">
+      <%= image_tag "doggy_picto.svg", class: "img-fluid", style: "width: 100px;" %>
+    </div>
+<%= simple_form_for @post, url: posts_path do |f| %>
 
-<br><br>
-  <%= f.text_area :content, class: "post-description" %>
-<hr>
-  <%= f.submit "Publier" %>
+  <%= f.association :dog,
+                    collection: current_user.dogs,
+                    label: "En tant que:",
+                    prompt: "chien(s)",
+                    input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" },
+                    include_blank: false %>
+
+
+  <%= f.input :image,
+              as: :file,
+              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+
+  <%= f.input :content,
+              as: :text,
+              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" },
+              label: false,
+              placeholder: "Quoi de neuf aujourd'hui ?" %>
+
+  <hr>
+
+  <%= f.button :submit, "Publier", class: "d-flex rounded btn btn-orange justify-content-center rounded-4 px-4" %>
 
 <% end %>
+
+  </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
