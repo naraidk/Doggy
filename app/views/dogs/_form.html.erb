@@ -7,7 +7,7 @@
       <div class="container d-flex justify-content-center pb-4">
       <%= image_tag "doggy_picto.svg", class: "img-fluid", style: "width: 100px;" %>
     </div>
-        <%= simple_form_for(@dog) do |f| %>
+        <%= simple_form_for @dog, html: { multipart: true } do |f| %>
 
   <%= f.input :name,
               label: "Nom du chien",

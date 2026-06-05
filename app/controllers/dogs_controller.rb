@@ -38,9 +38,12 @@ class DogsController < ApplicationController
   end
 
   def destroy
-    @dog = Dog.find(params[:id])
     @dog.destroy
+
     redirect_to dogs_path, notice: "Profil du chien supprimé."
+  rescue ActiveRecord::InvalidForeignKey
+    redirect_to dog_path(@dog), alert: "Impossible de supprimer
+        + ce chien."
   end
 
   private
@@ -50,6 +53,6 @@ class DogsController < ApplicationController
   end
 
   def dog_params
-    dog_params = params.require(:dog).permit(:name, :breed, :age, :description, :avatar)
+    params.require(:dog).permit(:name, :breed, :age, :description, :avatar)
   end
 end

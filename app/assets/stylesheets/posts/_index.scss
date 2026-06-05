@@ -22,13 +22,13 @@
 }
 
 .paw-button.active {
-  color: #999;
+  color: #f86120;
 }
 
 .paw-button:hover {
   transform: scale(1.2);
   transition: 0.1s;
-  color: #000;
+  color: #f86120;
 }
 
 /* Icône commentaire */
@@ -42,7 +42,9 @@
 }
 
 .comment-icon:hover {
-  color: #000;
+  transform: scale(1.2);
+  transition: 0.1s;
+  color: #f86120;
 }
 
 /* Bouton supprimer */
@@ -51,11 +53,11 @@
   border: none;
   cursor: pointer;
   font-size: 22px;
-  color: #c0392b;
+  color: #9d9999;
 }
 
 .delete-button:hover {
   transform: scale(1.2);
   transition: 0.1s;
-  color: #e74c3c;
+  color: #f86120;
 }

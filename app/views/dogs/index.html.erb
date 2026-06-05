@@ -34,14 +34,13 @@
 
 </div>
 
-
-
-  <div class="cards d-flex flex-column border-light mb-3 mx-3">
+<div class="cards d-flex flex-column border-light mb-3 mx-3">
   <% @dogs.each do |dog| %>
-    <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= dog.avatar.attached? ? cl_image_path(dog.avatar.key) : "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1000" %>')">
-      <h3 class="fw-bold">
-        <%= link_to dog.name, dog_path(dog), class: "text-white" %>
-      </h3>
-    </div>
+  <% bg_url = dog.avatar.attached? ? url_for(dog.avatar) : nil %>
+  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= bg_url %>');">
+    <h3 class="fw-bold"><%= link_to dog.name, dog_path(dog),
+        class: "text-white" %><% dog.name %></h3>
+  </div>
   <% end %>
+
 </div>
