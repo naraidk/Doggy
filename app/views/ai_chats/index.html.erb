@@ -1,0 +1,29 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="mb-0">Conversations avec Wouf</h4>
+        <%= button_to "Nouvelle conversation", dog_ai_chats_path(@dog), method: :post, class: "btn btn-primary rounded-pill px-4" %>
+      </div>
+
+      <% if @ai_chats.empty? %>
+        <p class="text-muted">Aucune conversation pour l'instant.</p>
+      <% else %>
+        <div class="d-flex flex-column gap-3">
+          <% @ai_chats.each do |chat| %>
+            <%= link_to dog_ai_chat_path(@dog, chat), class: "card border-0 shadow-sm rounded-4 text-decoration-none text-dark" do %>
+              <div class="card-body py-3 px-4">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="fw-semibold"><%= chat.title.presence || "Conversation du #{chat.created_at.strftime("%d/%m/%Y")}" %></span>
+                  <small class="text-muted"><%= chat.created_at.strftime("%d/%m/%Y à %Hh%M") %></small>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

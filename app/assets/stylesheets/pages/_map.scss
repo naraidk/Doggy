@@ -9,3 +9,20 @@
   width: 100%;
   min-height: 400px;
 }
+
+.paw-marker {
+  font-size: 28px;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.map-popup {
+  min-width: 160px;
+}
