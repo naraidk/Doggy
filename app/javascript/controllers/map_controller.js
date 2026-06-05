@@ -35,7 +35,7 @@ export default class extends Controller {
     this.leafletMap = L.map(this.element).setView([46.2276, 2.2137], 6)
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">Doggy</a>',
       maxZoom: 19
     }).addTo(this.leafletMap)
 

@@ -1,34 +1,3 @@
-<%= link_to "Retour au feed", posts_path %>
-<h1>Commentaires pour <%= @post.dog.name %></h1>
-
-<div class="post">
-  <p><strong><%= @post.dog.name %></strong></p>
-  <p><%= @post.content %></p>
-
-  <% if @post.image.attached? %>
-    <%= image_tag @post.image, class: "post-image" %>
-  <% end %>
-</div>
-
-<hr>
-
-<h2>Ajouter un commentaire</h2>
-
-<%= form_with model: [@post, Comment.new], local: true do |f| %>
-  <%= f.label :content, "Votre commentaire" %>
-  <%= f.text_area :content %>
-
-  <%= f.submit "Commenter" %>
-<% end %>
-
-<hr>
-
-<h2>Commentaires</h2>
-
-<% @comments.each do |comment| %>
-  <div class="comment">
-    <strong><%= comment.dog.name %></strong> :
-    <%= comment.content %>
-
-  </div>
-<% end %>
+<turbo-frame id="comments_panel">
+  <%= render "comments/panel" %>
+</turbo-frame>

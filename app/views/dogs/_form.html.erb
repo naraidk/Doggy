@@ -1,13 +1,13 @@
 <div class="split-background-images">
-  <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+  <div class="container d-flex align-items-center justify-content-center">
   <div class="row w-100 justify-content-center">
   <div class="col-12 col-sm-10 col-md-8 col-lg-5 bg">
 
-    <div class="p-4 border-light rounded-6">
+    <div class="border-light rounded-6">
       <div class="container d-flex justify-content-center pb-4">
       <%= image_tag "doggy_picto.svg", class: "img-fluid", style: "width: 100px;" %>
     </div>
-        <%= simple_form_for(@dog) do |f| %>
+        <%= simple_form_for @dog, html: { multipart: true } do |f| %>
 
   <%= f.input :name,
               label: "Nom du chien",

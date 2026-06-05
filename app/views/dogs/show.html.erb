@@ -17,6 +17,14 @@
             <%= @dog.name %>
           </h1>
 
+          <% if @dog.avatar.attached? %>
+            <%= image_tag @dog.avatar,
+              class: "rounded-circle object-fit-cover",
+              width: 150,
+              height: 150,
+              alt: @dog.name %>
+          <% end %>
+
           <p class="text-muted">
             <%= @dog.breed %>
           </p>

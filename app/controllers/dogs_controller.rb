@@ -1,5 +1,5 @@
 class DogsController < ApplicationController
-  before_action :set_dog, only: [:show, :edit, :update, :destroy]
+  before_action :set_dog, only: %i[show edit update destroy]
 
   def index
     @dogs = current_user.dogs
@@ -38,9 +38,12 @@ class DogsController < ApplicationController
   end
 
   def destroy
-    @dog = Dog.find(params[:id])
     @dog.destroy
+
     redirect_to dogs_path, notice: "Profil du chien supprimé."
+  rescue ActiveRecord::InvalidForeignKey
+    redirect_to dog_path(@dog), alert: "Impossible de supprimer
+        + ce chien."
   end
 
   private
@@ -50,6 +53,6 @@ class DogsController < ApplicationController
   end
 
   def dog_params
-    dog_params = params.require(:dog).permit(:name, :breed, :age, :description)
+    params.require(:dog).permit(:name, :breed, :age, :description, :avatar)
   end
 end

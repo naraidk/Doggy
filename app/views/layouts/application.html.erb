@@ -29,15 +29,12 @@
       <% if user_signed_in? %>
       <%= render 'shared/navbar_top', dog: current_dog %>
       <% end %>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <%= render "shared/flashes" %>
+      <%# <%= render "shared/flashes" %>
 
       <%= yield %>
-    <footer>
+
       <% if user_signed_in? %>
       <%= render 'shared/navbar' %>
       <% end %>
-    </footer>
   </body>
 </html>

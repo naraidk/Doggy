@@ -1,4 +1,6 @@
-<% content_for :title, "Carte" %>
+<div class="card border-light rounded-6 shadow-sm mb-3 mx-3" style="background-color: #f8f9fa;">
+
+  <% content_for :title, "Carte" %>
 
 <div class="map-page pb-5">
   <div class="map-header px-3 pt-3 pb-2">
@@ -8,4 +10,5 @@
 
 
   <div id="map" data-controller="map" data-map-events-value="<%= @events_json %>"></div>
+</div>
 </div>

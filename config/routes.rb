@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   # FEED (posts, comments, woufs)
   resources :posts, only: [:index, :new, :create, :destroy] do
     resources :woufs, only: [:create, :destroy]
-    resources :comments, only: [:index, :create]
+    resources :comments, only: [:index, :create, :destroy]
   end
 
   # EVENTS
