@@ -1,0 +1,9 @@
+<turbo-stream action="remove" target="<%= dom_id(@comment) %>"></turbo-stream>
+
+<turbo-stream action="replace" target="<%= dom_id(@post, :comments_count) %>">
+  <template>
+    <span id="<%= dom_id(@post, :comments_count) %>">
+      <%= @post.comments.count %>
+    </span>
+  </template>
+</turbo-stream>

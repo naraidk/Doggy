@@ -23,9 +23,14 @@
 
   <span><%= post.woufs.count %></span>
 
-  <%= link_to post_comments_path(post), class: "comment-icon" do %>
+  <%= link_to post_comments_path(post),
+        data: { turbo_frame: "comments_panel" },
+        class: "comment-icon" do %>
     <i class="fa-solid fa-comment"></i>
-    <span><%= post.comments.count %></span>
+    <span id="<%= dom_id(post, :comments_count) %>">
+      <%= post.comments.count %>
+    </span>
+
   <% end %>
 
   <% if post.dog.user == current_user %>

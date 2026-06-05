@@ -1,0 +1,13 @@
+<turbo-stream action="update" target="comments_panel">
+  <template>
+    <%= render partial: "comments/panel", formats: [:html] %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="<%= dom_id(@post, :comments_count) %>">
+  <template>
+    <span id="<%= dom_id(@post, :comments_count) %>">
+      <%= @post.comments.count %>
+    </span>
+  </template>
+</turbo-stream>

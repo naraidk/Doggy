@@ -36,10 +36,11 @@
 </div>
 
 <div class="cards">
-            <% @dogs.each do |dog| %>
-            <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
-              <h3 class="fw-bold"><%= link_to dog.name, dog_path(dog),
-                  class: "btn btn-dark text-white" %><% dog.name%></h3>
-            </div>
-            <% end %>
+  <% @dogs.each do |dog| %>
+  <% bg_url = dog.avatar.attached? ? url_for(dog.avatar) : nil %>
+  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= bg_url %>');">
+    <h3 class="fw-bold"><%= link_to dog.name, dog_path(dog),
+        class: "btn btn-dark text-white" %><% dog.name %></h3>
+  </div>
+  <% end %>
     </div>
