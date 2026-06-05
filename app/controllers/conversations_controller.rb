@@ -1,13 +1,15 @@
 class ConversationsController < ApplicationController
   before_action :authenticate_user!
 
-  #def index
-  #  my_dogs = current_user.dogs
-
-   # @conversations = Conversation
-   #                  .where(dog_one: my_dogs)
-    #                 .or(Conversation.where(dog_two: my_dogs))
-  #end
+  def index
+    my_dogs = current_user.dogs
+    @conversations = Conversation
+                     .where(dog_one: my_dogs)
+                     .or(Conversation.where(dog_two: my_dogs))
+                     .order(updated_at: :desc)
+    @dog = current_dog
+    @ai_chats = @dog ? @dog.ai_chats.order(created_at: :desc) : []
+  end
 
   def show
     @conversation = Conversation.find(params[:id])
