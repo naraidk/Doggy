@@ -100,7 +100,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_05_105249) do
   create_table "events", force: :cascade do |t|
     t.string "city"
     t.datetime "created_at", null: false
-    t.date "date"
+    t.datetime "date"
     t.text "description"
     t.bigint "dog_id", null: false
     t.float "latitude"
