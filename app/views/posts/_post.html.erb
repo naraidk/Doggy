@@ -22,16 +22,6 @@
     </div>
 
 
-  <%= link_to post_comments_path(post),
-        data: { turbo_frame: "comments_panel" },
-        class: "comment-icon" do %>
-    <i class="fa-solid fa-comment"></i>
-    <span id="<%= dom_id(post, :comments_count) %>">
-      <%= post.comments.count %>
-    </span>
-
-  <% end %>
-
 <div class="px-4 pt-1">
       <p><%= post.content %></p>
     </div>
@@ -81,13 +71,24 @@
     <% end %>
     </div>
 
+<div class="w-50 text-center">
+  <%= link_to post_comments_path(post),
+        data: { turbo_frame: "comments_panel" },
+        class: "btn btn-link text-decoration-none text-muted fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
+   <%= image_tag "messages.svg", class: "comment-svg", style: "width: 20px; height: 20px; opacity: 0.6;" %>
+    <span class="fw-bolder" id="<%= dom_id(post, :comments_count) %>">
+      Commenter
+    </span>
+  <% end %>
 
-    <div class="w-50 text-center">
-    <%= link_to post_comments_path(post), class: "btn btn-link text-decoration-none text-muted fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
-      <%= image_tag "messages.svg", class: "comment-svg", style: "width: 20px; height: 20px; opacity: 0.6;" %>
-      <span class="fw-bolder">Commenter</span>
-    <% end %>
-    </div>
+  </div>
+
+   <!-- <div class="w-50 text-center">-->
+    <%#= link_to post_comments_path(post), class: "btn btn-link text-decoration-none text-muted fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
+      <%#= image_tag "messages.svg", class: "comment-svg", style: "width: 20px; height: 20px; opacity: 0.6;" %>
+<!--      <span class="fw-bolder">Commenter</span>-->
+    <%# end %>
+<!--    </div>-->
 
 </div>
   </div>
