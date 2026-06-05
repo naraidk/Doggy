@@ -1,12 +1,15 @@
 <nav class="navbar navbar-light sticky-top fixed-top bg-white shadow-sm p-3">
   <div class="container-fluid d-flex justify-content-between align-items-center">
-    <%= link_to root_path, class: "navbar-brand" do %>
-  <%= image_tag "doggy.svg", style: "width:80px; height: auto;" %>
-<% end %>
+<%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag "doggy.svg", style: "width: 80px; height: auto;" %>
+    <% end %>
+
+
     <div class="dropdown">
-      <%= link_to "#", class: "d-flex align-items-center justify-content-center rounded-3",
-                       style: "; width: 40px; height: 40px; text-decoration: none;",
-                       data: { bs_toggle: "dropdown" } do %>
+      <%= link_to "#",
+          class: "d-flex align-items-center justify-content-center rounded-3",
+          style: "width: 40px; height: 40px; text-decoration: none;",
+          data: { bs_toggle: "dropdown" } do %>
         <%= image_tag "add_orange.svg", style: "width: 24px; height: 24px;" %>
       <% end %>
 
@@ -16,24 +19,28 @@
             Créer un post
           <% end %>
         </li>
+
         <li>
           <%= link_to new_event_path, class: "dropdown-item py-2 text-dark bg-transparent custom-hover rounded-3" do %>
             Créer un événement
           <% end %>
         </li>
+
         <li>
           <%= link_to new_dog_path, class: "dropdown-item py-2 text-dark bg-transparent custom-hover rounded-3" do %>
             Ajouter un chien
           <% end %>
         </li>
         <li>
-          <%= link_to "#", class: "dropdown-item py-2 text-dark bg-transparent custom-hover rounded-3" do %>
-            Discuter avec mon assistant Wouf
+          <%= link_to(local_assigns[:dog].present? ? dog_ai_chats_path(local_assigns[:dog]) : root_path, class: "dropdown-item py-2 text-dark bg-transparent custom-hover rounded-3") do %>
+          <%#= link_to new_dog_path, class: "dropdown-item py-2 text-dark bg-transparent custom-hover rounded-3" do %>
+              Discuter avec mon Wouf
           <% end %>
         </li>
+
+
       </ul>
-
-
-      </div>
     </div>
+
+  </div>
 </nav>

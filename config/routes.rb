@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
+
+
   root to: "posts#index"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -7,7 +9,7 @@ Rails.application.routes.draw do
 
   # DOGS + CHATBOT IA
   resources :dogs do
-    resources :ai_chats, only: [:show, :create] do
+    resources :ai_chats, only: [:index, :show, :create] do
       resources :ai_messages, only: [:create]
     end
   end
