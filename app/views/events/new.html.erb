@@ -1,13 +1,47 @@
-<div class="container py-4 mb-5">
-  <h1>Créer un événement</h1>
 
-  <%= simple_form_for @event do |f| %>
-    <%= f.input :title, label: "Titre" %>
-    <%= f.input :description, label: "Description" %>
-    <%= f.input :city, label: "Ville" %>
-    <%= f.input :date, label: "Date", as: :datetime, html5: true %>
+  <div class="container vh-100 d-flex align-items-center justify-content-center">
+  <div class="row w-100 justify-content-center">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-5 bg">
 
-    <%= f.submit "Créer l'événement", class: "btn btn-primary" %>
-    <%= link_to "Annuler", events_path, class: "btn btn-outline-secondary" %>
-  <% end %>
-</div>
+    <div class="border-light rounded-6">
+      <div class="container d-flex justify-content-center pb-4">
+      <%= image_tag "doggy_picto.svg", class: "img-fluid", style: "width: 100px;" %>
+    </div>
+        <%= simple_form_for(@event) do |f| %>
+
+  <%= f.input :title,
+              label: "Titre",
+              wrapper_html: { class: "mb-3" },
+              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+
+  <%= f.input :description,
+              label: "Description",
+              wrapper_html: { class: "mb-3" },
+              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+
+  <%= f.input :city,
+              label: "Ville",
+              wrapper_html: { class: "mb-3" },
+              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+
+  <%= f.input :date,
+              as: :datetime, html5: true,
+              label: "Date",
+              wrapper_html: { class: "mb-4" },
+              input_html: { rows: 4, class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+
+  <div class="form-actions d-flex justify-content-center">
+  <%= f.button :submit, "Enregistrer",
+               class: "d-flex rounded btn btn-orange justify-content-center rounded-4 px-4" %>
+  </div>
+
+<% end %>
+
+  </div>
+
+
+
+
+      </div>
+    </div>
+  </div>

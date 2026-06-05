@@ -1,17 +1,52 @@
-<div class="container py-5">
 
-  <%= link_to "← Retour",
-      dogs_path,
-      class: "text-decoration-none text-muted" %>
+  <div class="container vh-100 d-flex align-items-center justify-content-center">
+  <div class="row w-100 justify-content-center">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-5 bg">
 
-  <div class="card shadow-sm rounded-4 border-0 mt-3">
-
-    <div class="card-body p-4">
-
-      <%= render "form" %>
-
+    <div class="border-light rounded-6">
+      <div class="container d-flex justify-content-center pb-4">
+      <%= image_tag "doggy_picto.svg", class: "img-fluid", style: "width: 100px;" %>
     </div>
+ <%= simple_form_for(@dog) do |f| %>
+
+  <%= f.input :name,
+              label: "Nom du chien",
+              wrapper_html: { class: "mb-3" },
+              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+
+  <%= f.input :breed,
+              label: "Race",
+              wrapper_html: { class: "mb-3" },
+              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+
+  <%= f.input :age,
+              label: "Âge",
+              wrapper_html: { class: "mb-3" },
+              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+
+  <%= f.input :description,
+              as: :text,
+              label: "Description",
+              wrapper_html: { class: "mb-4" },
+              input_html: { rows: 4, class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+
+  <%= f.input :avatar,
+              as: :file,
+              label: "Photo de profil",
+              wrapper_html: { class: "mb-4" },
+              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+  <div class="form-actions d-flex justify-content-center">
+  <%= f.button :submit, "Enregistrer",
+               class: "d-flex rounded btn btn-orange justify-content-center rounded-4 px-4" %>
+  </div>
+
+<% end %>
 
   </div>
 
-</div>
+
+
+
+      </div>
+    </div>
+  </div>
