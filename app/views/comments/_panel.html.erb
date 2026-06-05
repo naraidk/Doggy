@@ -1,0 +1,38 @@
+<div class="comments-panel" data-controller="comments">
+  <div class="panel-header">
+    <span>Commentaires : <%= @post.dog.name %></span>
+    <button class="close-panel" data-action="click->comments#close">✕</button>
+  </div>
+
+  <div class="panel-body">
+
+    <div class="post">
+
+      <% @comments.each do |comment| %>
+        <div class="comment" id="<%= dom_id(comment) %>">
+          <span class="comment-text"><strong><%= comment.dog.name %></strong> : <%= comment.content %></span>
+
+          <% if comment.dog == current_dog %>
+            <%= button_to [@post, comment],
+                method: :delete,
+                class: "delete-comment-btn",
+                data: { turbo_confirm: "Supprimer ce commentaire ?" } do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+
+    </div>
+
+    <div class="panel-footer">
+      <%= form_with model: [@post, Comment.new] do |f| %>
+        <div class="comment-form">
+          <%= f.text_area :content, placeholder: "Ajouter ton commentaire…", class: "comment-input" %>
+          <%= f.submit "Publier", class: "comment-submit" %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
