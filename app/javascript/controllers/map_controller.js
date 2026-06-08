@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static values = { events: Array }
+  static values = { events: Array, iconUrl: String}
 
   connect() {
     this.loadLeaflet().then(() => this.initMap())
@@ -34,25 +34,25 @@ export default class extends Controller {
   initMap() {
     this.leafletMap = L.map(this.element).setView([46.2276, 2.2137], 6)
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">Doggy</a>',
-      maxZoom: 19
-    }).addTo(this.leafletMap)
+   L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">Doggy</a>',
+  maxZoom: 19
+}).addTo(this.leafletMap)
 
     this.addEventMarkers()
   }
 
   addEventMarkers() {
-    const pawIcon = L.divIcon({
-      html: `<div class="paw-marker">🐾</div>`,
-      className: "",
-      iconSize: [36, 36],
-      iconAnchor: [18, 36],
-      popupAnchor: [0, -36]
+    // 1. On change L.divIcon par L.icon pour charger ton fichier SVG
+    const doggyIcon = L.icon({
+      iconUrl: this.iconUrlValue, // Récupère le SVG envoyé par index.html.erb
+      iconSize: [36, 36],         // Taille d'affichage de ton SVG
+      iconAnchor: [18, 18],       // Centre le SVG sur la carte
+      popupAnchor: [0, -18]       // Positionne la bulle d'infos juste au-dessus
     })
 
     this.eventsValue.forEach(event => {
-      L.marker([event.latitude, event.longitude], { icon: pawIcon })
+      L.marker([event.latitude, event.longitude], { icon: doggyIcon })
         .addTo(this.leafletMap)
         .bindPopup(`
           <div class="map-popup">
