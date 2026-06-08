@@ -1,46 +1,133 @@
-<div class="container py-4 mb-5">
-  <%= link_to "← Retour", events_path, class: "text-decoration-none" %>
+<div class="card border-light rounded-6 shadow-sm mb-3 mx-3" style="background-color: #white;">
 
-  <div class="card mt-3 shadow-sm">
-    <div class="card-body">
-      <h1><%= @event.title %></h1>
+  <div class="card-body d-flex justify-content-between align-items-center px-4 py-3">
 
-      <p class="text-muted"> <%= @event.city %></p>
-      <p> <%= @event.date.strftime("%d/%m/%Y à %H:%M") %></p>
-      <p> Organisé par <strong><%= @event.dog.name %></strong></p>
-
-      <hr>
-
-      <p><%= @event.description %></p>
-
-      <hr>
-
+    <div class="d-flex align-items-center" style="min-width: 0;">
+      <div>
+        <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.1rem; letter-spacing: -0.3px;">Naraid</h5>
+      </div>
+    </div>
+    <div>
       <% already_joined = @event.dogs.where(id: current_user.dogs.ids).exists? %>
 
       <% if already_joined %>
-        <p class="text-success">Ton chien est déjà inscrit à cet événement.</p>
+         <%= button_to "Se désinscrire",
+          event_event_participant_path(@event),
+          method: :delete,
+          class: "btn btn-danger-doggy text-white rounded-4" %>
       <% else %>
-        <%= button_to "Participer",
-            event_event_participants_path(@event),
-            method: :post,
-            class: "btn btn-success" %>
+      <%= button_to "Participer",
+          event_event_participants_path(@event),
+          method: :post,
+          class: "btn btn-doggy text-white rounded-4" %>
       <% end %>
     </div>
+
   </div>
 
-  <div class="mt-4">
-    <h3>Participants</h3>
+ <div class="border-top border-light-subtle bg-white rounded-bottom-6 px-4 py-2 event-details-list">
+
+  <p class="text-dark d-flex align-items-center gap-2 mb-2 py-1">
+    <%= image_tag "calendar.svg", class: "svg-icon-list", alt: "Localisation" %>
+    <span>Cet événement a lieu à <strong class="text-doggy"><%= @event.city %></strong></span>
+  </p>
+
+  <p class="text-dark d-flex align-items-center gap-2 mb-2 py-1">
+    <%= image_tag "calendar.svg", class: "svg-icon-list", alt: "Date" %>
+    <span><%= @event.date.strftime("%d/%m/%Y à %H:%M") %></span>
+  </p>
+
+  <p class="text-dark d-flex align-items-center gap-2 mb-0 py-1">
+    <%= image_tag "calendar.svg", class: "svg-icon-list", alt: "Organisateur" %>
+    <span>Organisé par <strong><%= @event.dog.name %></strong></span>
+  </p>
+
+</div>
+
+      <div class="px-4 fs-6 fst-italic mb-0 text-dark" style="font-size: 1.1rem; letter-spacing: -0.3px;">
+            <p><%= @event.description %></p>
+      </div>
+
+      <div class="border-top border-light-subtle bg-white rounded-bottom-6 px-4 py-2">
+        <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.1rem; letter-spacing: -0.3px;">Qui participe ?</h5>
 
     <% if @event.event_participants.any? %>
       <% @event.event_participants.each do |participant| %>
-        <div class="card mb-2">
-          <div class="card-body">
-            <%= participant.dog.name %>
+             <h6 class="mb-0 text-dark fw-normal py-2" style="font-size: 0.95rem;"><%= participant.dog.name %></h6>
           </div>
         </div>
       <% end %>
     <% else %>
-      <p class="text-muted">Aucun participant pour le moment.</p>
+      <h6 class="mb-0 text-dark fw-normal py-2" style="font-size: 0.95rem;">Aucun participant pour le moment.</h6>
     <% end %>
-  </div>
+
+    <div id="map"
+     data-controller="map"
+     data-map-events-value="<%= @events_json %>"
+     data-map-icon-url-value="<%= image_path('doggy_loc.svg') %>"></div>
+    </div>
+<div class="d-flex justify-content-center p-2">
+  <%= button_to "Supprimer l'événement",
+          event_path(@event),
+          method: :delete,
+          data: {
+              turbo_confirm: "Supprimer cet événement ?"
+            },
+          class: "btn btn-danger-doggy text-white rounded-4" %>
 </div>
+
+</div>
+</div>
+  <%= link_to events_path, class: "btn-floating-map" do %>
+  <i class="fa-solid fa-list"></i>
+<% end %>
+
+
+<!--
+
+    <div class="card-body">
+      <h1><%#= @event.title %></h1>
+
+      <p class="badge text-doggy""> <%#= @event.city %></p>
+      <p> <%#= @event.date.strftime("%d/%m/%Y à %H:%M") %></p>
+      <p> Organisé par <strong><%#= @event.dog.name %></strong></p>
+
+      <hr>
+      <div class="badge text-black">
+            <p><%#= @event.description %></p>
+      </div>
+            <hr>
+
+      <%# already_joined = @event.dogs.where(id: current_user.dogs.ids).exists? %>-->
+<!---->
+      <%# if already_joined %>
+<!--        <p class="text-success">Ton chien est déjà inscrit à cet événement.</p>-->
+      <%# else %>
+        <%#= button_to "Participer",
+            event_event_participants_path(@event),
+            method: :post,
+            class: "btn btn-doggy text-white rounded-4" %>
+      <%# end %>
+<!--    </div>
+
+  <div class="border-top border-light-subtle bg-white rounded-bottom-6 px-4 py-2">
+    <h3>Participants</h3>
+
+    <%# if @event.event_participants.any? %>-->
+      <%# @event.event_participants.each do |participant| %>
+<!--        <div class="card mb-2">
+          <div class="card-body">
+            <%#= participant.dog.name %>-->
+<!--          </div>
+        </div>
+      <%# end %>-->
+    <%# else %>
+<!--      <p class="text-muted">Aucun participant pour le moment.</p>-->
+    <%# end %>
+<!--  </div>
+</div>
+
+<%#= link_to events_path, class: "btn-floating-map" do %>-->
+<!--  <i class="fa-solid fa-list"></i>-->
+<%# end %>
+<!---->

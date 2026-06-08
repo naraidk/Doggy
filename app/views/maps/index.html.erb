@@ -2,16 +2,24 @@
 
   <% content_for :title, "Carte" %>
 
-<div class="map-page">
-  <div class="map-header px-3 pt-3 pb-2">
-    <h5 class="fw-bold mb-0">Carte</h5>
-    <p class="text-muted small mb-0">Trouvez des chiens et événements près de chez vous</p>
+  <div class="map-page"
+       data-controller="map"
+       data-map-events-value="<%= @events_json %>"
+       data-map-icon-url-value="<%= image_path('doggy_loc.svg') %>">
+
+    <div class="map-header px-3 pt-3 pb-2">
+      <h5 class="fw-bold mb-0">Carte</h5>
+      <p class="text-muted small mb-0">Trouvez des chiens et événements près de chez vous</p>
+    </div>
+
+    <div class="map-search px-3 pb-2" data-map-target="geocoder"></div>
+
+    <div id="map"></div>
+
   </div>
 
+</div>
 
-  <div id="map"
-     data-controller="map"
-     data-map-events-value="<%= @events_json %>"
-     data-map-icon-url-value="<%= image_path('paw_filled.svg') %>"></div>
-</div>
-</div>
+<%= link_to events_path, class: "btn-floating-map" do %>
+  <i class="fa-solid fa-list"></i>
+<% end %>
