@@ -4,9 +4,9 @@
       <%= image_tag current_page?(root_path) ? "home_doggy.svg" : "home.svg", style: "width: 24px; height: 24px;" %>
       <% end %>
 
-      <%= link_to map_path, class: "nav-icon", title: "Carte" do %>
-      <%= image_tag current_page?(map_path) ? "map_doggy.svg" : "map.svg", style: "width: 24px; height: 24px;" %>
-      <% end %>
+      <%= link_to swipes_path, class: "nav-icon", title: "Matching" do %>
+    <i class="<%= current_page?(swipes_path) ? 'fa-solid fa-heart text-danger fs-5' : 'fa-regular fa-heart text-dark fs-5' %>"></i>
+  <% end %>
 
       <%= link_to events_path, class: "nav-icon", title: "Planning" do %>
       <%= image_tag current_page?(events_path) ? "calendar_doggy.svg" : "calendar.svg", style: "width: 24px; height: 24px;" %>
