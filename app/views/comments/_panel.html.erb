@@ -1,6 +1,6 @@
 <div class="comments-panel" data-controller="comments">
-  <div class="panel-header">
-    <span>Commentaires : <%= @post.dog.name %></span>
+  <div class="panel-header d-flex justify-content-between px-4 pt-2">
+    <span class="fw-light fs-6">Commentaires sur le post de <%= @post.dog.name %></span>
     <button class="close-panel" data-action="click->comments#close">✕</button>
   </div>
 
