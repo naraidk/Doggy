@@ -25,13 +25,15 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="mb-6">
       <% if user_signed_in? %>
       <%= render 'shared/navbar_top', dog: current_dog %>
       <% end %>
       <%# <%= render "shared/flashes" %>
 
-      <%= yield %>
+  <main style="padding-bottom: 80px; padding-top: 20px;">
+  <%= yield %>
+</main>
 
       <% if user_signed_in? %>
       <%= render 'shared/navbar' %>
