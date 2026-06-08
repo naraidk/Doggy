@@ -7,6 +7,7 @@ class DogsController < ApplicationController
 
   def show
     @dog = Dog.find(params[:id])
+    @photos = @dog.posts.with_attached_image
   end
 
   def new
@@ -24,6 +25,10 @@ class DogsController < ApplicationController
   end
 
   def edit
+    @dog = current_user.dogs.find(params[:id])
+  end
+
+  def edit_avatar
     @dog = current_user.dogs.find(params[:id])
   end
 
@@ -46,6 +51,11 @@ class DogsController < ApplicationController
         + ce chien."
   end
 
+  def select
+    session[:current_dog_id] = params[:dog_id]
+    redirect_back fallback_location: posts_path
+  end
+
   private
 
   def set_dog
@@ -53,6 +63,6 @@ class DogsController < ApplicationController
   end
 
   def dog_params
-    params.require(:dog).permit(:name, :breed, :age, :description, :avatar)
+    params.require(:dog).permit(:name, :breed, :age, :gender, :description, :avatar)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_05_105249) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_08_105618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -80,9 +80,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_05_105249) do
   create_table "dogs", force: :cascade do |t|
     t.integer "age"
     t.string "breed"
+    t.string "canine_sociability"
     t.datetime "created_at", null: false
     t.text "description"
+    t.string "energy_level"
+    t.string "favorite_activity"
+    t.string "gender"
+    t.string "human_sociability"
     t.string "name"
+    t.string "size"
+    t.string "temperament"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_dogs_on_user_id"
@@ -270,6 +277,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_05_105249) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "swipes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "dog_id", null: false
+    t.boolean "liked"
+    t.bigint "target_dog_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dog_id"], name: "index_swipes_on_dog_id"
+    t.index ["target_dog_id"], name: "index_swipes_on_target_dog_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -315,6 +332,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_05_105249) do
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "swipes", "dogs"
+  add_foreign_key "swipes", "dogs", column: "target_dog_id"
   add_foreign_key "woufs", "dogs"
   add_foreign_key "woufs", "posts"
 end
