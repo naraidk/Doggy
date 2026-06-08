@@ -25,3 +25,13 @@
 .map-popup {
   min-width: 160px;
 }
+
+.map-search {
+  .mapboxgl-ctrl-geocoder {
+    width: 100%;
+    max-width: 100%;
+    box-shadow: none;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+  }
+}
