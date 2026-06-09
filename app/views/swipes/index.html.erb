@@ -2,6 +2,40 @@
   <h1 class="text-center mb-4">Découvrir des chiens</h1>
 
   <% if @target_dog.present? %>
+
+    <div class="d-flex justify-content-center align-items-center gap-3 mb-4">
+      <!-- Current dog -->
+      <div class="text-center">
+        <% if current_dog.avatar.attached? %>
+          <%= cl_image_tag current_dog.avatar.key,
+                transformation: [{ width: 80, height: 80, crop: "thumb", gravity: "face", quality: "auto" }],
+                class: "rounded-circle object-fit-cover",
+                style: "width: 80px; height: 80px; border: 3px solid #f86120;" %>
+        <% else %>
+          <%= image_tag "dogs_pic.jpg", class: "rounded-circle object-fit-cover",
+                style: "width: 80px; height: 80px; border: 3px solid #f86120;" %>
+        <% end %>
+        <p class="mt-1 mb-0 fw-semibold text-doggy" style="font-size: 0.85rem;"><%= current_dog.name %></p>
+      </div>
+
+      <!-- VS indicator -->
+      <div class="text-center" style="font-size: 1.4rem;">🐾</div>
+
+      <!-- Target dog -->
+      <div class="text-center">
+        <% if @target_dog.avatar.attached? %>
+          <%= cl_image_tag @target_dog.avatar.key,
+                transformation: [{ width: 80, height: 80, crop: "thumb", gravity: "face", quality: "auto" }],
+                class: "rounded-circle object-fit-cover",
+                style: "width: 80px; height: 80px; border: 3px solid #adb5bd;" %>
+        <% else %>
+          <%= image_tag "dogs_pic.jpg", class: "rounded-circle object-fit-cover",
+                style: "width: 80px; height: 80px; border: 3px solid #adb5bd;" %>
+        <% end %>
+        <p class="mt-1 mb-0 fw-semibold text-muted" style="font-size: 0.85rem;"><%= @target_dog.name %></p>
+      </div>
+    </div>
+
     <div class="card shadow-sm text-center rounded-4">
       <div class="card-body">
         <h2><%= @target_dog.name %></h2>
