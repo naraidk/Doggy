@@ -1,0 +1,9 @@
+<%= turbo_stream.replace dom_id(@post, :wouf_section) do %>
+  <div id="<%= dom_id(@post, :wouf_section) %>" class="w-50 text-center">
+    <%= render "posts/wouf_button", post: @post %>
+  </div>
+<% end %>
+
+<%= turbo_stream.replace dom_id(@post, :wouf_count) do %>
+  <span id="<%= dom_id(@post, :wouf_count) %>" class="small-content"><%= @post.woufs.count %> wouf</span>
+<% end %>
