@@ -115,28 +115,3 @@
 </div>
   </div>
 </div>
-
-<div class="modal fade" id="chooseDogModal-<%= post.id %>" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content rounded-4 p-3">
-
-      <h5 class="fw-bold mb-3">Choisir un chien</h5>
-
-      <% current_user.dogs.each do |dog| %>
-        <%= button_to post_woufs_path(post, dog_id: dog.id),
-              method: :post,
-              class: "btn btn-light w-100 d-flex align-items-center gap-2 mb-2" do %>
-
-          <% if dog.avatar.attached? %>
-            <%= cl_image_tag dog.avatar.key, width: 32, height: 32, class: "rounded-circle" %>
-          <% else %>
-            <%= image_tag "dogs_pic.jpg", width: 32, height: 32, class: "rounded-circle" %>
-          <% end %>
-
-          <span><%= dog.name %></span>
-        <% end %>
-      <% end %>
-
-    </div>
-  </div>
-</div>

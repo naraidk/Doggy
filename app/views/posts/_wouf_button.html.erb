@@ -1,11 +1,4 @@
-<% if current_user.dogs.count > 1 %>
-  <button class="btn btn-link text-decoration-none text-muted fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100"
-        data-bs-toggle="modal"
-        data-bs-target="#chooseDogModal-<%= post.id %>">
-    <%= image_tag "paw_stroked.svg", style: "width: 18px; opacity: 0.6;" %>
-    <span class="fw-bolder">Wouffer</span>
-  </button>
-<% elsif post.woufs.exists?(dog: current_dog) %>
+<% if post.woufs.exists?(dog: current_dog) %>
   <%= button_to post_wouf_path(post, post.woufs.find_by(dog: current_dog)),
     method: :delete,
     class: "btn btn-link text-decoration-none text-dark fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
