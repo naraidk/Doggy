@@ -48,8 +48,9 @@
 
     <% already_joined = event.dogs.where(id: current_user.dogs.ids).exists? %>
     <% if already_joined %>
+      <% existing_participant = event.event_participants.find_by(dog: current_user.dogs) %>
       <%= button_to "Se désinscrire",
-            event_event_participant_path(event),
+            event_event_participant_path(event, existing_participant),
             method: :delete,
             class: "btn btn-sm btn-danger-doggy text-white rounded-4" %>
     <% else %>

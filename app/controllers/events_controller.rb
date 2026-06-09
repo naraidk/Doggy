@@ -7,6 +7,7 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @participant = EventParticipant.new
+    @existing_participant = @event.event_participants.find_by(dog: current_user.dogs)
   end
 
   def new
