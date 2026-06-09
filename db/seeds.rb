@@ -309,15 +309,31 @@ photo_posts_data = [
   },
 ]
 
-photo_posts_data.each do |d|
+breed_path = ->(dog) {
+  case dog.breed
+  when "Berger Américain"      then "australian/shepherd"
+  when "Golden Retriever"      then "retriever/golden"
+  when "Bouledogue Français"   then "bulldog/french"
+  when "Jack Russell Terrier"  then "terrier/russell"
+  when "Labrador"              then "labrador"
+  when "Caniche"               then "poodle"
+  else "retriever/golden"
+  end
+}
+
+photo_posts = photo_posts_data.map do |d|
   post = Post.create!(dog: d[:dog], content: d[:content])
-  attach_post_image(post, d[:dog].breed == "Berger Américain" ? "australian/shepherd" :
-                          d[:dog].breed == "Golden Retriever"  ? "retriever/golden"    :
-                          d[:dog].breed == "Bouledogue Français" ? "bulldog/french"    :
-                          d[:dog].breed == "Jack Russell Terrier" ? "terrier/russell"  :
-                          d[:dog].breed == "Labrador"           ? "labrador"           :
-                          d[:dog].breed == "Caniche"            ? "poodle"             : "retriever/golden")
+  attach_post_image(post, breed_path.(d[:dog]))
+  post
 end
+
+simba_photo_post = photo_posts.find { |p| p.dog == simba }
+
+puts "\nAdding 2 extra photo posts for Simba (3 total)..."
+simba_photo_post2 = Post.create!(dog: simba, content: "Weekend trail avec Simba dans les Vosges 🌲 Ce berger ne se lasse jamais, il pourrait courir des heures sans s'arrêter. Tellement fier de lui !")
+attach_post_image(simba_photo_post2, "australian/shepherd")
+simba_photo_post3 = Post.create!(dog: simba, content: "Simba au coucher de soleil sur les hauteurs de Lyon 🌅 Ce regard... il sait très bien qu'il est beau ce coquin !")
+attach_post_image(simba_photo_post3, "australian/shepherd")
 
 # ─── Woufs ─────────────────────────────────────────────────────────────────────
 
@@ -463,12 +479,16 @@ puts "  ✅  #{EventParticipant.count} participants created"
 
 puts "\nRandomizing feed timestamps..."
 
-all_feed_items = posts + events
+all_feed_items = posts + photo_posts + [simba_photo_post2, simba_photo_post3] + events
 all_feed_items.each do |item|
-  t = rand(14.days.ago..6.hours.ago)
+  t = rand(13.days.ago..6.hours.ago)
   item.update_columns(created_at: t, updated_at: t)
 end
-puts "  ✅  Timestamps randomized for #{all_feed_items.count} items"
+
+# Pin simba's first photo post as the oldest item — it appears last in the feed
+simba_photo_post.update_columns(created_at: 15.days.ago, updated_at: 15.days.ago)
+
+puts "  ✅  Timestamps randomized for #{all_feed_items.count} items (Simba's post pinned last)"
 
 # ─── Summary ───────────────────────────────────────────────────────────────────
 
