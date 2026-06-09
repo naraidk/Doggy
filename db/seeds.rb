@@ -1,5 +1,6 @@
 puts "Cleaning database..."
 
+Swipe.destroy_all if defined?(Swipe)
 AiMessage.destroy_all
 AiChat.destroy_all
 Message.destroy_all
@@ -7,82 +8,111 @@ Conversation.destroy_all
 Comment.destroy_all
 Wouf.destroy_all
 Post.destroy_all
+EventParticipant.destroy_all if defined?(EventParticipant)
+Event.destroy_all if defined?(Event)
 Dog.destroy_all
 User.destroy_all
 
 puts "Creating users..."
 
-john = User.create!(
-  email: "john@example.com",
-  password: "password",
-  username: "johnny",
-  first_name: "John",
-  last_name: "Doe"
-)
+users = []
 
-sarah = User.create!(
-  email: "sarah@example.com",
-  password: "password",
-  username: "sarahdoglover",
-  first_name: "Sarah",
-  last_name: "Smith"
-)
+6.times do |i|
+  users << User.create!(
+    email: "user#{i + 1}@example.com",
+    password: "password",
+    username: "user#{i + 1}",
+    first_name: "User#{i + 1}",
+    last_name: "Doglover"
+  )
+end
 
 puts "Creating dogs..."
 
-buddy = Dog.create!(
-  user: john,
-  name: "Buddy",
-  breed: "Golden Retriever",
-  age: 3,
-  description: "Loves beaches and tennis balls"
-)
+sizes = ["Petit", "Moyen", "Grand"]
+energy_levels = ["Très calme", "Calme", "Équilibré", "Dynamique", "Très dynamique"]
+canine_sociabilities = ["Très réservé", "Sélectif", "Sociable", "Très sociable", "Adore tous les chiens"]
+human_sociabilities = ["Méfiant", "Réservé", "Amical", "Très affectueux", "Adore les humains"]
+temperaments = ["Joueur", "Protecteur", "Aventurier", "Affectueux", "Indépendant"]
+favorite_activities = ["Promenade tranquille", "Jeux", "Course", "Randonnée", "Baignade"]
 
-luna = Dog.create!(
-  user: sarah,
-  name: "Luna",
-  breed: "Husky",
-  age: 2,
-  description: "Professional zoomies champion"
-)
+breeds = [
+  "Golden Retriever",
+  "Husky",
+  "Labrador",
+  "Berger Allemand",
+  "Cocker",
+  "Beagle",
+  "Border Collie",
+  "Shiba Inu",
+  "Bulldog",
+  "Caniche"
+]
 
-puts "Creating conversation..."
+dog_names = [
+  "Buddy", "Luna", "Max", "Bella", "Rocky",
+  "Nala", "Oscar", "Milo", "Ruby", "Simba"
+]
+
+users.each_with_index do |user, user_index|
+  10.times do |i|
+    Dog.create!(
+      user: user,
+      name: "#{dog_names[i]} #{user_index + 1}",
+      breed: breeds[i],
+      age: rand(1..12),
+      description: "Chien #{temperaments.sample.downcase}, qui aime #{favorite_activities.sample.downcase} et rencontrer de nouveaux compagnons.",
+      size: sizes.sample,
+      energy_level: energy_levels.sample,
+      canine_sociability: canine_sociabilities.sample,
+      human_sociability: human_sociabilities.sample,
+      temperament: temperaments.sample,
+      favorite_activity: favorite_activities.sample
+    )
+  end
+end
+
+puts "Creating sample conversations..."
+
+dog1 = User.first.dogs.first
+dog2 = User.second.dogs.first
 
 conversation = Conversation.create!(
-  dog_one: buddy,
-  dog_two: luna
-)
-
-puts "Creating messages..."
-
-Message.create!(
-  conversation: conversation,
-  dog: buddy,
-  content: "Woof Luna! Want to go to the park?"
+  dog_one: dog1,
+  dog_two: dog2
 )
 
 Message.create!(
   conversation: conversation,
-  dog: luna,
-  content: "Absolutely! Let's chase some squirrels."
+  dog: dog1,
+  content: "Wouf ! On fait une balade ?"
 )
 
-puts "Creating posts..."
+Message.create!(
+  conversation: conversation,
+  dog: dog2,
+  content: "Oui, avec plaisir !"
+)
+
+puts "Creating sample posts..."
 
 post = Post.create!(
-  dog: buddy,
-  content: "Just had the best walk ever! 🐾"
+  dog: dog1,
+  content: "Prêt pour rencontrer de nouveaux amis 🐾"
 )
 
 Comment.create!(
-  dog: luna,
+  dog: dog2,
   post: post,
-  content: "Looks amazing Buddy! 🐶"
+  content: "Trop mignon !"
 )
 
 Wouf.create!(
-  dog: luna,
+  dog: dog2,
   post: post
 )
 
 puts "Done!"
+puts "#{User.count} users created"
+puts "#{Dog.count} dogs created"
+puts "#{Swipe.count} swipes created" if defined?(Swipe)
