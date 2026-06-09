@@ -15,4 +15,7 @@ class MapsController < ApplicationController
       }
     end.to_json
   end
+
+  def show
+  end
 end

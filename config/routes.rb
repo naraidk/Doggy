@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "swipes/index"
+  get "swipes/create"
   devise_for :users
 
 
@@ -48,4 +50,7 @@ Rails.application.routes.draw do
 
   # MAP
   get "map" => "maps#index", as: :map
+
+  #MATCHING
+  resources :swipes, only: [:index, :create]
 end

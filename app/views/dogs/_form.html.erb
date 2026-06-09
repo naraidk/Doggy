@@ -29,6 +29,36 @@
               wrapper_html: { class: "mb-3" },
               input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
 
+  <%= f.input :size,
+            label: "Taille",
+            collection: ["Petit", "Moyen", "Grand"],
+            prompt: "Choisir une taille" %>
+
+<%= f.input :energy_level,
+            label: "Niveau d'énergie",
+            collection: ["Très calme", "Calme", "Équilibré", "Dynamique", "Très dynamique"],
+            prompt: "Choisir un niveau" %>
+
+<%= f.input :canine_sociability,
+            label: "Sociabilité canine",
+            collection: ["Très réservé", "Sélectif", "Sociable", "Très sociable", "Adore tous les chiens"],
+            prompt: "Choisir une sociabilité" %>
+
+<%= f.input :human_sociability,
+            label: "Sociabilité humaine",
+            collection: ["Méfiant", "Réservé", "Amical", "Très affectueux", "Adore les humains"],
+            prompt: "Choisir une sociabilité" %>
+
+<%= f.input :temperament,
+            label: "Tempérament",
+            collection: ["Joueur", "Protecteur", "Aventurier", "Affectueux", "Indépendant"],
+            prompt: "Choisir un tempérament" %>
+
+<%= f.input :favorite_activity,
+            label: "Activité favorite",
+            collection: ["Promenade tranquille", "Jeux", "Course", "Randonnée", "Baignade"],
+            prompt: "Choisir une activité" %>
+
   <%= f.input :description,
               as: :text,
               label: "Description",

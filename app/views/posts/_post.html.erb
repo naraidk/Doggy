@@ -40,7 +40,7 @@
     <% if post.dog.user == current_user %>
     <%= button_to post_path(post),
           method: :delete,
-          class: "delete-button text-danger fs-6",
+          class: "delete-button text-doggy-danger fs-6",
           form: { data: { turbo_confirm: "Es-tu sûr de vouloir supprimer ce post ?" } } do %>
       <i class="fa-solid fa-trash"></i>
     <% end %>
