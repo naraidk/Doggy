@@ -5,16 +5,14 @@
       <% end %>
 
       <%= link_to swipes_path, class: "nav-icon", title: "Matching" do %>
-    <i class="<%= current_page?(swipes_path) ? 'fa-solid fa-heart text-danger fs-5' : 'fa-regular fa-heart text-dark fs-5' %>"></i>
+       <%= image_tag current_page?(swipes_path) ? "doggy_heart.svg" : "doggy_heart_black.svg", style: "width: 24px; height: 24px;" %>
   <% end %>
 
       <%= link_to events_path, class: "nav-icon", title: "Planning" do %>
-      <%= image_tag current_page?(events_path) ? "calendar_doggy.svg" : "calendar.svg", style: "width: 24px; height: 24px;" %>
-      <% end %>
-
-      <%= link_to map_path, class: "nav-icon", title: "Carte" do %>
-      <%= image_tag current_page?(map_path) ? "map_doggy.svg" : "map.svg", style: "width: 24px; height: 24px;" %>
-      <% end %>
+    <%# L'icône sera orange si on est sur les événements OU sur la carte %>
+    <% is_calendar_active = current_page?(events_path) || current_page?(map_path) %>
+    <%= image_tag is_calendar_active ? "calendar_doggy.svg" : "calendar.svg", style: "width: 24px; height: 24px;" %>
+  <% end %>
 
       <%= link_to conversations_path, class: "nav-icon", title: "Messagerie" do %>
       <%= image_tag current_page?(conversations_path) ? "messages_doggy.svg" : "messages.svg", style: "width: 24px; height: 24px;" %>
