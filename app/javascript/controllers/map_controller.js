@@ -4,7 +4,8 @@ let mapboxLoadPromise = null
 let geocoderLoadPromise = null
 
 export default class extends Controller {
-  static values = { events: Array, token: String }
+// Remplace ta ligne actuelle par celle-ci :
+  static values = { events: Array, token: String, iconUrl: String }
   static targets = ["geocoder", "container"]
 
   connect() {
@@ -74,22 +75,38 @@ export default class extends Controller {
 
     mapboxgl.accessToken = this.tokenValue
 
+    // 1. Par défaut, on définit le centre sur la France avec un zoom global
+    let mapCenter = [2.2137, 46.2276]
+    let mapZoom = 5
+
+    // 2. Si on est sur la page "show" (il n'y a qu'un seul événement dans le tableau)
+    if (this.eventsValue.length === 1) {
+      const singleEvent = this.eventsValue[0]
+      // Mapbox attend [longitude, latitude]
+      mapCenter = [singleEvent.longitude, singleEvent.latitude]
+      mapZoom = 13 // Un zoom à 13 est idéal pour voir la ville et les rues principales
+    }
+
+    // 3. Initialisation de la carte avec les coordonnées dynamiques
     this.map = new mapboxgl.Map({
       container: this.containerTarget,
-      style: "mapbox://styles/mapbox/streets-v12",
-      center: [2.2137, 46.2276],
-      zoom: 5
+      style: "mapbox://styles/mapbox/light-v11", // Ta superbe carte épurée blanche
+      center: mapCenter,
+      zoom: mapZoom
     })
 
     this.map.addControl(new mapboxgl.NavigationControl())
 
-    const geocoder = new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken,
-      mapboxgl: mapboxgl,
-      placeholder: "Rechercher un lieu...",
-      language: "fr"
-    })
-    this.geocoderTarget.appendChild(geocoder.onAdd(this.map))
+    // Si tu as gardé le geocoder (uniquement utile sur l'index, optionnel sur la show)
+    if (this.hasGeocoderTarget) {
+      const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        placeholder: "Rechercher un lieu...",
+        language: "fr"
+      })
+      this.geocoderTarget.appendChild(geocoder.onAdd(this.map))
+    }
 
     this.map.on("load", () => this.addEventMarkers())
   }
@@ -98,13 +115,22 @@ export default class extends Controller {
     this.eventsValue.forEach(event => {
       const el = document.createElement("div")
       el.className = "paw-marker"
-      el.textContent = "🐾"
+
+      // C'est ici qu'on utilise la variable magique qui contient l'adresse du SVG !
+      el.style.backgroundImage = `url(${this.iconUrlValue})`
+
+      // On donne une taille fixe à ton picto pour qu'il apparaisse proprement
+      el.style.width = "36px"
+      el.style.height = "36px"
+      el.style.backgroundSize = "contain"
+      el.style.backgroundRepeat = "no-repeat"
+      el.style.backgroundPosition = "center"
+      el.style.cursor = "pointer"
 
       const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
         <div class="map-popup">
           <strong>${event.title}</strong><br>
           <span class="text-muted small">${event.city} · ${event.date}</span><br>
-          <a href="${event.url}" class="btn btn-sm btn-primary mt-1">Voir l'événement</a>
         </div>
       `)
 
