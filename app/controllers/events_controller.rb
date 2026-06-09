@@ -13,6 +13,22 @@ class EventsController < ApplicationController
     @event = Event.new
   end
 
+  def edit
+    @event = current_user.dogs.flat_map(&:events).find { |e| e.id == params[:id].to_i }
+    redirect_to events_path unless @event
+  end
+
+  def update
+    @event = current_user.dogs.flat_map(&:events).find { |e| e.id == params[:id].to_i }
+    redirect_to events_path and return unless @event
+
+    if @event.update(event_params)
+      redirect_to event_path(@event)
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def create
     @event = Event.new(event_params)
     @event.dog ||= current_dog
