@@ -9,7 +9,9 @@ local:
 
 cloudinary:
   service: Cloudinary
-  folder: <%= Rails.env %>
+
+  # commenter la ligne suivante pour cloudinary sur Heroku
+  # folder: <%= Rails.env %>
 
 # cloudinary:
 #   service: Cloudinary

@@ -29,7 +29,7 @@
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   </head>
 
-  <body class="mb-6">
+  <body class="mb-6" data-current-dog-id="<%= current_user&.dogs&.first&.id %>">
       <% if user_signed_in? %>
       <%= render 'shared/navbar_top', dog: current_dog %>
       <% end %>

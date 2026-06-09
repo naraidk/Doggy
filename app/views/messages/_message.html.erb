@@ -1,8 +1,11 @@
-<div id="message-<%= message.id %>" class="message">
-  <small>
+<div
+  id="message-<%= message.id %>"
+  class="message"
+  data-controller="message"
+  data-message-dog-id-value="<%= message.dog.id %>">
+  <small class="message-info">
     <strong><%= message.dog.name %></strong>
     <i><%= message.created_at.strftime("%H:%M") %></i>
   </small>
-
-  <p><%= message.content %></p>
+  <p class="message-content"><%= message.content %></p>
 </div>
