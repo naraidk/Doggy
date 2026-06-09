@@ -4,7 +4,7 @@
 
     <div class="d-flex align-items-center" style="min-width: 0;">
       <div>
-        <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.1rem; letter-spacing: -0.3px;">Naraid</h5>
+        <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.1rem; letter-spacing: -0.3px;"><%= @event.title %></h5>
       </div>
     </div>
     <div>
@@ -67,8 +67,16 @@
 
     <% if @event.event_participants.any? %>
       <% @event.event_participants.each do |participant| %>
-             <h6 class="mb-0 text-dark fw-normal py-2" style="font-size: 0.95rem;"><%= participant.dog.name %></h6>
-          </div>
+        <div class="d-flex align-items-center gap-2 py-2">
+          <% if participant.dog.avatar.attached? %>
+            <%= cl_image_tag participant.dog.avatar.key,
+                  transformation: [{ width: 32, height: 32, crop: "thumb", gravity: "face", quality: "auto" }],
+                  class: "rounded-circle object-fit-cover",
+                  style: "width: 32px; height: 32px; border: 2px solid #f86120;" %>
+          <% else %>
+            <%= image_tag "dogs_pic.jpg", class: "rounded-circle object-fit-cover", style: "width: 32px; height: 32px;" %>
+          <% end %>
+          <%= link_to participant.dog.name, dog_path(participant.dog), class: "text-dark text-decoration-none fw-normal", style: "font-size: 0.95rem;" %>
         </div>
       <% end %>
     <% else %>
