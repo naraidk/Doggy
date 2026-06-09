@@ -23,6 +23,8 @@
           <strong class="text-doggy" style="font-size: 0.85rem;"><%= event.dog.name %></strong>
         <% end %>
       </div>
+
+      <p class="text-muted mb-0 mt-1" style="font-size: 0.75rem;">Il y a <%= time_ago_in_words(event.created_at) %></p>
     </div>
 
     <div class="badge text-doggy">
