@@ -272,10 +272,52 @@ post_filou, post_luna, post_cesar, post_rocky,
 post_rex, post_coco, post_princesse = posts
 
 puts "\nAttaching post images..."
-attach_post_image(post_luna,     "australian/shepherd")
-attach_post_image(post_cesar,    "retriever/golden")
-attach_post_image(post_rex,      "labrador")
+attach_post_image(post_filou,     "terrier/russell")
+attach_post_image(post_luna,      "australian/shepherd")
+attach_post_image(post_cesar,     "retriever/golden")
+attach_post_image(post_rocky,     "bulldog/french")
+attach_post_image(post_rex,       "labrador")
+attach_post_image(post_coco,      "terrier/russell")
 attach_post_image(post_princesse, "poodle")
+
+puts "\nCreating photo posts for remaining dogs..."
+
+photo_posts_data = [
+  {
+    dog: simba,
+    content: "Simba dans son élément naturel — la montagne ! 🏔️ On a fait 15km aujourd'hui, il était encore frais à l'arrivée. Un vrai athlète ce berger !"
+  },
+  {
+    dog: bella,
+    content: "Bella et ses grandes oreilles au vent lors de notre balade du dimanche 🌸 Elle adore courir dans les champs, le bonheur à l'état pur !"
+  },
+  {
+    dog: gribouille,
+    content: "Gribouille qui me regarde avec ses grands yeux ronds pour avoir une croquette 🥺 Impossible de résister à cette bouille, je suis complètement sous son charme !"
+  },
+  {
+    dog: titi,
+    content: "Titi le farceur en pleine action 🎭 Il a volé la chaussette de son frère et parade dans tout l'appartement. La vie avec lui c'est un spectacle permanent !"
+  },
+  {
+    dog: chocolat,
+    content: "Ma belle Chocolat après la baignade 🌊 Son pelage qui brille au soleil, c'est trop beau. Elle est tellement dans son élément dans l'eau !"
+  },
+  {
+    dog: dakota,
+    content: "Dakota explore le monde avec ses grands yeux curieux 🌿 À seulement 1 an elle découvre tout — chaque promenade est une nouvelle aventure pour elle !"
+  },
+]
+
+photo_posts_data.each do |d|
+  post = Post.create!(dog: d[:dog], content: d[:content])
+  attach_post_image(post, d[:dog].breed == "Berger Américain" ? "australian/shepherd" :
+                          d[:dog].breed == "Golden Retriever"  ? "retriever/golden"    :
+                          d[:dog].breed == "Bouledogue Français" ? "bulldog/french"    :
+                          d[:dog].breed == "Jack Russell Terrier" ? "terrier/russell"  :
+                          d[:dog].breed == "Labrador"           ? "labrador"           :
+                          d[:dog].breed == "Caniche"            ? "poodle"             : "retriever/golden")
+end
 
 # ─── Woufs ─────────────────────────────────────────────────────────────────────
 
