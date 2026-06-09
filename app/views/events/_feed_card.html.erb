@@ -1,0 +1,62 @@
+<div class="card border-light rounded-6 shadow-sm mb-3 mx-3">
+  <div class="card-body d-flex justify-content-between align-items-center px-4 py-3">
+
+    <div class="d-flex align-items-center" style="min-width: 0;">
+      <%= link_to dog_path(event.dog) do %>
+        <% if event.dog.avatar.attached? %>
+          <%= cl_image_tag event.dog.avatar.key,
+                transformation: [{ width: 56, height: 56, crop: "thumb", gravity: "face", quality: "auto" }],
+                class: "rounded-circle object-fit-cover me-3",
+                style: "width: 56px; height: 56px; flex-shrink: 0; border: 3px solid #f86120;",
+                alt: event.dog.name %>
+        <% else %>
+          <%= image_tag "dogs_pic.jpg",
+                class: "rounded-circle object-fit-cover me-3",
+                style: "width: 56px; height: 56px; flex-shrink: 0;" %>
+        <% end %>
+      <% end %>
+
+      <div>
+        <h5 class="fw-bold mb-0 text-doggy" style="font-size: 1.1rem; letter-spacing: -0.3px;">
+          <%= link_to event.dog.name, dog_path(event.dog),
+                data: { turbo_frame: "_top" },
+                class: "text-decoration-underline text-doggy" %>
+        </h5>
+        <p class="text-muted mb-0" style="font-size: 0.6rem;">Il y a <%= time_ago_in_words(event.created_at) %></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="px-4 pb-2">
+    <span class="badge text-white rounded-3 px-2 py-1 mb-2" style="background-color: #f86120; font-size: 0.7rem;">
+      <i class="fa-solid fa-calendar-days me-1"></i> Événement
+    </span>
+    <h5 class="fw-bold mb-1">
+      <%= link_to event.title, event_path(event), class: "text-dark text-decoration-none" %>
+    </h5>
+    <p class="text-muted mb-1" style="font-size: 0.85rem;">
+      <i class="fa-solid fa-location-dot me-1 text-doggy"></i><%= event.city %>
+    </p>
+    <p class="text-muted mb-0" style="font-size: 0.85rem;">
+      <i class="fa-solid fa-clock me-1 text-doggy"></i><%= event.date.strftime("%d/%m/%Y à %H:%M") %>
+    </p>
+  </div>
+
+  <div class="actions d-flex justify-content-between align-items-center px-4 py-2 border-top text-muted" style="font-size: 0.95rem;">
+    <span class="small-content"><%= event.event_participants.count %> participant(s)</span>
+
+    <% already_joined = event.dogs.where(id: current_user.dogs.ids).exists? %>
+    <% if already_joined %>
+      <%= button_to "Se désinscrire",
+            event_event_participant_path(event),
+            method: :delete,
+            class: "btn btn-sm btn-danger-doggy text-white rounded-4" %>
+    <% else %>
+      <%= button_to "Participer",
+            event_event_participants_path(event),
+            method: :post,
+            class: "btn btn-sm btn-doggy text-white rounded-4" %>
+    <% end %>
+  </div>
+</div>
