@@ -15,7 +15,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    @event.dog = current_user.dogs.first
+    @event.dog ||= current_dog
 
     if @event.save
       redirect_to event_path(@event)
@@ -27,6 +27,6 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:title, :description, :city, :date)
+    params.require(:event).permit(:title, :description, :city, :date, :dog_id)
   end
 end
