@@ -39,7 +39,21 @@
 
   <p class="text-dark d-flex align-items-center gap-2 mb-0 py-1">
     <%= image_tag "calendar.svg", class: "svg-icon-list", alt: "Organisateur" %>
-    <span>Organisé par <strong><%= @event.dog.name %></strong></span>
+    <span>Organisé par
+      <%= link_to dog_path(@event.dog), class: "d-inline-flex align-items-center gap-2 text-decoration-none" do %>
+        <% if @event.dog.avatar.attached? %>
+          <%= cl_image_tag @event.dog.avatar.key,
+                transformation: [{ width: 32, height: 32, crop: "thumb", gravity: "face", quality: "auto" }],
+                class: "rounded-circle object-fit-cover",
+                style: "width: 32px; height: 32px; border: 2px solid #f86120;" %>
+        <% else %>
+          <%= image_tag "dogs_pic.jpg",
+                class: "rounded-circle object-fit-cover",
+                style: "width: 32px; height: 32px;" %>
+        <% end %>
+        <strong class="text-doggy"><%= @event.dog.name %></strong>
+      <% end %>
+    </span>
   </p>
 
 </div>
