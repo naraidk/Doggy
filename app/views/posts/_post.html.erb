@@ -1,10 +1,37 @@
-<div class="card border-light rounded-6 shadow-sm mb-3 mx-3">
+<div class="card border-light rounded-6 shadow-sm mb-3 mx-3" id="post-card-<%= post.id %>">
     <div class="card-body d-flex justify-content-between align-items-center px-4 py-3">
 
 <div class="d-flex align-items-center" style="min-width: 0;">
-      <%= image_tag "dogs_pic.jpg", class: "rounded-circle object-fit-cover me-3", style: "width: 56px; height: 56px; flex-shrink: 0;" %>
+
+  <!-- Avatar chien -->
+    <% if post.dog.avatar.attached? %>
+      <%= link_to dog_path(post.dog) do %>
+        <%= cl_image_tag post.dog.avatar.key,
+          transformation: [
+            { width: 56, height: 56, crop: "thumb", gravity: "face", quality: "auto" }
+          ],
+          class: "rounded-circle object-fit-cover me-3",
+          style: "width: 56px; height: 56px; flex-shrink: 0; border: 3px solid #f86120;",
+          alt: post.dog.name %>
+      <% end %>
+    <% else %>
+      <%= link_to dog_path(post.dog) do %>
+        <%= image_tag "dogs_pic.jpg",
+          class: "rounded-circle object-fit-cover me-3",
+          style: "width: 56px; height: 56px; flex-shrink: 0;" %>
+      <% end %>
+    <% end %>
+
+
       <div>
-        <h5 class="fw-bold mb-0 text-doggy" style="font-size: 1.1rem; letter-spacing: -0.3px;"><%= post.dog.name %></h5>
+        <h5 class="fw-bold mb-0 text-doggy" style="font-size: 1.1rem; letter-spacing: -0.3px;">
+          <%= link_to post.dog.name,
+                dog_path(post.dog),
+                data: { turbo_frame: "_top" },
+                class: "text-decoration-underline text-doggy" %>
+        </h5>
+
+
         <p class="text-muted mb-0" style="font-size: 0.6rem;">Il y a <%= time_ago_in_words(post.created_at) %></p>
 
       </div>
@@ -26,13 +53,21 @@
       <p><%= post.content %></p>
     </div>
 
-
-  <% if post.image.attached? %>
-    <div class="px-4">
-    <%= image_tag post.image, class: "post-image", style: "width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: center; display: block; margin: 0 auto;" %>
-    </div>
-  <% end %>
-
+      <% if post.image.attached? %>
+        <%= link_to post_path(post),
+        data: { turbo_frame: "post_panel" } do %>
+          <div class="px-4">
+            <%= cl_image_tag post.image.key,
+          transformation: [
+            { quality: "auto" },
+            { width: 800, crop: "scale" }
+          ],
+          class: "post-image",
+          style: "width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover;"
+        %>
+          </div>
+        <% end %>
+      <% end %>
 
 <div class="actions d-flex justify-content-between align-items-center pt-2 pb-2 text-muted" style="font-size: 0.95rem;">
 
@@ -56,34 +91,52 @@
 
 <div class="actions d-flex justify-content-between align-items-center text-muted border-top" style="font-size: 0.95rem;">
 
-    <div class="w-50 text-center">
+    <!-- wouffer -->
+<div class="w-50 text-center">
+
+  <% if current_user.dogs.count > 1 %>
+
+    <!-- Plusieurs chiens → ouvrir le modal de wouf -->
+    <button class="btn btn-link text-decoration-none text-muted fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100"
+          data-bs-toggle="modal"
+          data-bs-target="#chooseDogModal-<%= post.id %>">
+      <%= image_tag "paw_stroked.svg", style: "width: 18px; opacity: 0.6;" %>
+      <span class="fw-bolder">Wouffer</span>
+    </button>
+
+  <% else %>
+
+    <!-- Un seul chien → wouf direct -->
     <% if post.woufs.exists?(dog: current_dog) %>
       <%= button_to post_wouf_path(post, post.woufs.find_by(dog: current_dog)),
         method: :delete,
         class: "btn btn-link text-decoration-none text-dark fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
-        <%= image_tag "paw_filled.svg", class: "paw-svg", style: "width: 18px; height: 18px;" %>
-      <span class="text-doggy fw-bolder">Wouffé</span>
+        <%= image_tag "paw_filled.svg", style: "width: 18px;" %>
+        <span class="text-doggy fw-bolder">Wouffé</span>
       <% end %>
     <% else %>
       <%= button_to post_woufs_path(post),
         class: "btn btn-link text-decoration-none text-muted fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
-        <%= image_tag "paw_stroked.svg", class: "paw-svg", style: "width: 18px; height: 18px; opacity: 0.6;" %>
+        <%= image_tag "paw_stroked.svg", style: "width: 18px; opacity: 0.6;" %>
         <span class="fw-bolder">Wouffer</span>
       <% end %>
     <% end %>
-    </div>
+
+  <% end %>
+
+</div>
+
+<!-- Commenter -->
 
 <div class="w-50 text-center">
   <%= link_to post_comments_path(post),
         data: { turbo_frame: "comments_panel" },
         class: "btn btn-link text-decoration-none text-muted fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
-   <%= image_tag "messages.svg", class: "comment-svg", style: "width: 16px; height: 16px; opacity: 0.6;" %>
-    <span class="fw-bolder" id="<%= dom_id(post, :comments_count) %>">
-      Commenter
-    </span>
+    <%= image_tag "messages.svg", style: "width: 16px; opacity: 0.6;" %>
+    <span class="fw-bolder">Commenter</span>
   <% end %>
+</div>
 
-  </div>
 
    <!-- <div class="w-50 text-center">-->
     <%#= link_to post_comments_path(post), class: "btn btn-link text-decoration-none text-muted fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
@@ -93,5 +146,30 @@
 <!--    </div>-->
 
 </div>
+  </div>
+</div>
+
+<div class="modal fade" id="chooseDogModal-<%= post.id %>" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 p-3">
+
+      <h5 class="fw-bold mb-3">Choisir un chien</h5>
+
+      <% current_user.dogs.each do |dog| %>
+        <%= button_to post_woufs_path(post, dog_id: dog.id),
+              method: :post,
+              class: "btn btn-light w-100 d-flex align-items-center gap-2 mb-2" do %>
+
+          <% if dog.avatar.attached? %>
+            <%= cl_image_tag dog.avatar.key, width: 32, height: 32, class: "rounded-circle" %>
+          <% else %>
+            <%= image_tag "dogs_pic.jpg", width: 32, height: 32, class: "rounded-circle" %>
+          <% end %>
+
+          <span><%= dog.name %></span>
+        <% end %>
+      <% end %>
+
+    </div>
   </div>
 </div>

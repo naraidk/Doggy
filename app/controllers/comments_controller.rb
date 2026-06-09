@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
+
   def index
     @post = Post.find(params[:post_id])
     @comments = @post.comments.includes(:dog)
@@ -7,16 +8,20 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.new(comment_params.merge(dog: current_dog))
+    dog = current_user.dogs.find(params[:dog_id])
+
+    @comment = Comment.new(comment_params)
+    @comment.post = @post
+    @comment.dog = dog
 
     if @comment.save
       @comments = @post.comments.includes(:dog)
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to post_comments_path(@post) }
-    end
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to post_comments_path(@post) }
+      end
     else
-      render :index, status: :unprocessable_entity
+      render turbo_stream: turbo_stream.replace("comment_form", partial: "comments/form", locals: { post: @post, comment: @comment })
     end
   end
 
