@@ -8,7 +8,7 @@
       <%= image_tag "doggy_picto.svg", class: "img-fluid", style: "width: 100px;" %>
     </div>
 <%= simple_form_for @post, url: posts_path do |f| %>
-
+<%= @post.errors.full_messages.to_sentence if @post.errors.any? %>
   <%= f.association :dog,
                     collection: current_user.dogs,
                     label: "En tant que:",
@@ -34,8 +34,6 @@
 <% end %>
 
   </div>
-
-
 
 
       </div>

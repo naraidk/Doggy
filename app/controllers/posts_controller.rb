@@ -9,6 +9,22 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
+  def show
+    @post = Post.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
+  end
+
+
+  def post_panel
+    @post = Post.find(params[:id])
+    render partial: "posts/panel", locals: { post: @post }
+  end
+
+
   def create
     @post = Post.new(post_params)
     @post.dog = current_user.dogs.find(post_params[:dog_id])

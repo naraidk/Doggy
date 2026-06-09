@@ -35,3 +35,46 @@
     border-radius: 8px;
   }
 }
+
+
+/* 1. Personnalise le conteneur global du popup (arrondis et ombre douce) */
+.mapboxgl-popup-content {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+  padding: 12px 16px !important;
+  font-family: inherit;
+}
+
+/* 2. Modifie la petite flèche en bas du popup pour qu'elle corresponde */
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  border-top-color: #ffffff !important;
+}
+
+/* 3. Style ton propre contenu (le texte à l'intérieur) */
+.map-popup {
+  font-size: 14px;
+  color: #333333;
+
+  strong {
+    color: #ff6b35; /* Ta couleur orange Doggy si tu veux l'utiliser ! */
+    font-size: 15px;
+  }
+
+  span {
+    display: inline-block;
+    margin-top: 4px;
+  }
+}
+
+/* 4. Personnalise la petite croix de fermeture "X" */
+.mapboxgl-popup-close-button {
+  color: #9aa0a6;
+  padding: 4px 8px;
+  font-size: 16px;
+  border-radius: 0 12px 0 0;
+
+  &:hover {
+    background-color: #f8f9fa;
+    color: #333333;
+  }
+}

@@ -1,5 +1,5 @@
 class DogsController < ApplicationController
-  before_action :set_dog, only: %i[show edit update destroy]
+  before_action :set_dog, only: %i[show edit update destroy matches]
 
   def index
     @dogs = current_user.dogs
@@ -7,6 +7,17 @@ class DogsController < ApplicationController
 
   def show
     @dog = Dog.find(params[:id])
+    @photos = @dog.posts.with_attached_image
+  end
+
+  def matches
+    candidates = Dog.where.not(user: current_user)
+                    .where.not(id: @dog.id)
+
+    @matches = candidates
+               .map { |candidate| [candidate, @dog.compatibility_with(candidate)] }
+               .sort_by { |candidate, score| -score }
+               .first(10)
   end
 
   def new
@@ -27,6 +38,10 @@ class DogsController < ApplicationController
     @dog = current_user.dogs.find(params[:id])
   end
 
+  def edit_avatar
+    @dog = current_user.dogs.find(params[:id])
+  end
+
   def update
     @dog = current_user.dogs.find(params[:id])
 
@@ -42,8 +57,12 @@ class DogsController < ApplicationController
 
     redirect_to dogs_path, notice: "Profil du chien supprimé."
   rescue ActiveRecord::InvalidForeignKey
-    redirect_to dog_path(@dog), alert: "Impossible de supprimer
-        + ce chien."
+    redirect_to dog_path(@dog), alert: "Impossible de supprimer ce chien."
+  end
+
+  def select
+    session[:current_dog_id] = params[:dog_id]
+    redirect_back fallback_location: posts_path
   end
 
   private
@@ -53,6 +72,19 @@ class DogsController < ApplicationController
   end
 
   def dog_params
-    params.require(:dog).permit(:name, :breed, :age, :description, :avatar)
+    params.require(:dog).permit(
+      :name,
+      :breed,
+      :age,
+      :gender,
+      :description,
+      :avatar,
+      :size,
+      :energy_level,
+      :canine_sociability,
+      :human_sociability,
+      :temperament,
+      :favorite_activity
+    )
   end
 end

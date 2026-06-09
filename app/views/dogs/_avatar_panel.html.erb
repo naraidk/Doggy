@@ -1,0 +1,29 @@
+<div class="comments-panel" data-controller="panel" data-panel-frame-id-value="avatar_panel">
+  <div class="panel-header d-flex justify-content-between px-4 pt-2">
+    <span class="fw-light fs-6">Changer la photo de profil</span>
+    <button type="button" class="close-panel" data-action="click->panel#close">✕</button>
+  </div>
+
+  <div class="panel-body px-4 pt-3">
+    <div class="d-flex justify-content-center mb-4">
+      <% if dog.avatar.attached? %>
+        <%= cl_image_tag dog.avatar.key,
+              transformation: [{ width: 120, height: 120, crop: "thumb", gravity: "face", quality: "auto" }],
+              class: "rounded-circle object-fit-cover",
+              style: "width:120px;height:120px;border:4px solid #f86120;" %>
+      <% else %>
+        <%= image_tag "dogs_pic.jpg",
+              class: "rounded-circle object-fit-cover",
+              style: "width:120px;height:120px;border:4px solid #f86120;" %>
+      <% end %>
+    </div>
+
+    <%= form_with model: dog, url: dog_path(dog), method: :patch, data: { turbo_frame: "_top" } do |f| %>
+      <div class="mb-3">
+        <%= f.label :avatar, "Nouvelle photo", class: "form-label fw-bold" %>
+        <%= f.file_field :avatar, class: "form-control", accept: "image/*" %>
+      </div>
+      <%= f.submit "Enregistrer", class: "btn btn-doggy w-100" %>
+    <% end %>
+  </div>
+</div>

@@ -1,55 +1,64 @@
-<div class="container py-5">
-
+<div class="container pb-1">
+  <div class="card shadow-sm rounded-4 border-0">
+    <div class="card-body p-1">
   <%= link_to "← Retour",
       dogs_path,
       class: "text-decoration-none text-muted" %>
-      <h2 class="text-center fw-blod" ><%= current_user.email %></h2>
-
-  <div class="card shadow-sm rounded-4 border-0 mt-3">
-
-    <div class="card-body p-4">
-
-      <div class="d-flex justify-content-between align-items-start">
-
-        <div>
-
-          <h1 class="fw-bold">
-            <%= @dog.name %>
-          </h1>
-
+      <div class="d-flex justify-content-center align-items-center w-100 mt-2 mb-1">
+        <%= link_to edit_avatar_dog_path(@dog), data: { turbo_frame: "avatar_panel" }, style: "cursor: pointer;" do %>
           <% if @dog.avatar.attached? %>
-            <%= image_tag @dog.avatar,
+            <%= cl_image_tag @dog.avatar.key,
+              transformation: [
+                { width: 150, height: 150, crop: "thumb", gravity: "face", quality: "auto" }
+              ],
               class: "rounded-circle object-fit-cover",
-              width: 150,
-              height: 150,
+              style: "border: 7px solid #f86120;",
               alt: @dog.name %>
+          <% else %>
+            <%= image_tag "dogs_pic.jpg",
+              class: "rounded-circle object-fit-cover",
+              style: "width:100px;height:100px;border:7px solid #f86120;" %>
           <% end %>
-
-          <p class="text-muted">
-            <%= @dog.breed %>
-          </p>
-
-        </div>
-
+        <% end %>
       </div>
-
+      </div>
+    <h1 class="fw-bold">
+    <%= @dog.name %>
+    </h1>
+      <p>
+        <strong>Race :</strong>
+        <%= @dog.breed || "Non renseigné" %><br>
+                <strong>Sexe :</strong>
+        <%= @dog.gender || "Non renseigné" %><br>
+                <strong>Âge :</strong>
+        <%= @dog.age || "Non renseigné" %> ans <br>
+                <strong>Description :</strong>
+        <%= @dog.description.presence || "Aucune description." %><br>
+                <strong>Maître :</strong>
+        <%= current_user.first_name %>
+      </p>
       <hr>
-
       <p>
-        <strong>Âge :</strong>
-        <%= @dog.age || "Non renseigné" %>
+        Messages :
+        <%= @dog.messages.size || "Non renseigné" %><br>
+        Events :
+        <%= @dog.events.size || "Non renseigné" %><br>
+        Events participants :
+        <%= @dog.event_participants.size || "Non renseigné" %><br>
+        Posts : <%= @dog.posts.size || "Non renseigné" %><br>
+        Comments :
+        <%= @dog.comments.size || "Non renseigné" %><br>
+        Woufs :
+        <%= @dog.woufs.size || "Non renseigné" %>
       </p>
-      <p>
-        <strong>Description :</strong>
-        <%= @dog.description.presence || "Aucune description." %>
-      </p>
+      <div class="d-flex gap-2 mt-1">
 
-      <div class="d-flex gap-2 mt-4">
-
-        <%= button_to "Commencer une conversation",
+        <%= button_to "Assistant Wouffy!",
             conversation_path(@dog),
             method: :post,
             class: "btn btn-primary rounded-pill px-4" %>
+
+        <%= link_to "Modifier", edit_dog_path(@dog), class: "btn btn-outline-secondary rounded-pill px-4" %>
 
         <%= button_to "Supprimer",
             dog_path(@dog),
@@ -61,8 +70,29 @@
 
       </div>
 
+      <hr>
+
+      <h4 class="fw-bold mb-1">Photos</h4>
+
+     <div class="row g-2">
+        <% @photos.each do |post| %>
+          <div class="col-4">
+            <%= link_to post_path(post), data: { turbo_frame: "post_panel" } do %>
+              <%= cl_image_tag post.image.key,
+                    transformation: [
+                      { width: 300, height: 300, crop: "fill", gravity: "auto", quality: "auto" }
+                    ],
+                    class: "w-100 rounded",
+                    style: "aspect-ratio: 1/1; object-fit: cover;" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
 
   </div>
 
 </div>
+
+<turbo-frame id="post_panel"></turbo-frame>
+<turbo-frame id="avatar_panel"></turbo-frame>

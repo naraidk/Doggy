@@ -1,20 +1,25 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  #include Pundit::Authorization
-
-  #after_action :verify_authorized, except: :index, unless: :skip_pundit?
-  #after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
-
-  private
-
-  def skip_pundit?
-    devise_controller? ||
-      params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
-  end
-
+  before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :current_dog
 
   def current_dog
-    current_user.dogs.first
+    if session[:current_dog_id].present?
+      current_user.dogs.find_by(id: session[:current_dog_id])
+    else
+      current_user.dogs.first
+    end
   end
+
+  private
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :username])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :username])
+  end
+
+    def skip_pundit?
+      devise_controller? ||
+        params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
+    end
 end

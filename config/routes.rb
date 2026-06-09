@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "swipes/index"
+  get "swipes/create"
   devise_for :users
 
 
@@ -9,10 +11,17 @@ Rails.application.routes.draw do
 
   # DOGS + CHATBOT IA
   resources :dogs do
+    member do
+      get :edit_avatar
+    end
     resources :ai_chats, only: [:index, :show, :create] do
       resources :ai_messages, only: [:create]
     end
   end
+
+  # changer de chien
+  post "select_dog/:dog_id", to: "dogs#select", as: :select_dog
+
 
    # CONVERSATIONS ENTRE CHIENS
   resources :conversations, only: [:index, :show, :create] do
@@ -20,10 +29,19 @@ Rails.application.routes.draw do
   end
 
   # FEED (posts, comments, woufs)
-  resources :posts, only: [:index, :new, :create, :destroy] do
+  resources :posts, only: [:index, :new, :create, :show, :destroy] do
     resources :woufs, only: [:create, :destroy]
     resources :comments, only: [:index, :create, :destroy]
   end
+
+# Pop up de post
+  resources :posts do
+    member do
+      get :post_panel
+    end
+  end
+
+
 
   # EVENTS
   resources :events do
@@ -32,4 +50,7 @@ Rails.application.routes.draw do
 
   # MAP
   get "map" => "maps#index", as: :map
+
+  #MATCHING
+  resources :swipes, only: [:index, :create]
 end

@@ -23,6 +23,10 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   </head>
 
   <body class="mb-6">
@@ -38,5 +42,6 @@
       <% if user_signed_in? %>
       <%= render 'shared/navbar' %>
       <% end %>
+      <turbo-frame id="post_panel"></turbo-frame>
   </body>
 </html>

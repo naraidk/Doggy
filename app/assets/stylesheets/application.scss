@@ -32,6 +32,19 @@ html, body {
 .text-doggy {
     color: #FF5D24;
 }
+.text-doggy-danger {
+
+    color: #c9c9c9;
+
+}
+.btn-doggy {
+    background-color: #FF5D24;
+    border-color: #FF5D24;
+}
+
+.btn-danger-doggy {
+  background-color: #c9c9c9;
+}
 
 .background-doggy {
   background-color: #FF5D24;
@@ -42,10 +55,7 @@ html, body {
   line-height: 1.5;
 }
 
-.btn-doggy {
-    background-color: #FF5D24;
-    border-color: #FF5D24;
-}
+
 
 /* --- LOGIQUE DES BULLES DE CHAT --- */
 .chat-container {
@@ -352,4 +362,78 @@ color: black;
 .small-content {
 font-size: 0.9rem;
 opacity: 0.5;
+}
+
+input::placeholder,
+textarea::placeholder {    // Ta couleur orange (ou un gris plus doux comme #a0a0a0)
+  opacity: 0.3 !important;        // Pour gérer la transparence (1 = opaque, 0 = invisible)
+  font-style: italic;  // Optionnel : pour le mettre en italique
+  font-size: 0.95rem;  // Optionnel : pour réduire légèrement la taille du texte
+}
+
+
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.1);
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.1);
+		transform: translatey(-20px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.1);
+		transform: translatey(0px);
+	}
+}
+
+.btn-floating-map {
+  position: fixed;
+  bottom: 90px; /* Positionné juste au-dessus de ta navbar du bas */
+  right: 35px;  /* Aligné à droite */
+  z-index: 4001; /* TRÈS IMPORTANT : Leaflet utilise des z-index élevés (souvent jusqu'à 1000/4000). On force le bouton à être au-dessus de la carte. */
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #ff5c24; /* Ton orange Doggy */
+  color: white !important;
+
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espace entre l'icône et le texte */
+
+  padding: 12px 20px;
+  border-radius: 100%; /* Design pilule super moderne */
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  text-decoration: none;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  transform: translatey(0px);
+	animation: float 2s ease-in-out infinite;
+
+  &:hover {
+    background-color: #e5633e;
+    transform: scale(1.05); /* Léger effet de zoom au clic */
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+
+
+.event-details-list {
+  p {
+    font-size: 0.95rem;
+
+    // Style appliqué sur tes images SVG
+    .svg-icon-list {
+      width: 20px;         /* Largeur fixe identique pour aligner le texte verticalement */
+      height: 20px;        /* Hauteur fixe */
+      object-fit: contain; /* Conserve les proportions du SVG sans le déformer */
+      display: inline-block;
+    }
+  }
 }
