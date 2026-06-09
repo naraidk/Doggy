@@ -437,3 +437,53 @@ textarea::placeholder {    // Ta couleur orange (ou un gris plus doux comme #a0a
     }
   }
 }
+.swipe-action {
+  width: 58px;
+  height: 58px;
+  font-size: 24px;
+  border: 1px solid rgba(255, 93, 36, 0.20);
+  color: #FF5D24 !important;
+  transition: all 0.2s ease;
+}
+
+.swipe-action-lg {
+  width: 72px;
+  height: 72px;
+  font-size: 30px;
+  border: 1px solid rgba(255, 93, 36, 0.20);
+  color: #FF5D24 !important;
+  transition: all 0.2s ease;
+}
+
+.swipe-action:hover,
+.swipe-action-lg:hover {
+  color: #c9c9c9 !important;
+  border-color: #c9c9c9;
+  transform: scale(1.08);
+}
+
+.my-woufs-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background-color: rgba(255, 93, 36, 0.10);
+  color: #FF5D24 !important;
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-decoration: none;
+  box-shadow: rgba(149, 157, 165, 0.15) 0px 8px 20px;
+}
+
+.my-woufs-pill:hover {
+  background-color: #FF5D24;
+  color: white !important;
+}
+
+.my-woufs-pill span {
+  background: white;
+  color: #FF5D24;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
