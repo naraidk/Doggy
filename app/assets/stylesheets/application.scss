@@ -456,6 +456,7 @@ textarea::placeholder {    // Ta couleur orange (ou un gris plus doux comme #a0a
   border-bottom: 1px solid #dee2e6;
   margin-bottom: 0;
   padding: 1rem;
+  
 }
 
 .messages {
@@ -513,7 +514,8 @@ textarea::placeholder {    // Ta couleur orange (ou un gris plus doux comme #a0a
 }
 
 .message.sent .message-content {
-  background: #e5633e;
+  background: #FF5D24;
+  opacity: 0.4;
   color: white;
 }
 
@@ -537,7 +539,7 @@ textarea::placeholder {    // Ta couleur orange (ou un gris plus doux comme #a0a
   padding: 0 18px;
   border: none;
   border-radius: 0 12px 12px 0;
-  background: #e5633e;
+  background: #FF5D24;
   color: white;
   display: flex;
   align-items: center;
