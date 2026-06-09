@@ -4,18 +4,25 @@
 
   <div class="card-body d-flex justify-content-between align-items-center px-4 py-3">
 
-    <div class="d-flex align-items-center gap-3" style="min-width: 0;">
-      <% if event.dog.avatar.attached? %>
-        <%= cl_image_tag event.dog.avatar.key,
-              transformation: [{ width: 40, height: 40, crop: "thumb", gravity: "face", quality: "auto" }],
-              class: "rounded-circle object-fit-cover flex-shrink-0",
-              style: "width: 40px; height: 40px; border: 2px solid #f86120;" %>
-      <% else %>
-        <%= image_tag "dogs_pic.jpg",
-              class: "rounded-circle object-fit-cover flex-shrink-0",
-              style: "width: 40px; height: 40px;" %>
-      <% end %>
-      <%= link_to event.title, event_path(event), class: "fw-bold text-black", style: "text-decoration: none;" %>
+    <div style="min-width: 0;">
+      <%= link_to event.title, event_path(event), class: "fw-bold text-black d-block mb-1", style: "text-decoration: none;" %>
+
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-muted" style="font-size: 0.85rem;">Organisé par :</span>
+        <%= link_to dog_path(event.dog), class: "d-flex align-items-center gap-1 text-decoration-none" do %>
+          <% if event.dog.avatar.attached? %>
+            <%= cl_image_tag event.dog.avatar.key,
+                  transformation: [{ width: 28, height: 28, crop: "thumb", gravity: "face", quality: "auto" }],
+                  class: "rounded-circle object-fit-cover flex-shrink-0",
+                  style: "width: 28px; height: 28px; border: 2px solid #f86120;" %>
+          <% else %>
+            <%= image_tag "dogs_pic.jpg",
+                  class: "rounded-circle object-fit-cover flex-shrink-0",
+                  style: "width: 28px; height: 28px;" %>
+          <% end %>
+          <strong class="text-doggy" style="font-size: 0.85rem;"><%= event.dog.name %></strong>
+        <% end %>
+      </div>
     </div>
 
     <div class="badge text-doggy">
