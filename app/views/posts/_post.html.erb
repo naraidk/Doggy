@@ -13,7 +13,7 @@
     <% if post.dog.user == current_user %>
     <%= button_to post_path(post),
           method: :delete,
-          class: "delete-button text-danger fs-6",
+          class: "delete-button text-doggy-danger fs-6",
           form: { data: { turbo_confirm: "Es-tu sûr de vouloir supprimer ce post ?" } } do %>
       <i class="fa-solid fa-trash"></i>
     <% end %>
@@ -32,6 +32,8 @@
     <%= image_tag post.image, class: "post-image", style: "width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: center; display: block; margin: 0 auto;" %>
     </div>
   <% end %>
+
+
 <div class="actions d-flex justify-content-between align-items-center pt-2 pb-2 text-muted" style="font-size: 0.95rem;">
 
   <div class="w-50 text-center">
