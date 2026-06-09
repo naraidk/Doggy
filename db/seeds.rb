@@ -33,6 +33,22 @@ rescue => e
   puts "    ⚠️   Could not attach avatar for #{dog.name}: #{e.message}"
 end
 
+def attach_post_image(post, breed_path)
+  api_url = "https://dog.ceo/api/breed/#{breed_path}/images/random"
+  image_url = JSON.parse(URI.open(api_url).read)['message']
+  ext = File.extname(URI.parse(image_url).path).delete('.').downcase
+  ext = 'jpg' if ext.empty?
+  content_type = ext == 'png' ? 'image/png' : 'image/jpeg'
+  post.image.attach(
+    io: URI.open(image_url),
+    filename: "post_#{post.id}.#{ext}",
+    content_type: content_type
+  )
+  puts "    🖼️   Image attached to post by #{post.dog.name}"
+rescue => e
+  puts "    ⚠️   Could not attach image to post: #{e.message}"
+end
+
 # ─── Users ─────────────────────────────────────────────────────────────────────
 
 puts "\nCreating users..."
@@ -255,6 +271,12 @@ end
 post_filou, post_luna, post_cesar, post_rocky,
 post_rex, post_coco, post_princesse = posts
 
+puts "\nAttaching post images..."
+attach_post_image(post_luna,     "australian/shepherd")
+attach_post_image(post_cesar,    "retriever/golden")
+attach_post_image(post_rex,      "labrador")
+attach_post_image(post_princesse, "poodle")
+
 # ─── Woufs ─────────────────────────────────────────────────────────────────────
 
 puts "\nCreating woufs..."
@@ -394,6 +416,17 @@ puts "\nCreating event participants..."
 ].each { |d| EventParticipant.create!(event: d[:event], dog: d[:dog]) }
 
 puts "  ✅  #{EventParticipant.count} participants created"
+
+# ─── Randomize feed timestamps ─────────────────────────────────────────────────
+
+puts "\nRandomizing feed timestamps..."
+
+all_feed_items = posts + events
+all_feed_items.each do |item|
+  t = rand(14.days.ago..6.hours.ago)
+  item.update_columns(created_at: t, updated_at: t)
+end
+puts "  ✅  Timestamps randomized for #{all_feed_items.count} items"
 
 # ─── Summary ───────────────────────────────────────────────────────────────────
 
