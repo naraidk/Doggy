@@ -23,7 +23,7 @@
                 class: "text-decoration-underline text-doggy" %>
         </h5>
         <%= link_to event_path(event), class: "text-muted text-decoration-none", style: "font-size: 0.6rem;" do %>
-          Il y a <%= time_ago_in_words(event.created_at) %>
+          <div class="text-muted mb-0" style="font-size: 0.7rem;">Il y a <%= time_ago_in_words(event.created_at) %></div>
         <% end %>
       </div>
     </div>

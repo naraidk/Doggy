@@ -32,7 +32,7 @@
         </h5>
 
 
-        <p class="text-muted mb-0" style="font-size: 0.6rem;">Il y a <%= time_ago_in_words(post.created_at) %></p>
+        <p class="text-muted mb-0" style="font-size: 0.7rem;">Il y a <%= time_ago_in_words(post.created_at) %></p>
 
       </div>
     </div>
@@ -48,7 +48,7 @@
         <%= link_to conversations_path(dog_two_id: post.dog.id),
             data: { turbo_method: :post },
             class: "delete-button text-doggy-danger fs-6" do %>
-  <%= image_tag "messages_filled.svg", style: "width: 18px; opacity: 0.6;" %>
+  <%= image_tag "messages.svg", style: "width: 18px; opacity: 0.20;" %>
 <% end %>
         <% end %>
 

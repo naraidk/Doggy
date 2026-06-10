@@ -95,3 +95,10 @@
 .comment-submit:hover {
   background-color: #f86120;
 }
+
+textarea#comment_content.comment-input:focus,
+textarea#comment_content.comment-input:focus-visible {
+  border-color: #f15a24 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
