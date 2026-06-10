@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    dog = current_user.dogs.find(params[:dog_id])
+    dog = current_user.dogs.find_by(id: params[:dog_id]) || current_dog
 
     @comment = Comment.new(comment_params)
     @comment.post = @post
