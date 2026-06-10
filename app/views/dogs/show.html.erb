@@ -85,8 +85,9 @@
       <div class="d-flex justify-content-between gap-2 mt-1 px-4">
 
         <%= button_to "Discuter",
-            conversation_path(@dog),
+            conversations_path,
             method: :post,
+            params: { dog_one_id: current_dog.id, dog_two_id: @dog.id },
             class: "btn btn-doggy text-white rounded-4 px-3" %>
 
         <%= link_to "Modifier", edit_dog_path(@dog), class: "btn btn-danger-doggy text-white rounded-4 px-3" %>
