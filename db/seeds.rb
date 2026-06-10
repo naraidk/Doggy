@@ -52,7 +52,6 @@ end
 # ─── Users ─────────────────────────────────────────────────────────────────────
 
 puts "\nCreating users..."
-
 users_data = [
   { first_name: "Antoine",  last_name: "Dubois",   email: "an_d@email.com" },
   { first_name: "Mathieu",  last_name: "Leroy",    email: "ma_l@email.com" },
@@ -61,7 +60,7 @@ users_data = [
   { first_name: "Julien",   last_name: "Moreau",   email: "ju_m@email.com" },
   { first_name: "Sophie",   last_name: "Lefebvre", email: "so_l@email.com" },
   { first_name: "Camille",  last_name: "Dupont",   email: "ca_d@email.com" },
-  { first_name: "Léa",      last_name: "Rousseau", email: "le_r@email.com" },
+  { first_name: "Naraid",   last_name: "Kuapunyakoon", email: "nk@gmail.com" },
   { first_name: "Marie",    last_name: "Petit",    email: "ma_p@email.com" },
   { first_name: "Emma",     last_name: "Girard",   email: "em_g@email.com" },
 ]
@@ -80,7 +79,7 @@ users = users_data.map do |d|
 end
 
 antoine, mathieu, nicolas, thomas, julien,
-sophie, camille, lea, marie, emma = users
+sophie, camille, naraid, marie, emma = users
 
 # ─── Dogs ──────────────────────────────────────────────────────────────────────
 
@@ -144,20 +143,20 @@ dogs_data = [
   # Camille — 1 dog
   {
     user: camille,
-    name: "Princesse", breed: "Caniche", age: 7, gender: "Femelle",
-    description: "Princesse mérite bien son nom ! Cette caniche élégante adore être chouchoutée mais sait aussi être espiègle quand bon lui semble. Elle adore les câlins.",
+    name: "Princesse", breed: "Teckel", age: 2, gender: "Femelle",
+    description: "Princesse mérite bien son nom ! Cette teckel beige à poils longs adore être chouchoutée mais sait aussi être espiègle quand bon lui semble. Elle adore les câlins.",
     size: "Petit", energy_level: "Calme", canine_sociability: "Sélectif",
     human_sociability: "Très affectueux", temperament: "Affectueux", favorite_activity: "Promenade tranquille",
-    breed_path: "poodle"
+    breed_path: "dachshund"
   },
-  # Léa — 1 dog
+  # Naraid — 1 dog
   {
-    user: lea,
-    name: "Simba", breed: "Berger Américain", age: 3, gender: "Mâle",
-    description: "Simba est un berger américain merle tricolore magnifique. Athlétique et vif, il excelle dans les sports canins et adore les longues randonnées en montagne.",
+    user: naraid,
+    name: "Lollipop", breed: "Teckel", age: 1, gender: "Femelle",
+    description: "Lollipop est une teckel noir et feu pleine de caractère. Vive et curieuse, elle adore explorer les sentiers à sa façon et excelle dans l'art de se faufiler partout.",
     size: "Grand", energy_level: "Très dynamique", canine_sociability: "Très sociable",
     human_sociability: "Amical", temperament: "Joueur", favorite_activity: "Randonnée",
-    breed_path: "australian/shepherd"
+    breed_path: "dachshund"
   },
   # Marie — 2 dogs
   {
@@ -224,7 +223,7 @@ dogs = dogs_data.map do |d|
 end
 
 filou, luna, cesar, rocky, rex,
-coco, princesse, simba, bella, gribouille,
+coco, princesse, lollipop, bella, gribouille,
 titi, chocolat, dakota = dogs
 
 # ─── Posts ─────────────────────────────────────────────────────────────────────
@@ -278,14 +277,14 @@ attach_post_image(post_cesar,     "retriever/golden")
 attach_post_image(post_rocky,     "bulldog/french")
 attach_post_image(post_rex,       "labrador")
 attach_post_image(post_coco,      "terrier/russell")
-attach_post_image(post_princesse, "poodle")
+attach_post_image(post_princesse, "dachshund")
 
 puts "\nCreating photo posts for remaining dogs..."
 
 photo_posts_data = [
   {
-    dog: simba,
-    content: "Simba dans son élément naturel — la montagne ! 🏔️ On a fait 15km aujourd'hui, il était encore frais à l'arrivée. Un vrai athlète ce berger !"
+    dog: lollipop,
+    content: "Lollipop dans son élément naturel — les sentiers forestiers ! 🌿 Elle trottine avec ses petites pattes mais ne se laisse jamais distancer. Un vrai cœur de lion dans un corps de saucisse !"
   },
   {
     dog: bella,
@@ -312,6 +311,7 @@ photo_posts_data = [
 breed_path = ->(dog) {
   case dog.breed
   when "Berger Américain"      then "australian/shepherd"
+  when "Teckel"                then "dachshund"
   when "Golden Retriever"      then "retriever/golden"
   when "Bouledogue Français"   then "bulldog/french"
   when "Jack Russell Terrier"  then "terrier/russell"
@@ -327,13 +327,13 @@ photo_posts = photo_posts_data.map do |d|
   post
 end
 
-simba_photo_post = photo_posts.find { |p| p.dog == simba }
+lollipop_photo_post = photo_posts.find { |p| p.dog == lollipop }
 
-puts "\nAdding 2 extra photo posts for Simba (3 total)..."
-simba_photo_post2 = Post.create!(dog: simba, content: "Weekend trail avec Simba dans les Vosges 🌲 Ce berger ne se lasse jamais, il pourrait courir des heures sans s'arrêter. Tellement fier de lui !")
-attach_post_image(simba_photo_post2, "australian/shepherd")
-simba_photo_post3 = Post.create!(dog: simba, content: "Simba au coucher de soleil sur les hauteurs de Lyon 🌅 Ce regard... il sait très bien qu'il est beau ce coquin !")
-attach_post_image(simba_photo_post3, "australian/shepherd")
+puts "\nAdding 2 extra photo posts for Lollipop (3 total)..."
+lollipop_photo_post2 = Post.create!(dog: lollipop, content: "Weekend balade avec Lollipop dans la forêt 🌲 Elle renifle chaque feuille, chaque caillou. Une vraie exploratrice à quatre pattes courtes, tellement fière d'elle !")
+attach_post_image(lollipop_photo_post2, "dachshund")
+lollipop_photo_post3 = Post.create!(dog: lollipop, content: "Lollipop au coucher de soleil 🌅 Ce regard noir et brillant... elle sait très bien qu'elle est irrésistible cette coquine !")
+attach_post_image(lollipop_photo_post3, "dachshund")
 
 # ─── Woufs ─────────────────────────────────────────────────────────────────────
 
@@ -342,7 +342,7 @@ puts "\nCreating woufs..."
 woufs_data = [
   { dog: luna,       post: post_filou },
   { dog: cesar,      post: post_filou },
-  { dog: simba,      post: post_filou },
+  { dog: lollipop,   post: post_filou },
   { dog: filou,      post: post_luna },
   { dog: bella,      post: post_luna },
   { dog: dakota,     post: post_luna },
@@ -353,7 +353,7 @@ woufs_data = [
   { dog: princesse,  post: post_rocky },
   { dog: coco,       post: post_rocky },
   { dog: cesar,      post: post_rex },
-  { dog: simba,      post: post_rex },
+  { dog: lollipop,   post: post_rex },
   { dog: titi,       post: post_rex },
   { dog: titi,       post: post_coco },
   { dog: filou,      post: post_coco },
@@ -375,13 +375,13 @@ comments_data = [
   { dog: cesar,      post: post_filou,     content: "Un jour tu l'auras Filou ! J'y crois pour toi 🐾💪" },
   { dog: filou,      post: post_luna,      content: "BRAVO LUNA ! 🎉 Tu mérites tellement cette récompense, vous bossez dur tous les deux !" },
   { dog: rocky,      post: post_luna,      content: "Impressionnant ! Moi j'aurais dormi pendant les obstacles 😴" },
-  { dog: simba,      post: post_luna,      content: "Les bergers américains on est les meilleurs en agility, c'est bien connu 🏆" },
+  { dog: lollipop,   post: post_luna,      content: "Les teckels on est les meilleures pour se faufiler sous les obstacles, c'est bien connu 🏆" },
   { dog: rex,        post: post_cesar,     content: "Les goldens c'est la meilleure race du monde, j'en suis convaincu 💛" },
   { dog: coco,       post: post_cesar,     content: "César t'as l'air tellement heureux ! Gardez-nous une place au parc 🌿" },
   { dog: luna,       post: post_rocky,     content: "Rocky le roi du canapé 👑 Respect total pour cette attitude assumée !" },
   { dog: princesse,  post: post_rocky,     content: "Je comprends Rocky, le canapé c'est sacré. Solidarité canine 🛋️" },
   { dog: cesar,      post: post_rex,       content: "L'eau c'est la VIE ! Bienvenue dans le club des nageurs Rex 🏊‍♂️🐾" },
-  { dog: simba,      post: post_rex,       content: "La tête qu'il a dans l'eau c'est trop beau 😂 Quel bonheur !" },
+  { dog: lollipop,   post: post_rex,       content: "La tête qu'il a dans l'eau c'est trop beau 😂 Quel bonheur !" },
   { dog: titi,       post: post_coco,      content: "Coco et moi on devrait monter une entreprise de tunnels canins 😂 Je la comprends tellement !" },
   { dog: filou,      post: post_coco,      content: "Respect Coco 🫡 Nous les jack russells on est ingénieux par nature, c'est dans notre ADN !" },
   { dog: bella,      post: post_princesse, content: "Elle est trop belle Princesse ! Cette coupe est parfaite ✨😍" },
@@ -461,13 +461,13 @@ puts "\nCreating event participants..."
   { event: events[0], dog: rocky },
   { event: events[0], dog: coco },
   { event: events[0], dog: titi },
-  { event: events[1], dog: simba },
+  { event: events[1], dog: lollipop },
   { event: events[1], dog: bella },
   { event: events[1], dog: princesse },
   { event: events[2], dog: chocolat },
   { event: events[2], dog: rex },
   { event: events[3], dog: luna },
-  { event: events[3], dog: simba },
+  { event: events[3], dog: lollipop },
   { event: events[3], dog: dakota },
   { event: events[4], dog: coco },
   { event: events[4], dog: gribouille },
@@ -479,16 +479,18 @@ puts "  ✅  #{EventParticipant.count} participants created"
 
 puts "\nRandomizing feed timestamps..."
 
-all_feed_items = posts + photo_posts + [simba_photo_post2, simba_photo_post3] + events
+all_feed_items = posts + photo_posts + [lollipop_photo_post2, lollipop_photo_post3] + events
 all_feed_items.each do |item|
   t = rand(13.days.ago..6.hours.ago)
   item.update_columns(created_at: t, updated_at: t)
 end
 
-# Pin simba's first photo post as the oldest item — it appears last in the feed
-simba_photo_post.update_columns(created_at: 15.days.ago, updated_at: 15.days.ago)
+# Pin the 3 latest items (top of feed, newest): Coco → event → Princesse
+post_coco.update_columns(created_at: 1.hour.ago, updated_at: 1.hour.ago)
+events[0].update_columns(created_at: 2.hours.ago, updated_at: 2.hours.ago)
+post_princesse.update_columns(created_at: 3.hours.ago, updated_at: 3.hours.ago)
 
-puts "  ✅  Timestamps randomized for #{all_feed_items.count} items (Simba's post pinned last)"
+puts "  ✅  Timestamps randomized for #{all_feed_items.count} items (top 3: Coco → event → Princesse)"
 
 # ─── Summary ───────────────────────────────────────────────────────────────────
 
@@ -501,4 +503,4 @@ puts "   #{Comment.count} comments"
 puts "   #{Event.count} events"
 puts "   #{EventParticipant.count} event participants"
 puts "\n   All passwords: password"
-puts "   Emails: an_d, ma_l, ni_m, th_b, ju_m, so_l, ca_d, le_r, ma_p, em_g — all @email.com"
+puts "   Emails: an_d, ma_l, ni_m, th_b, ju_m, so_l, ca_d, ma_p, em_g — @email.com | nk@gmail.com"
