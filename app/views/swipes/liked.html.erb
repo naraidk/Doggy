@@ -1,0 +1,66 @@
+<div class="container py-3 mb-5">
+
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <%= link_to swipes_path(dog_id: @current_dog.id),
+        class: "text-doggy text-decoration-none fw-bold" do %>
+      <i class="fa-solid fa-arrow-left me-2"></i> Retour
+    <% end %>
+
+    <h1 class="h4 fw-bold text-doggy mb-0">
+      Mes woufs <i class="fa-solid fa-heart"></i>
+    </h1>
+  </div>
+
+  <% if @liked_dogs.any? %>
+
+    <% @liked_dogs.each do |dog| %>
+      <div class="notification rounded-4 shadow-doggy mb-3 d-flex align-items-center justify-content-between">
+
+        <% if dog.avatar.attached? %>
+          <%= image_tag dog.avatar,
+              class: "rounded-circle object-fit-cover me-3",
+              style: "width: 64px; height: 64px;" %>
+        <% else %>
+          <%= image_tag "dogs_pic.jpg",
+              class: "rounded-circle object-fit-cover me-3",
+              style: "width: 64px; height: 64px;" %>
+        <% end %>
+
+        <div class="flex-grow-1">
+          <h5 class="fw-bold mb-0 text-doggy">
+            <%= dog.name %>
+          </h5>
+
+          <p class="mb-0 text-muted small">
+            <%= dog.breed %> · <%= dog.age %> ans
+          </p>
+
+          <small>
+            <i class="fa-solid fa-paw text-doggy me-1"></i>
+            <%= @current_dog.compatibility_with(dog) %>% compatible
+          </small>
+        </div>
+
+        <%= button_to conversations_path(
+              dog_one_id: @current_dog.id,
+              dog_two_id: dog.id
+            ),
+            method: :post,
+            class: "btn bg-white rounded-circle shadow-doggy text-doggy d-flex align-items-center justify-content-center ms-3",
+            style: "width: 48px; height: 48px;" do %>
+          <i class="fa-solid fa-comment"></i>
+        <% end %>
+
+      </div>
+    <% end %>
+
+  <% else %>
+
+    <div class="text-center mt-5">
+      <h2 class="fw-bold text-doggy">Aucun wouf pour le moment</h2>
+      <p class="text-muted">Like des chiens pour les retrouver ici.</p>
+    </div>
+
+  <% end %>
+
+</div>

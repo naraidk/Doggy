@@ -52,5 +52,11 @@ Rails.application.routes.draw do
   get "map" => "maps#index", as: :map
 
   #MATCHING
-  resources :swipes, only: [:index, :create]
+  # MATCHING
+  resources :swipes, only: [:index, :create] do
+    collection do
+      post :undo
+      get :liked
+    end
+  end
 end
