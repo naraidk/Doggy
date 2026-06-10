@@ -14,11 +14,13 @@
          <%= button_to "Se désinscrire",
           event_event_participant_path(@event, @existing_participant),
           method: :delete,
+          form: {data: { turbo: false }},
           class: "btn btn-danger-doggy text-white rounded-4" %>
       <% else %>
       <%= button_to "Participer",
           event_event_participants_path(@event),
           method: :post,
+          form: {data: { turbo: false }},
           class: "btn btn-doggy text-white rounded-4" %>
       <% end %>
     </div>
@@ -83,7 +85,13 @@
       <h6 class="mb-0 text-dark fw-normal py-2" style="font-size: 0.95rem;">Aucun participant pour le moment.</h6>
     <% end %>
 
-    <div id="map"
+</div>
+</div>
+  <%= link_to events_path, class: "btn-floating-map" do %>
+  <i class="fa-solid fa-list"></i>
+<% end %>
+
+<div id="map"
      data-controller="map"
      data-map-events-value="<%= [@event].to_json %>"
      data-map-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
@@ -102,12 +110,6 @@
                 },
               class: "btn text-doggy rounded-4" %>
     </div>
-
-</div>
-</div>
-  <%= link_to events_path, class: "btn-floating-map" do %>
-  <i class="fa-solid fa-list"></i>
-<% end %>
 
 
 <!--

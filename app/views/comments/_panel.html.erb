@@ -42,7 +42,7 @@
           <% if comment.dog == current_dog %>
             <%= button_to [@post, comment],
                 method: :delete,
-                class: "delete-comment-btn",
+                class: "delete-comment-btn text-doggy-danger",
                 data: { turbo_confirm: "Supprimer ce commentaire ?" } do %>
               <i class="fa-solid fa-trash"></i>
             <% end %>
