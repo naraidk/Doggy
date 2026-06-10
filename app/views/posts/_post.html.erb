@@ -45,11 +45,12 @@
           <i class="fa-solid fa-trash"></i>
           <% end %>
         <% else %>
-        <%= link_to conversations_path(dog_two_id: post.dog.id),
-            data: { turbo_method: :post },
+        <%= button_to conversations_path,
+            method: :post,
+            params: { dog_one_id: current_dog.id, dog_two_id: post.dog.id },
             class: "delete-button text-doggy-danger fs-6" do %>
-  <%= image_tag "messages.svg", style: "width: 18px; opacity: 0.20;" %>
-<% end %>
+          <%= image_tag "messages.svg", style: "width: 18px; opacity: 0.20;" %>
+        <% end %>
         <% end %>
 
     </div>

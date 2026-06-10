@@ -42,9 +42,12 @@
       input_html: { value: current_user.dogs.first.id } %>
 
     <%= f.text_field :content,
-      placeholder: "Write as #{current_user.dogs.first.name}",
+      placeholder: "Ecrivez ici ...",
       class: "message-text-field" %>
 
-    <%= f.submit " → ", class: "message-submit-btn fs-1" %>
+    <button type="submit" class="message-submit-btn">
+<%= image_tag "sender_arrow.svg", alt: "Envoyer" %>
+</button>
+
   <% end %>
 </div>
