@@ -1,12 +1,12 @@
 class DogsController < ApplicationController
-  before_action :set_dog, only: %i[show edit update destroy matches]
+  before_action :set_dog, only: %i[show matches]
+  before_action :set_own_dog, only: %i[edit update destroy]
 
   def index
     @dogs = current_user.dogs
   end
 
   def show
-    @dog = Dog.find(params[:id])
     @photos = @dog.posts.with_attached_image
   end
 
@@ -35,7 +35,6 @@ class DogsController < ApplicationController
   end
 
   def edit
-    @dog = current_user.dogs.find(params[:id])
   end
 
   def edit_avatar
@@ -43,7 +42,6 @@ class DogsController < ApplicationController
   end
 
   def update
-    @dog = current_user.dogs.find(params[:id])
 
     if @dog.update(dog_params)
       redirect_to dog_path(@dog), notice: "Profil du chien mis à jour."
@@ -68,6 +66,10 @@ class DogsController < ApplicationController
   private
 
   def set_dog
+    @dog = Dog.find(params[:id])
+  end
+
+  def set_own_dog
     @dog = current_user.dogs.find(params[:id])
   end
 

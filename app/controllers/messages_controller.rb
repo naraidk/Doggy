@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
+
   def create
     @conversation = Conversation.find(params[:conversation_id])
 
@@ -7,13 +8,14 @@ class MessagesController < ApplicationController
     @message.conversation = @conversation
     @message.dog = current_user.dogs.find(params[:message][:dog_id])
 
-    if @message.save
-      respond_to do |format|
+    respond_to do |format|
+      if @message.save
         format.turbo_stream
         format.html { redirect_to conversation_path(@conversation) }
+      else
+        format.html { render "conversations/show", status: :unprocessable_entity }
+        format.turbo_stream { render "conversations/show", status: :unprocessable_entity }
       end
-    else
-      render "conversations/show", status: :unprocessable_entity
     end
   end
 

@@ -11,6 +11,14 @@
   <%= f.error_notification %>
 
   <div class="form-inputs" id="form_session">
+    <%= f.input :first_name,
+                required: true,
+                label: "Prénom",
+                input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+    <%= f.input :last_name,
+                required: true,
+                label: "Nom",
+                input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
     <%= f.input :email,
                 required: true,
                 autofocus: true,

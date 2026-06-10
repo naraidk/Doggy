@@ -42,7 +42,7 @@
           <% if comment.dog == current_dog %>
             <%= button_to [@post, comment],
                 method: :delete,
-                class: "delete-comment-btn",
+                class: "delete-comment-btn text-doggy-danger",
                 data: { turbo_confirm: "Supprimer ce commentaire ?" } do %>
               <i class="fa-solid fa-trash"></i>
             <% end %>
@@ -63,7 +63,7 @@
                 <label class="d-flex align-items-center gap-2 p-2 border rounded-3 dog-choice"
                       style="cursor: pointer;">
 
-                  <%= radio_button_tag :dog_id, dog.id, false, class: "form-check-input me-1" %>
+                  <%= radio_button_tag :dog_id, dog.id, dog == current_dog, class: "form-check-input me-1" %>
 
                   <% if dog.avatar.attached? %>
                     <%= cl_image_tag dog.avatar.key,

@@ -17,6 +17,7 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+    <%= favicon_link_tag 'favicon.ico' %>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -29,7 +30,7 @@
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   </head>
 
-  <body class="mb-6">
+  <body class="mb-6" data-current-dog-id="<%= current_user&.dogs&.first&.id %>">
       <% if user_signed_in? %>
       <%= render 'shared/navbar_top', dog: current_dog %>
       <% end %>
