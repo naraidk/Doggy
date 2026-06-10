@@ -4,7 +4,7 @@
 
     <div class="d-flex align-items-center" style="min-width: 0;">
       <div>
-        <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.1rem; letter-spacing: -0.3px;">Naraid</h5>
+        <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.1rem; letter-spacing: -0.3px;"><%= @event.title %></h5>
       </div>
     </div>
     <div>
@@ -12,13 +12,15 @@
 
       <% if already_joined %>
          <%= button_to "Se désinscrire",
-          event_event_participant_path(@event),
+          event_event_participant_path(@event, @existing_participant),
           method: :delete,
+          form: {data: { turbo: false }},
           class: "btn btn-danger-doggy text-white rounded-4" %>
       <% else %>
       <%= button_to "Participer",
           event_event_participants_path(@event),
           method: :post,
+          form: {data: { turbo: false }},
           class: "btn btn-doggy text-white rounded-4" %>
       <% end %>
     </div>
@@ -39,7 +41,21 @@
 
   <p class="text-dark d-flex align-items-center gap-2 mb-0 py-1">
     <%= image_tag "calendar.svg", class: "svg-icon-list", alt: "Organisateur" %>
-    <span>Organisé par <strong><%= @event.dog.name %></strong></span>
+    <span>Organisé par
+      <%= link_to dog_path(@event.dog), class: "d-inline-flex align-items-center gap-2 text-decoration-none" do %>
+        <% if @event.dog.avatar.attached? %>
+          <%= cl_image_tag @event.dog.avatar.key,
+                transformation: [{ width: 32, height: 32, crop: "thumb", gravity: "face", quality: "auto" }],
+                class: "rounded-circle object-fit-cover",
+                style: "width: 32px; height: 32px; border: 2px solid #f86120;" %>
+        <% else %>
+          <%= image_tag "dogs_pic.jpg",
+                class: "rounded-circle object-fit-cover",
+                style: "width: 32px; height: 32px;" %>
+        <% end %>
+        <strong class="text-doggy"><%= @event.dog.name %></strong>
+      <% end %>
+    </span>
   </p>
 
 </div>
@@ -53,15 +69,29 @@
 
     <% if @event.event_participants.any? %>
       <% @event.event_participants.each do |participant| %>
-             <h6 class="mb-0 text-dark fw-normal py-2" style="font-size: 0.95rem;"><%= participant.dog.name %></h6>
-          </div>
+        <div class="d-flex align-items-center gap-2 py-2">
+          <% if participant.dog.avatar.attached? %>
+            <%= cl_image_tag participant.dog.avatar.key,
+                  transformation: [{ width: 32, height: 32, crop: "thumb", gravity: "face", quality: "auto" }],
+                  class: "rounded-circle object-fit-cover",
+                  style: "width: 32px; height: 32px; border: 2px solid #f86120;" %>
+          <% else %>
+            <%= image_tag "dogs_pic.jpg", class: "rounded-circle object-fit-cover", style: "width: 32px; height: 32px;" %>
+          <% end %>
+          <%= link_to participant.dog.name, dog_path(participant.dog), class: "text-dark text-decoration-none fw-normal", style: "font-size: 0.95rem;" %>
         </div>
       <% end %>
     <% else %>
       <h6 class="mb-0 text-dark fw-normal py-2" style="font-size: 0.95rem;">Aucun participant pour le moment.</h6>
     <% end %>
 
-    <div id="map"
+</div>
+</div>
+  <%= link_to events_path, class: "btn-floating-map" do %>
+  <i class="fa-solid fa-list"></i>
+<% end %>
+
+<div id="map"
      data-controller="map"
      data-map-events-value="<%= [@event].to_json %>"
      data-map-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
@@ -80,12 +110,6 @@
                 },
               class: "btn text-doggy rounded-4" %>
     </div>
-
-</div>
-</div>
-  <%= link_to events_path, class: "btn-floating-map" do %>
-  <i class="fa-solid fa-list"></i>
-<% end %>
 
 
 <!--

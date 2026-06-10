@@ -1,5 +1,5 @@
 
-  <div class="container vh-100 d-flex align-items-center justify-content-center">
+  <div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
   <div class="row w-100 justify-content-center">
   <div class="col-12 col-sm-10 col-md-8 col-lg-5 bg">
 
@@ -41,35 +41,35 @@
 <%= f.input :energy_level,
             label: "Niveau d'énergie",
             collection: ["Très calme", "Calme", "Équilibré", "Dynamique", "Très dynamique"],
-            prompt: "Choisir un niveau"
+            prompt: "Choisir un niveau",
             wrapper_html: { class: "mb-3" },
             input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
 
 <%= f.input :canine_sociability,
             label: "Sociabilité canine",
             collection: ["Très réservé", "Sélectif", "Sociable", "Très sociable", "Adore tous les chiens"],
-            prompt: "Choisir une sociabilité"
+            prompt: "Choisir une sociabilité",
             wrapper_html: { class: "mb-3" },
             input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
 
 <%= f.input :human_sociability,
             label: "Sociabilité humaine",
             collection: ["Méfiant", "Réservé", "Amical", "Très affectueux", "Adore les humains"],
-            prompt: "Choisir une sociabilité"
+            prompt: "Choisir une sociabilité",
             wrapper_html: { class: "mb-3" },
             input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
 
 <%= f.input :temperament,
             label: "Tempérament",
             collection: ["Joueur", "Protecteur", "Aventurier", "Affectueux", "Indépendant"],
-            prompt: "Choisir un tempérament"
+            prompt: "Choisir un tempérament",
             wrapper_html: { class: "mb-3" },
             input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
 
 <%= f.input :favorite_activity,
             label: "Activité favorite",
             collection: ["Promenade tranquille", "Jeux", "Course", "Randonnée", "Baignade"],
-            prompt: "Choisir une activité"
+            prompt: "Choisir une activité",
             wrapper_html: { class: "mb-3" },
             input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
 

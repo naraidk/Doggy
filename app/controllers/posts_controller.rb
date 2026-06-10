@@ -2,7 +2,9 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @posts = Post.includes(:dog, image_attachment: :blob).order(created_at: :desc)
+    posts  = Post.includes(:dog, image_attachment: :blob).all
+    events = Event.includes(dog: { avatar_attachment: :blob }).all
+    @feed  = (posts + events).sort_by(&:created_at).reverse
   end
 
   def new
