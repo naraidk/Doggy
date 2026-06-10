@@ -1,12 +1,23 @@
 <%= turbo_stream_from "conversation_#{@conversation.id}_messages" %>
 
+<% other_dog = @conversation.dog_one == current_user.dogs.first ? @conversation.dog_two : @conversation.dog_one %>
+
 <div class="chat" data-controller="chat-scroll">
-  <h1>
-    Conversation avec
-    <%#= @conversation.dog_one.name %>
-    <!-- and -->
-    <%= @conversation.dog_two.name %>
-  </h1>
+  <div class="chat-header text-center">
+    <% if other_dog.avatar.attached? %>
+      <%= cl_image_tag other_dog.avatar.key,
+            transformation: [{ width: 70, height: 70, crop: "thumb", gravity: "face", quality: "auto" }],
+            alt: other_dog.name,
+            class: "rounded-circle object-fit-cover",
+            style: "width:70px;height:70px;border:3px solid #FF5D24;" %>
+    <% else %>
+      <%= image_tag "dogs_pic.jpg",
+            alt: other_dog.name,
+            class: "rounded-circle object-fit-cover",
+            style: "width:70px;height:70px;border:3px solid #FF5D24;" %>
+    <% end %>
+    <h5 class="mt-2 mb-0 fw-bold"><%= other_dog.name %></h5>
+  </div>
 
   <div id="messages"
        class="messages"
@@ -34,6 +45,6 @@
       placeholder: "Write as #{current_user.dogs.first.name}",
       class: "message-text-field" %>
 
-    <%= f.submit "Envoi", class: "message-submit-btn" %>
+    <%= f.submit " → ", class: "message-submit-btn fs-1" %>
   <% end %>
 </div>
