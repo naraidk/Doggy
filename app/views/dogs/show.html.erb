@@ -1,130 +1,125 @@
 <div class="card border-light rounded-6 shadow-sm mb-3 mx-3">
-    <div class="card-body p-1">
-      <div class="card-body d-flex justify-content-between align-items-center px-4 py-3">
 
-    <div class="d-flex align-items-center" style="min-width: 0;">
-
-      <!-- User Profile -->
-       <%= image_tag "user.svg",
-        class: "rounded-circle me-3",
-        style: "width: 56px; height: 56px; flex-shrink: 0; background-color: #eee; padding: 8px; object-fit: contain;" %>
-
-
-      <!-- user info -->
-      <div>
-        <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.1rem; letter-spacing: -0.3px;">
-          <%= [current_user.first_name, current_user.last_name].compact.join(" ") %>
-        </h5>
-
-        <p class="text-muted mb-0" style="font-size: 0.9rem;">
-          <%= current_user.username.presence || current_user.email %>
-        </p>
-
-      </div>
-    </div>
-
-    <div>
-      <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-danger-doggy text-white rounded-4 px-3" %>
-    </div>
-
-  </div>
-      <div class="d-flex justify-content-center align-items-center w-100 mt-2 mb-1">
-        <%= link_to edit_avatar_dog_path(@dog), data: { turbo_frame: "avatar_panel" }, style: "cursor: pointer;" do %>
-          <% if @dog.avatar.attached? %>
-            <%= cl_image_tag @dog.avatar.key,
-              transformation: [
-                { width: 150, height: 150, crop: "thumb", gravity: "face", quality: "auto" }
-              ],
+  <%# Avatar %>
+  <div class="d-flex justify-content-center pt-4 pb-2">
+    <%= link_to edit_avatar_dog_path(@dog), data: { turbo_frame: "avatar_panel" }, style: "cursor: pointer;" do %>
+      <% if @dog.avatar.attached? %>
+        <%= cl_image_tag @dog.avatar.key,
+              transformation: [{ width: 120, height: 120, crop: "thumb", gravity: "face", quality: "auto" }],
               class: "rounded-circle object-fit-cover",
-              style: "border: 7px solid #f86120;",
+              style: "width: 120px; height: 120px; border: 5px solid #f86120;",
               alt: @dog.name %>
-          <% else %>
-            <%= image_tag "dogs_pic.jpg",
+      <% else %>
+        <%= image_tag "dogs_pic.jpg",
               class: "rounded-circle object-fit-cover",
-              style: "width:100px;height:100px;border:7px solid #f86120;" %>
-          <% end %>
-        <% end %>
+              style: "width: 120px; height: 120px; border: 5px solid #f86120;" %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%# Nom %>
+  <div class="text-center px-4 pb-3">
+    <h2 class="fw-bold mb-0"><%= @dog.name %></h2>
+  </div>
+
+  <%# Infos chien %>
+  <div class="border-top border-light-subtle px-4 py-2">
+    <%= link_to "#", class: "d-flex justify-content-between align-items-center py-2 text-decoration-none" do %>
+      <span class="text-muted" style="font-size: 0.9rem;">Race</span>
+      <span class="fw-medium text-dark" style="font-size: 0.9rem;"><%= @dog.breed.presence || "Non renseigné" %></span>
+    <% end %>
+    <div class="border-top border-light-subtle"></div>
+    <%= link_to "#", class: "d-flex justify-content-between align-items-center py-2 text-decoration-none" do %>
+      <span class="text-muted" style="font-size: 0.9rem;">Sexe</span>
+      <span class="fw-medium text-dark" style="font-size: 0.9rem;"><%= @dog.gender.presence || "Non renseigné" %></span>
+    <% end %>
+    <div class="border-top border-light-subtle"></div>
+    <%= link_to "#", class: "d-flex justify-content-between align-items-center py-2 text-decoration-none" do %>
+      <span class="text-muted" style="font-size: 0.9rem;">Âge</span>
+      <span class="fw-medium text-dark" style="font-size: 0.9rem;"><%= @dog.age.present? ? "#{@dog.age} ans" : "Non renseigné" %></span>
+    <% end %>
+    <div class="border-top border-light-subtle"></div>
+    <%= link_to "#", class: "d-flex justify-content-between align-items-center py-2 text-decoration-none" do %>
+      <span class="text-muted" style="font-size: 0.9rem;">Maître</span>
+      <span class="fw-medium text-dark" style="font-size: 0.9rem;"><%= current_user.first_name %></span>
+    <% end %>
+    <% if @dog.description.present? %>
+      <div class="border-top border-light-subtle pt-3 pb-2">
+        <p class="text-muted mb-1" style="font-size: 0.8rem;">Description</p>
+        <p class="text-dark mb-0" style="font-size: 0.9rem;"><%= @dog.description %></p>
       </div>
+    <% end %>
+  </div>
+
+  <%# Statistiques %>
+  <div class="border-top border-light-subtle px-4 py-3">
+    <div class="row text-center g-3">
+      <div class="col-4">
+        <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%= @dog.posts.size %></div>
+        <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-image"></i></div>
       </div>
-
-      <div class="border-light-subtle bg-white rounded-bottom-6 px-4 py-2">
-    <h1 class="fw-bold">
-    <%= @dog.name %>
-    </h1>
-      <p>
-        <strong>Race :</strong>
-        <%= @dog.breed || "Non renseigné" %><br>
-                <strong>Sexe :</strong>
-        <%= @dog.gender || "Non renseigné" %><br>
-                <strong>Âge :</strong>
-        <%= @dog.age || "Non renseigné" %> ans <br>
-                <strong>Description :</strong>
-        <%= @dog.description.presence || "Aucune description." %><br>
-                <strong>Maître :</strong>
-        <%= current_user.first_name %>
-      </p>
-
+      <div class="col-4">
+        <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%= @dog.events.size %></div>
+        <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-calendar-days"></i></div>
       </div>
-       <div class="border-light-subtle bg-white rounded-bottom-6 px-4 py-2">
-      <hr>
-      <p>
-        Messages :
-        <%= @dog.messages.size || "Non renseigné" %><br>
-        Events :
-        <%= @dog.events.size || "Non renseigné" %><br>
-        Events participants :
-        <%= @dog.event_participants.size || "Non renseigné" %><br>
-        Posts : <%= @dog.posts.size || "Non renseigné" %><br>
-        Comments :
-        <%= @dog.comments.size || "Non renseigné" %><br>
-        Woufs :
-        <%= @dog.woufs.size || "Non renseigné" %>
-      </p>
+      <div class="col-4">
+        <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%= @dog.woufs.size %></div>
+        <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-paw"></i></div>
+      </div>
+      <div class="col-4">
+        <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%= @dog.messages.size %></div>
+        <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-comment-dots"></i></div>
+      </div>
+      <div class="col-4">
+        <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%= @dog.comments.size %></div>
+        <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-comments"></i></div>
+      </div>
+      <div class="col-4">
+        <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%= @dog.event_participants.size %></div>
+        <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-ticket"></i></div>
+      </div>
+    </div>
+  </div>
 
-       </div>
-      <div class="d-flex justify-content-between gap-2 mt-1 px-4">
-
-        <%= button_to "Discuter",
+  <%# Actions %>
+  <div class="border-top border-light-subtle bg-white rounded-bottom-6 px-4 py-3">
+    <div class="d-flex gap-2">
+      <%= button_to "Discuter",
             conversations_path,
             method: :post,
             params: { dog_one_id: current_dog.id, dog_two_id: @dog.id },
-            class: "btn btn-doggy text-white rounded-4 px-3" %>
-
-        <%= link_to "Modifier", edit_dog_path(@dog), class: "btn btn-danger-doggy text-white rounded-4 px-3" %>
-
-        <%= button_to "Supprimer",
+            class: "btn btn-doggy text-white rounded-4 px-3 flex-fill" %>
+      <%= link_to "Modifier", edit_dog_path(@dog), class: "btn btn-danger-doggy text-white rounded-4 px-3 flex-fill" %>
+      <%= button_to "Supprimer",
             dog_path(@dog),
             method: :delete,
-            data: {
-              turbo_confirm: "Supprimer ce chien ?"
-            },
-            class: "btn btn-danger-doggy text-white rounded-4 px-3" %>
+            data: { turbo_confirm: "Supprimer ce chien ?" },
+            class: "btn btn-danger-doggy text-white rounded-4 px-3 flex-fill" %>
+    </div>
+  </div>
 
-      </div>
+</div>
 
-      <hr>
-
-            <div class="d-flex row my-1 px-4 mb-3">
+<%# Galerie photos %>
+<% if @photos.any? %>
+  <div class="card border-light rounded-6 shadow-sm mb-3 mx-3">
+    <div class="card-body px-3 py-3">
+      <h6 class="fw-bold text-dark mb-3 px-1">Photos</h6>
+      <div class="row g-2">
         <% @photos.each do |post| %>
           <div class="col-4">
             <%= link_to post_path(post), data: { turbo_frame: "post_panel" } do %>
               <%= cl_image_tag post.image.key,
-                    transformation: [
-                      { width: 300, height: 300, crop: "fill", gravity: "auto", quality: "auto" }
-                    ],
-                    class: "w-100 rounded",
+                    transformation: [{ width: 300, height: 300, crop: "fill", gravity: "auto", quality: "auto" }],
+                    class: "w-100 rounded-4",
                     style: "aspect-ratio: 1/1; object-fit: cover;" %>
             <% end %>
           </div>
         <% end %>
       </div>
-            </div>
     </div>
   </div>
-
-
-
-</div>
+<% end %>
 
 <turbo-frame id="post_panel"></turbo-frame>
 <turbo-frame id="avatar_panel"></turbo-frame>
