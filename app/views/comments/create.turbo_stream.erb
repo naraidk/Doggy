@@ -6,8 +6,8 @@
 
 <turbo-stream action="replace" target="<%= dom_id(@post, :comments_count) %>">
   <template>
-    <span id="<%= dom_id(@post, :comments_count) %>">
-      <%= @post.comments.count %>
+    <span id="<%= dom_id(@post, :comments_count) %>" class="small-content">
+      <%= @post.comments.count %> commentaires
     </span>
   </template>
 </turbo-stream>

@@ -1,0 +1,14 @@
+<% if post.woufs.exists?(dog: current_dog) %>
+  <%= button_to post_wouf_path(post, post.woufs.find_by(dog: current_dog)),
+    method: :delete,
+    class: "btn btn-link text-decoration-none text-dark fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
+    <%= image_tag "paw_filled.svg", style: "width: 18px;" %>
+    <span class="text-doggy fw-bolder">Wouffé</span>
+  <% end %>
+<% else %>
+  <%= button_to post_woufs_path(post), params: { dog_id: current_dog.id },
+    class: "btn btn-link text-decoration-none text-muted fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
+    <%= image_tag "paw_stroked.svg", style: "width: 18px; opacity: 0.6;" %>
+    <span class="fw-bolder">Wouffer</span>
+  <% end %>
+<% end %>

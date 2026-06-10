@@ -72,14 +72,11 @@
 <div class="actions d-flex justify-content-between align-items-center pt-2 pb-2 text-muted" style="font-size: 0.95rem;">
 
   <div class="w-50 text-center">
-
-        <span class="small-content"><%= post.woufs.count %> wouf</span>
-
+    <span id="<%= dom_id(post, :wouf_count) %>" class="small-content"><%= post.woufs.count %> wouf</span>
   </div>
 
-
   <div class="w-50 text-center">
-      <span class="small-content"><%= post.comments.count %> commentaires</span>
+    <span id="<%= dom_id(post, :comments_count) %>" class="small-content"><%= post.comments.count %> commentaires</span>
   </div>
 
 </div>
@@ -92,38 +89,8 @@
 <div class="actions d-flex justify-content-between align-items-center text-muted border-top" style="font-size: 0.95rem;">
 
     <!-- wouffer -->
-<div class="w-50 text-center">
-
-  <% if current_user.dogs.count > 1 %>
-
-    <!-- Plusieurs chiens → ouvrir le modal de wouf -->
-    <button class="btn btn-link text-decoration-none text-muted fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100"
-          data-bs-toggle="modal"
-          data-bs-target="#chooseDogModal-<%= post.id %>">
-      <%= image_tag "paw_stroked.svg", style: "width: 18px; opacity: 0.6;" %>
-      <span class="fw-bolder">Wouffer</span>
-    </button>
-
-  <% else %>
-
-    <!-- Un seul chien → wouf direct -->
-    <% if post.woufs.exists?(dog: current_dog) %>
-      <%= button_to post_wouf_path(post, post.woufs.find_by(dog: current_dog)),
-        method: :delete,
-        class: "btn btn-link text-decoration-none text-dark fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
-        <%= image_tag "paw_filled.svg", style: "width: 18px;" %>
-        <span class="text-doggy fw-bolder">Wouffé</span>
-      <% end %>
-    <% else %>
-      <%= button_to post_woufs_path(post),
-        class: "btn btn-link text-decoration-none text-muted fw-medium d-inline-flex align-items-center justify-content-center gap-2 w-100" do %>
-        <%= image_tag "paw_stroked.svg", style: "width: 18px; opacity: 0.6;" %>
-        <span class="fw-bolder">Wouffer</span>
-      <% end %>
-    <% end %>
-
-  <% end %>
-
+<div id="<%= dom_id(post, :wouf_section) %>" class="w-50 text-center">
+  <%= render "posts/wouf_button", post: post %>
 </div>
 
 <!-- Commenter -->
@@ -146,30 +113,5 @@
 <!--    </div>-->
 
 </div>
-  </div>
-</div>
-
-<div class="modal fade" id="chooseDogModal-<%= post.id %>" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content rounded-4 p-3">
-
-      <h5 class="fw-bold mb-3">Choisir un chien</h5>
-
-      <% current_user.dogs.each do |dog| %>
-        <%= button_to post_woufs_path(post, dog_id: dog.id),
-              method: :post,
-              class: "btn btn-light w-100 d-flex align-items-center gap-2 mb-2" do %>
-
-          <% if dog.avatar.attached? %>
-            <%= cl_image_tag dog.avatar.key, width: 32, height: 32, class: "rounded-circle" %>
-          <% else %>
-            <%= image_tag "dogs_pic.jpg", width: 32, height: 32, class: "rounded-circle" %>
-          <% end %>
-
-          <span><%= dog.name %></span>
-        <% end %>
-      <% end %>
-
-    </div>
   </div>
 </div>

@@ -1,12 +1,16 @@
 class WoufsController < ApplicationController
   before_action :authenticate_user!
   def create
-    dog = current_user.dogs.find(params[:dog_id] || session[:current_dog_id])
+    @post = Post.find(params[:post_id])
+    dog = current_user.dogs.find_by(id: params[:dog_id]) || current_dog
 
-    @wouf = Wouf.new(post_id: params[:post_id], dog: dog)
+    @wouf = Wouf.new(post: @post, dog: dog)
 
     if @wouf.save
-      redirect_back fallback_location: posts_path
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_back fallback_location: posts_path }
+      end
     end
   end
 
@@ -15,6 +19,10 @@ class WoufsController < ApplicationController
     @wouf = @post.woufs.find_by(dog: current_dog)
 
     @wouf.destroy if @wouf
-    redirect_to posts_path
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to posts_path }
+    end
   end
 end

@@ -3,8 +3,9 @@ class SwipesController < ApplicationController
 
   def index
     @dog = current_user.dogs.first
+    @restart = params[:restart].present?
 
-    swiped_ids = Swipe.where(dog: @dog).pluck(:target_dog_id)
+    swiped_ids = @restart ? [] : Swipe.where(dog: @dog).pluck(:target_dog_id)
 
     @target_dog = Dog
                   .where.not(user: current_user)
@@ -18,13 +19,11 @@ class SwipesController < ApplicationController
     @dog = current_user.dogs.first
     @target_dog = Dog.find(params[:target_dog_id])
 
-    @swipe = Swipe.create!(
-      dog: @dog,
-      target_dog: @target_dog,
-      liked: params[:liked] == "true"
-    )
+    @swipe = Swipe.find_or_initialize_by(dog: @dog, target_dog: @target_dog)
+    @swipe.update!(liked: params[:liked] == "true")
 
-    redirect_to swipes_path, notice: match_message
+    restart_param = params[:restart].present? ? { restart: true } : {}
+    redirect_to swipes_path(restart_param), notice: match_message
   end
 
   private
