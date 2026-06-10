@@ -62,12 +62,12 @@
 
         <div class="d-flex justify-content-center gap-3 mt-4">
   <%= button_to "Passer",
-      swipes_path(target_dog_id: @target_dog.id, liked: false),
+      swipes_path(target_dog_id: @target_dog.id, liked: false, restart: @restart || nil),
       method: :post,
       class: "btn btn-outline-secondary rounded-pill px-4" %>
 
   <%= button_to "Wouf 💖",
-      swipes_path(target_dog_id: @target_dog.id, liked: true),
+      swipes_path(target_dog_id: @target_dog.id, liked: true, restart: @restart || nil),
       method: :post,
       class: "btn btn-danger rounded-pill px-4" %>
 
@@ -82,8 +82,9 @@
       </div>
     </div>
   <% else %>
-    <p class="text-center text-muted">
-      Aucun chien à découvrir pour le moment.
-    </p>
+    <div class="text-center text-muted">
+      <p>Aucun chien à découvrir pour le moment.</p>
+      <%= link_to "Recommence", swipes_path(restart: true), class: "btn btn-doggy rounded-pill px-4 mt-2" %>
+    </div>
   <% end %>
 </div>
