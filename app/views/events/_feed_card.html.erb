@@ -35,7 +35,7 @@
       <i class="fa-solid fa-calendar-days me-1"></i> Événement
     </span>
     <h5 class="fw-bold mb-1">
-      <%= link_to event.title, event_path(event), class: "text-dark text-decoration-none" %>
+      <%= link_to event.title, event_path(event), class: "text-dark text-decoration-underline" %>
     </h5>
     <p class="text-muted mb-1" style="font-size: 0.85rem;">
       <i class="fa-solid fa-location-dot me-1 text-doggy"></i><%= event.city.titleize %>
@@ -51,7 +51,7 @@
     <% already_joined = event.dogs.where(id: current_user.dogs.ids).exists? %>
     <% if already_joined %>
       <% existing_participant = event.event_participants.find_by(dog: current_user.dogs) %>
-      <%= button_to "Se désinscrire",
+      <%= button_to "Quitter",
             event_event_participant_path(event, existing_participant),
             method: :delete,
             class: "btn btn-sm btn-danger-doggy text-white rounded-4" %>
