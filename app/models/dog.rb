@@ -10,6 +10,8 @@ class Dog < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :woufs, dependent: :destroy
   has_many :swipes, dependent: :destroy
+  has_many :received_swipes, class_name: "Swipe", foreign_key: "target_dog_id", dependent: :destroy
+
   has_many :conversations_as_one, class_name: "Conversation", foreign_key: "dog_one_id", dependent: :destroy
   has_many :conversations_as_two, class_name: "Conversation", foreign_key: "dog_two_id", dependent: :destroy
 
@@ -28,11 +30,11 @@ class Dog < ApplicationRecord
     activity_score_value = activity_score(favorite_activity, other_dog.favorite_activity)
 
     (
-      (0.30 * energy_score) +
-      (0.25 * canine_score) +
+      (0.20 * energy_score) +
+      (0.20 * canine_score) +
       (0.20 * temperament_score_value) +
       (0.15 * activity_score_value) +
-      (0.05 * size_score_value) +
+      (0.20 * size_score_value) +
       (0.05 * human_score)
     ).round
   end

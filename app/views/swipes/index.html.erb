@@ -1,90 +1,112 @@
-<div class="container py-4 mb-5">
-  <h1 class="text-center mb-4">Découvrir des chiens</h1>
+<div class="container py-3 mb-5">
+  <div class="d-flex align-items-center justify-content-between mb-3 px-1">
+    <p class="mb-0 fw-bold text-doggy">
+      Compatibilité pour :
+    </p>
+
+    <%= form_with url: swipes_path, method: :get, local: true do %>
+      <%= select_tag :dog_id,
+          options_from_collection_for_select(
+            current_user.dogs,
+            :id,
+            :name,
+            @current_dog&.id
+          ),
+          class: "form-select rounded-pill bg-doggy text-white fw-bold shadow-doggy border-0",
+          style: "width: 120px;",
+          onchange: "this.form.submit();" %>
+    <% end %>
+  </div>
 
   <% if @target_dog.present? %>
+    <div class="card border-0 shadow-doggy overflow-hidden position-relative mx-auto swipe-card">
 
-    <div class="d-flex justify-content-center align-items-center gap-3 mb-4">
-      <!-- Current dog -->
-      <div class="text-center">
-        <% if current_dog.avatar.attached? %>
-          <%= cl_image_tag current_dog.avatar.key,
-                transformation: [{ width: 80, height: 80, crop: "thumb", gravity: "face", quality: "auto" }],
-                class: "rounded-circle object-fit-cover",
-                style: "width: 80px; height: 80px; border: 3px solid #f86120;" %>
-        <% else %>
-          <%= image_tag "dogs_pic.jpg", class: "rounded-circle object-fit-cover",
-                style: "width: 80px; height: 80px; border: 3px solid #f86120;" %>
-        <% end %>
-        <p class="mt-1 mb-0 fw-semibold text-doggy" style="font-size: 0.85rem;"><%= current_dog.name %></p>
+      <% if @target_dog.avatar.attached? %>
+        <%= image_tag @target_dog.avatar, class: "w-100 h-100 object-fit-cover" %>
+      <% else %>
+        <%= image_tag "dogs_pic.jpg", class: "w-100 h-100 object-fit-cover" %>
+      <% end %>
+
+      <div
+        class="position-absolute top-0 start-0 m-3 rounded-pill px-4 py-2 fw-bold text-white shadow-doggy"
+        style="background-color: rgba(255, 93, 36, 0.75); backdrop-filter: blur(8px);">
+        <i class="fa-solid fa-paw text-white me-2"></i>
+        <%= @score %>% Compatibilité
       </div>
 
-      <!-- VS indicator -->
-      <div class="text-center" style="font-size: 1.4rem;">🐾</div>
+      <div class="position-absolute bottom-0 start-0 end-0 text-white p-4 swipe-overlay">
+        <h2 class="fw-bold display-5 mb-0 text-white">
+          <%= @target_dog.name %> (<%= @target_dog.gender %>)
+        </h2>
 
-      <!-- Target dog -->
-      <div class="text-center">
-        <% if @target_dog.avatar.attached? %>
-          <%= cl_image_tag @target_dog.avatar.key,
-                transformation: [{ width: 80, height: 80, crop: "thumb", gravity: "face", quality: "auto" }],
-                class: "rounded-circle object-fit-cover",
-                style: "width: 80px; height: 80px; border: 3px solid #adb5bd;" %>
-        <% else %>
-          <%= image_tag "dogs_pic.jpg", class: "rounded-circle object-fit-cover",
-                style: "width: 80px; height: 80px; border: 3px solid #adb5bd;" %>
-        <% end %>
-        <p class="mt-1 mb-0 fw-semibold text-muted" style="font-size: 0.85rem;"><%= @target_dog.name %></p>
-      </div>
-    </div>
-
-    <div class="card shadow-sm text-center rounded-4">
-      <div class="card-body">
-        <h2><%= @target_dog.name %></h2>
-
-        <p class="text-muted">
-          <%= @target_dog.breed %> · <%= @target_dog.age %> ans
+        <p class="fs-4 mb-3 fw-semibold">
+          <%= @target_dog.breed %>
         </p>
 
-        <p><%= @target_dog.description %></p>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="badge rounded-pill text-white px-3 py-2"
+                style="background-color: rgba(255, 93, 36, 0.65); backdrop-filter: blur(4px);">
+            <%= @target_dog.canine_sociability %>
+          </span>
 
-       <div class="text-center my-4">
-  <span class="badge bg-success fs-2 px-5 py-3 rounded-pill shadow">
-    🐾 Compatibilité : <%= @score %>%
-  </span>
-</div>
+          <span class="badge rounded-pill text-white px-3 py-2"
+                style="background-color: rgba(255, 93, 36, 0.65); backdrop-filter: blur(4px);">
+            <%= @target_dog.temperament %>
+          </span>
 
-        <div class="mt-3 text-start">
-          <p><strong>Taille :</strong> <%= @target_dog.size %></p>
-          <p><strong>Énergie :</strong> <%= @target_dog.energy_level %></p>
-          <p><strong>Sociabilité canine :</strong> <%= @target_dog.canine_sociability %></p>
-          <p><strong>Tempérament :</strong> <%= @target_dog.temperament %></p>
-          <p><strong>Activité favorite :</strong> <%= @target_dog.favorite_activity %></p>
+          <span class="badge rounded-pill text-white px-3 py-2"
+                style="background-color: rgba(255, 93, 36, 0.65); backdrop-filter: blur(4px);">
+            <%= @target_dog.favorite_activity %>
+          </span>
         </div>
-
-        <div class="d-flex justify-content-center gap-3 mt-4">
-  <%= button_to "Passer",
-      swipes_path(target_dog_id: @target_dog.id, liked: false, restart: @restart || nil),
-      method: :post,
-      class: "btn btn-outline-secondary rounded-pill px-4" %>
-
-  <%= button_to "Wouf 💖",
-      swipes_path(target_dog_id: @target_dog.id, liked: true, restart: @restart || nil),
-      method: :post,
-      class: "btn btn-danger rounded-pill px-4" %>
-
-  <%= button_to "Discuter",
-      conversations_path(
-        dog_one_id: current_user.dogs.first.id,
-        dog_two_id: @target_dog.id
-      ),
-      method: :post,
-      class: "btn btn-primary rounded-pill px-4" %>
-</div>
       </div>
     </div>
+
+    <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+      <%= button_to undo_swipes_path(dog_id: @current_dog.id),
+          method: :post,
+          class: "btn bg-white rounded-circle shadow-doggy swipe-action text-doggy" do %>
+        <i class="fa-solid fa-rotate-left"></i>
+      <% end %>
+
+      <%= button_to swipes_path(target_dog_id: @target_dog.id, liked: false, dog_id: @current_dog.id),
+          method: :post,
+          class: "btn bg-white rounded-circle shadow-doggy swipe-action text-doggy" do %>
+        <i class="fa-solid fa-xmark"></i>
+      <% end %>
+
+      <%= button_to swipes_path(target_dog_id: @target_dog.id, liked: true, dog_id: @current_dog.id),
+          method: :post,
+          class: "btn bg-white rounded-circle shadow-doggy swipe-action-lg text-doggy" do %>
+        <i class="fa-solid fa-paw"></i>
+      <% end %>
+
+      <%= button_to conversations_path(
+            dog_one_id: @current_dog.id,
+            dog_two_id: @target_dog.id
+          ),
+          method: :post,
+          class: "btn bg-white rounded-circle shadow-doggy swipe-action text-doggy d-flex align-items-center justify-content-center" do %>
+        <i class="fa-solid fa-comment"></i>
+      <% end %>
+    </div>
   <% else %>
-    <div class="text-center text-muted">
-      <p>Aucun chien à découvrir pour le moment.</p>
-      <%= link_to "Recommence", swipes_path(restart: true), class: "btn btn-doggy rounded-pill px-4 mt-2" %>
+    <div class="text-center mt-5">
+      <h2 class="fw-bold text-doggy">
+        Plus aucun chien à découvrir
+      </h2>
+
+      <p class="text-muted">
+        Reviens plus tard pour rencontrer de nouveaux amis.
+      </p>
     </div>
   <% end %>
+
+  <div class="text-center mt-4">
+    <%= link_to liked_swipes_path(dog_id: @current_dog.id),
+        class: "my-woufs-pill" do %>
+      Mes woufs <i class="fa-solid fa-heart"></i>
+      <span><%= @liked_count %></span>
+    <% end %>
+  </div>
 </div>
