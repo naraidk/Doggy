@@ -1,0 +1,103 @@
+.chat {
+  background: white;
+  margin-top: 9px;
+  height: calc(100vh - 75px);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.chat h1 {
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 0;
+  padding: 1rem;
+  flex-shrink: 0;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  padding-bottom: 170px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.message-info {
+  opacity: 0.6;
+  width: fit-content;
+  margin-bottom: 0.25rem;
+  font-size: 12px;
+}
+
+.message-content {
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  max-width: 70%;
+  width: fit-content;
+  word-wrap: break-word;
+  margin: 0;
+}
+
+.message.sent .message-info,
+.message.sent .message-content {
+  align-self: flex-end;
+}
+
+.message.received .message-info,
+.message.received .message-content {
+  align-self: flex-start;
+}
+
+.message.sent .message-content {
+  background: #cfe2ff;
+  color: #111;
+}
+
+.message.received .message-content {
+  background: #f1f1f1;
+  color: #111;
+}
+
+.message-form {
+  position: sticky;
+  bottom: 80px;
+  background: white;
+  border-top: 1px solid #dee2e6;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: stretch;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.message-text-field {
+  flex: 1;
+  min-height: 48px;
+  border: 1px solid #ced4da;
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  padding: 0 12px;
+  outline: none;
+}
+
+.message-submit-btn {
+  min-height: 48px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 0 12px 12px 0;
+  background: #0d6efd;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
