@@ -489,6 +489,7 @@ textarea::placeholder {    // Ta couleur orange (ou un gris plus doux comme #a0a
   color: #FF5D24;
   padding: 2px 8px;
   border-radius: 999px;
+}
 
 // ---------------------Logique des conversations
 
@@ -504,8 +505,7 @@ textarea::placeholder {    // Ta couleur orange (ou un gris plus doux comme #a0a
 .chat h1 {
   border-bottom: 1px solid #dee2e6;
   margin-bottom: 0;
-  padding: 1rem;
-  
+
 }
 
 .messages {
