@@ -17,6 +17,7 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
     <%= favicon_link_tag 'favicon.ico' %>
 
     <!-- DM Sans -->
@@ -32,6 +33,7 @@
   <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script defer src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <%= render 'shared/ios_pwa_links' %>
   </head>
 
   <body class="mb-6" data-current-dog-id="<%= current_user&.dogs&.first&.id %>">
