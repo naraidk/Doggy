@@ -1,0 +1,42 @@
+<main class="error-page error-page--500">
+  <div class="error-shell">
+    <section class="error-panel">
+      <div class="brand">
+        <span class="logo">🐾</span>
+        <span>Doggy · Incident temporaire</span>
+      </div>
+
+      <h1 class="error-title">Le serveur a lâché la laisse.</h1>
+      <p class="error-text">
+        Une erreur interne est survenue. Notre meute technique s’en occupe déjà,
+        mais pour l’instant Doggy a besoin d’une petite pause avant de repartir.
+      </p>
+
+      <div class="error-actions">
+        <%= link_to "Réessayer depuis l’accueil", root_path, class: "btn btn-dark" %>
+        <a href="javascript:location.reload()" class="btn btn-secondary">Actualiser la page</a>
+      </div>
+
+      <p class="error-note">Erreur 500 · Problème interne du serveur</p>
+    </section>
+
+    <section class="visual-card">
+      <div class="badge">500 · Oups serveur</div>
+      <h2 class="visual-title">WOUF.</h2>
+      <p class="visual-text">
+        Le chat ne répond plus. Le feed, les messages ou les matchs peuvent être momentanément indisponibles.
+      </p>
+
+      <div class="status-box">
+        <strong>Doggy renifle le bug</strong><br>
+        Merci de patienter quelques instants avant de revenir.
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini-item">📡 Connexion</div>
+        <div class="mini-item">💬 Chat</div>
+        <div class="mini-item">❤️ Match</div>
+      </div>
+    </section>
+  </div>
+</main>

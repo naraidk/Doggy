@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Doggy Projet" %></title>
+    <title><%= content_for(:title) || "Doggy Projet – Réseau social pour chiens et leurs maîtres" %></title>
+    <meta name="description" content="<%= content_for(:meta_description) || "Doggy Projet : le réseau social dédié aux chiens. Partagez des posts, discutez avec d'autres maîtres, participez à des événements canins et consultez notre vétérinaire IA." %>">
+    <meta name="keywords" content="réseau social chien, communauté canine, chien, maître, événements chiens, vétérinaire en ligne, adoption chien, races de chiens">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Doggy Projet">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= favicon_link_tag 'favicon.ico' %>
 
     <%= yield :head %>
 
