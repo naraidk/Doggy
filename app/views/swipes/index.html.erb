@@ -22,9 +22,13 @@
     <div class="card border-0 shadow-doggy overflow-hidden position-relative mx-auto swipe-card">
 
       <% if @target_dog.avatar.attached? %>
-        <%= image_tag @target_dog.avatar, class: "w-100 h-100 object-fit-cover" %>
+        <%= cl_image_tag @target_dog.avatar.key,
+              transformation: [
+                { width: 760, height: 1013, crop: "fill", gravity: "auto", quality: "auto" }
+              ],
+              alt: @target_dog.name %>
       <% else %>
-        <%= image_tag "dogs_pic.jpg", class: "w-100 h-100 object-fit-cover" %>
+        <%= image_tag "dogs_pic.jpg" %>
       <% end %>
 
       <div
