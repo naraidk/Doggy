@@ -1,16 +1,9 @@
 <div class="card border-light rounded-6 shadow-sm mb-3 mx-3">
 
-    <div class="d-flex align-items-center" style="min-width: 0;">
-
-  </div>
-      </div>
-
-      <div class="border-light-subtle bg-white rounded-bottom-6 px-4 py-3">
-        <div class="d-flex align-items-start gap-3">
-
-          <!-- Avatar gauche -->
-          <div class="flex-shrink-0">
-            <%= link_to edit_avatar_dog_path(@dog), data: { turbo_frame: "avatar_panel" }, style: "cursor: pointer;" do %>
+      <div class="border-light-subtle bg-white rounded-bottom-6 px-4 py-3 float-left">
+          <!-- Avatar gauche flottant -->
+          <% if @dog.user == current_user %>
+            <%= link_to edit_avatar_dog_path(@dog), data: { turbo_frame: "avatar_panel" }, style: "cursor: pointer; float: left; margin-right: 12px;" do %>
               <% if @dog.avatar.attached? %>
                 <%= cl_image_tag @dog.avatar.key,
                   transformation: [
@@ -25,24 +18,38 @@
                   style: "width: 75px; height: 75px; border: 4px solid #f86120;" %>
               <% end %>
             <% end %>
-          </div>
+          <% else %>
+            <% if @dog.avatar.attached? %>
+              <%= cl_image_tag @dog.avatar.key,
+                transformation: [
+                  { width: 75, height: 75, crop: "thumb", gravity: "face", quality: "auto" }
+                ],
+                class: "rounded-circle object-fit-cover",
+                style: "float: left; margin-right: 12px; width: 75px; height: 75px; border: 4px solid #f86120;",
+                alt: @dog.name %>
+            <% else %>
+              <%= image_tag "dogs_pic.jpg",
+                class: "rounded-circle object-fit-cover",
+                style: "float: left; margin-right: 12px; width: 75px; height: 75px; border: 4px solid #f86120;" %>
+            <% end %>
+          <% end %>
 
-          <!-- Infos droite -->
-          <div>
-            <h1 class="fw-bold mb-1"><%= @dog.name %></h1>
-            <p class="mb-0">
-              <strong>Race :</strong> <%= @dog.breed || "Non renseigné" %><br>
-              <strong>Sexe :</strong> <%= @dog.gender || "Non renseigné" %><br>
-              <strong>Âge :</strong> <%= @dog.age || "Non renseigné" %> ans<br>
-              <strong>Description :</strong> <%= @dog.description.presence || "Aucune description." %><br>
-              <strong>Maître :</strong> <%= link_to "#{@dog.user.first_name} #{@dog.user.last_name}", dogs_path, style: "text-decoration: underline; color: black;" %>
-            </p>
-          </div>
-
-        </div>
+          <!-- Infos qui s'enroulent autour de l'avatar -->
+          <h1 class="fw-bold mb-1"><%= @dog.name %></h1>
+          <p class="mb-0">
+            <strong>Race :</strong> <%= @dog.breed || "Non renseigné" %><br>
+            <strong>Sexe :</strong> <%= @dog.gender || "Non renseigné" %><br>
+            <strong>Âge :</strong> <%= @dog.age || "Non renseigné" %> ans<br>
+            <strong>Description :</strong> <%= @dog.description.presence || "Aucune description." %><br>
+            <strong>Maître :</strong>
+            <% if @dog.user == current_user %>
+              <%= link_to "#{@dog.user.first_name} #{@dog.user.last_name}", dogs_path, style: "text-decoration: underline; color: black;" %>
+            <% else %>
+              <%= "#{@dog.user.first_name} #{@dog.user.last_name}" %>
+            <% end %>
+          </p>
+          <div style="clear: both;"></div>
       </div>
-    <% end %>
-  </div>
 
   <%# Statistiques %>
   <div class="border-top border-light-subtle px-4 py-3">
@@ -55,22 +62,22 @@
         <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%= @dog.events.size %></div>
         <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-calendar-days"></i></div>
       </div>
-      <div class="col-4">
-        <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%= @dog.woufs.size %></div>
-        <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-paw"></i></div>
-      </div>
+      <!-- <div class="col-4"> -->
+        <!-- <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%#= @dog.woufs.size %></div> -->
+        <!-- <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-paw"></i></div> -->
+      <!-- </div> -->
       <div class="col-4">
         <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%= @dog.messages.size %></div>
         <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-comment-dots"></i></div>
       </div>
-      <div class="col-4">
-        <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%= @dog.comments.size %></div>
-        <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-comments"></i></div>
-      </div>
-      <div class="col-4">
-        <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%= @dog.event_participants.size %></div>
-        <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-ticket"></i></div>
-      </div>
+      <!-- <div class="col-4"> -->
+        <!-- <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%#= @dog.comments.size %></div> -->
+        <!-- <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-comments"></i></div> -->
+      <!-- </div> -->
+      <!-- <div class="col-4"> -->
+        <!-- <div class="fw-bold text-doggy" style="font-family: 'DM Sans', sans-serif; font-size: 1.3rem; line-height: 1;"><%#= @dog.event_participants.size %></div> -->
+        <!-- <div class="text-muted mt-1" style="font-size: 0.9rem;"><i class="fa-solid fa-ticket"></i></div> -->
+      <!-- </div> -->
     </div>
   </div>
 
