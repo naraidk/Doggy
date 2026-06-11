@@ -1,0 +1,42 @@
+<main class="error-page error-page--404">
+  <div class="error-shell">
+    <section class="error-panel">
+      <div class="brand">
+        <span class="logo">🐶</span>
+        <span>Doggy · Le réseau social des chiens stars</span>
+      </div>
+
+      <h1 class="error-title">Oups… cette balade ne mène nulle part.</h1>
+      <p class="error-text">
+        La page que vous cherchez a probablement changé de niche, disparu du feed,
+        ou suivi une piste un peu trop loin.
+      </p>
+
+      <div class="error-actions">
+        <%= link_to "Retour au feed", root_path, class: "btn btn-primary" %>
+        <a href="javascript:history.back()" class="btn btn-secondary">Revenir en arrière</a>
+      </div>
+
+      <p class="error-note">Erreur 404 · Page introuvable</p>
+    </section>
+
+    <section class="visual-card">
+      <div class="badge">404 · Os introuvable</div>
+      <h2 class="visual-title">Wouf ?</h2>
+      <p class="visual-text">
+        Cette page s’est échappée. On dirait qu’elle n’est plus dans le quartier.
+      </p>
+
+      <div class="status-box">
+        <strong>Suggestions Doggy</strong><br>
+        Retourne à l’accueil pour retrouver le feed, les profils ou les messages.
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini-item">🏠 Accueil</div>
+        <div class="mini-item">🐕 Profils</div>
+        <div class="mini-item">💬 Messages</div>
+      </div>
+    </section>
+  </div>
+</main>
