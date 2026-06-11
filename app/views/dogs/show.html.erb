@@ -1,52 +1,45 @@
 <div class="card border-light rounded-6 shadow-sm mb-3 mx-3">
 
-  <%# Avatar %>
-  <div class="d-flex justify-content-center pt-4 pb-2">
-    <%= link_to edit_avatar_dog_path(@dog), data: { turbo_frame: "avatar_panel" }, style: "cursor: pointer;" do %>
-      <% if @dog.avatar.attached? %>
-        <%= cl_image_tag @dog.avatar.key,
-              transformation: [{ width: 120, height: 120, crop: "thumb", gravity: "face", quality: "auto" }],
-              class: "rounded-circle object-fit-cover",
-              style: "width: 120px; height: 120px; border: 5px solid #f86120;",
-              alt: @dog.name %>
-      <% else %>
-        <%= image_tag "dogs_pic.jpg",
-              class: "rounded-circle object-fit-cover",
-              style: "width: 120px; height: 120px; border: 5px solid #f86120;" %>
-      <% end %>
-    <% end %>
-  </div>
+    <div class="d-flex align-items-center" style="min-width: 0;">
 
-  <%# Nom %>
-  <div class="text-center px-4 pb-3">
-    <h2 class="fw-bold mb-0"><%= @dog.name %></h2>
   </div>
+      </div>
 
-  <%# Infos chien %>
-  <div class="border-top border-light-subtle px-4 py-2">
-    <%= link_to "#", class: "d-flex justify-content-between align-items-center py-2 text-decoration-none" do %>
-      <span class="text-muted" style="font-size: 0.9rem;">Race</span>
-      <span class="fw-medium text-dark" style="font-size: 0.9rem;"><%= @dog.breed.presence || "Non renseigné" %></span>
-    <% end %>
-    <div class="border-top border-light-subtle"></div>
-    <%= link_to "#", class: "d-flex justify-content-between align-items-center py-2 text-decoration-none" do %>
-      <span class="text-muted" style="font-size: 0.9rem;">Sexe</span>
-      <span class="fw-medium text-dark" style="font-size: 0.9rem;"><%= @dog.gender.presence || "Non renseigné" %></span>
-    <% end %>
-    <div class="border-top border-light-subtle"></div>
-    <%= link_to "#", class: "d-flex justify-content-between align-items-center py-2 text-decoration-none" do %>
-      <span class="text-muted" style="font-size: 0.9rem;">Âge</span>
-      <span class="fw-medium text-dark" style="font-size: 0.9rem;"><%= @dog.age.present? ? "#{@dog.age} ans" : "Non renseigné" %></span>
-    <% end %>
-    <div class="border-top border-light-subtle"></div>
-    <%= link_to "#", class: "d-flex justify-content-between align-items-center py-2 text-decoration-none" do %>
-      <span class="text-muted" style="font-size: 0.9rem;">Maître</span>
-      <span class="fw-medium text-dark" style="font-size: 0.9rem;"><%= current_user.first_name %></span>
-    <% end %>
-    <% if @dog.description.present? %>
-      <div class="border-top border-light-subtle pt-3 pb-2">
-        <p class="text-muted mb-1" style="font-size: 0.8rem;">Description</p>
-        <p class="text-dark mb-0" style="font-size: 0.9rem;"><%= @dog.description %></p>
+      <div class="border-light-subtle bg-white rounded-bottom-6 px-4 py-3">
+        <div class="d-flex align-items-start gap-3">
+
+          <!-- Avatar gauche -->
+          <div class="flex-shrink-0">
+            <%= link_to edit_avatar_dog_path(@dog), data: { turbo_frame: "avatar_panel" }, style: "cursor: pointer;" do %>
+              <% if @dog.avatar.attached? %>
+                <%= cl_image_tag @dog.avatar.key,
+                  transformation: [
+                    { width: 75, height: 75, crop: "thumb", gravity: "face", quality: "auto" }
+                  ],
+                  class: "rounded-circle object-fit-cover",
+                  style: "width: 75px; height: 75px; border: 4px solid #f86120;",
+                  alt: @dog.name %>
+              <% else %>
+                <%= image_tag "dogs_pic.jpg",
+                  class: "rounded-circle object-fit-cover",
+                  style: "width: 75px; height: 75px; border: 4px solid #f86120;" %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <!-- Infos droite -->
+          <div>
+            <h1 class="fw-bold mb-1"><%= @dog.name %></h1>
+            <p class="mb-0">
+              <strong>Race :</strong> <%= @dog.breed || "Non renseigné" %><br>
+              <strong>Sexe :</strong> <%= @dog.gender || "Non renseigné" %><br>
+              <strong>Âge :</strong> <%= @dog.age || "Non renseigné" %> ans<br>
+              <strong>Description :</strong> <%= @dog.description.presence || "Aucune description." %><br>
+              <strong>Maître :</strong> <%= link_to "#{@dog.user.first_name} #{@dog.user.last_name}", dogs_path, style: "text-decoration: underline; color: black;" %>
+            </p>
+          </div>
+
+        </div>
       </div>
     <% end %>
   </div>
