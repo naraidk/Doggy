@@ -18,8 +18,8 @@
       <%= image_tag current_page?(conversations_path) ? "messages_doggy.svg" : "messages.svg", style: "width: 24px; height: 24px;" %>
       <% end %>
 
-       <%= link_to dogs_path, class: "nav-icon", title: "Profil" do %>
-      <%= image_tag current_page?(dogs_path) ? "user-dog_doggy.svg" : "user-dog.svg", style: "width: 24px; height: 24px;" %>
+       <%= link_to dog_path(current_dog), class: "nav-icon", title: "Profil" do %>
+      <%= image_tag current_page?(dog_path(current_dog)) ? "user-dog_doggy.svg" : "user-dog.svg", style: "width: 24px; height: 24px;" %>
       <% end %>
 
 </nav>
