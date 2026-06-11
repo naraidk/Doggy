@@ -84,17 +84,22 @@
   <%# Actions %>
   <div class="border-top border-light-subtle bg-white rounded-bottom-6 px-4 py-3">
     <div class="d-flex gap-2">
-      <%= button_to "Discuter",
-            conversations_path,
-            method: :post,
-            params: { dog_one_id: current_dog.id, dog_two_id: @dog.id },
-            class: "btn btn-doggy text-white rounded-4 px-3 flex-fill" %>
-      <%= link_to "Modifier", edit_dog_path(@dog), class: "btn btn-danger-doggy text-white rounded-4 px-3 flex-fill" %>
-      <%= button_to "Supprimer",
-            dog_path(@dog),
-            method: :delete,
-            data: { turbo_confirm: "Supprimer ce chien ?" },
-            class: "btn btn-danger-doggy text-white rounded-4 px-3 flex-fill" %>
+      <% if @dog.user != current_user %>
+        <%= button_to "Discuter",
+              conversations_path,
+              method: :post,
+              params: { dog_one_id: current_dog.id, dog_two_id: @dog.id },
+              class: "btn btn-doggy text-white rounded-4 px-3 flex-fill" %>
+      <% end %>
+      <% if @dog.user == current_user %>
+        <%= link_to "Modifier", edit_dog_path(@dog), class: "btn btn-danger-doggy text-white rounded-4 px-3 flex-fill" %>
+        <%= button_to "Supprimer",
+              dog_path(@dog),
+              method: :delete,
+              data: { turbo_confirm: "Supprimer ce chien ?" },
+              form: { class: "flex-fill" },
+              class: "btn btn-danger-doggy text-white rounded-4 px-3 w-100" %>
+      <% end %>
     </div>
   </div>
 
