@@ -10,19 +10,18 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= favicon_link_tag 'favicon.ico' %>
+
+    <%= favicon_link_tag "icons/favicon.ico" %>
 
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <!-- <link rel="icon" href="/icon.png" type="image/png"> -->
+    <!-- <link rel="icon" href="/icon.svg" type="image/svg+xml"> -->
+    <!-- <link rel="apple-touch-icon" href="/icon.png"> -->
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
     <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
-    <%= favicon_link_tag 'favicon.ico' %>
-
     <!-- DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,10 +31,7 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-    <script defer src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <%# herb:disable all %>
     <%= render 'shared/ios_pwa_links' %>
   </head>
 
@@ -43,7 +39,6 @@
       <% if user_signed_in? %>
       <%= render 'shared/navbar_top', dog: current_dog %>
       <% end %>
-      <%# <%= render "shared/flashes" %>
 
   <main style="padding-bottom: 80px; padding-top: 20px;">
   <%= yield %>
