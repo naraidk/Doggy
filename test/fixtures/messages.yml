@@ -1,0 +1,4 @@
+hello_msg:
+  content: Salut Buddy, tu veux jouer ?
+  conversation: rex_buddy_chat
+  dog: rex

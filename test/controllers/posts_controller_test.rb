@@ -1,38 +1,48 @@
 require "test_helper"
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get posts_index_url
-    assert_response :success
+  setup do
+    @user = users(:alice)
+    @post = posts(:rex_post)
+    @dog  = dogs(:rex)
   end
 
-  test "should get show" do
-    get posts_show_url
+  test "unauthenticated access redirects to sign_in" do
+    get posts_path
+    assert_redirected_to new_user_session_path
+  end
+
+  test "should get index" do
+    sign_in @user
+    get posts_path
     assert_response :success
   end
 
   test "should get new" do
-    get posts_new_url
+    sign_in @user
+    get new_post_path
     assert_response :success
   end
 
-  test "should get create" do
-    get posts_create_url
+  test "should get show" do
+    sign_in @user
+    get post_path(@post)
     assert_response :success
   end
 
-  test "should get edit" do
-    get posts_edit_url
-    assert_response :success
+  test "should create post" do
+    sign_in @user
+    assert_difference("Post.count") do
+      post posts_path, params: { post: { content: "Nouveau post de test !", dog_id: @dog.id } }
+    end
+    assert_redirected_to posts_path
   end
 
-  test "should get update" do
-    get posts_update_url
-    assert_response :success
-  end
-
-  test "should get destroy" do
-    get posts_destroy_url
-    assert_response :success
+  test "should destroy post" do
+    sign_in @user
+    assert_difference("Post.count", -1) do
+      delete post_path(@post)
+    end
+    assert_redirected_to posts_path
   end
 end

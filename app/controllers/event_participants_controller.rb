@@ -21,7 +21,8 @@ class EventParticipantsController < ApplicationController
       @participant.destroy
       redirect_back fallback_location: events_path, status: :see_other, notice: "Désinscription prise en compte."
     else
-      redirect_back fallback_location: events_path, status: :see_other, alert: "Impossible de trouver votre inscription."
+      redirect_back fallback_location: events_path, status: :see_other,
+                    alert: "Impossible de trouver votre inscription."
     end
   end
 end

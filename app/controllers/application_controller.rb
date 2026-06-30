@@ -18,17 +18,18 @@ class ApplicationController < ActionController::Base
     return unless current_user
     return if current_user.dogs.any?
     return if devise_controller?
-    return if params[:controller] == 'dogs' || params[:controller] == 'rails/health'
+    return if ['dogs', 'rails/health'].include?(params[:controller])
+
     redirect_to new_dog_path, notice: "Commencez par créer le profil de votre chien !"
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :username])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :username])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name username])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name username])
   end
 
-    def skip_pundit?
-      devise_controller? ||
-        params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
-    end
+  def skip_pundit?
+    devise_controller? ||
+      params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
+  end
 end

@@ -16,7 +16,7 @@ class DogsController < ApplicationController
 
     @matches = candidates
                .map { |candidate| [candidate, @dog.compatibility_with(candidate)] }
-               .sort_by { |candidate, score| -score }
+               .sort_by { |_candidate, score| -score }
                .first(10)
   end
 
@@ -42,7 +42,6 @@ class DogsController < ApplicationController
   end
 
   def update
-
     if @dog.update(dog_params)
       redirect_to dog_path(@dog), notice: "Profil du chien mis à jour."
     else

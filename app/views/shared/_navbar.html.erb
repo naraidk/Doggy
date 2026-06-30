@@ -18,8 +18,14 @@
       <%= image_tag current_page?(conversations_path) ? "messages_doggy.svg" : "messages.svg", style: "width: 24px; height: 24px;" %>
       <% end %>
 
-       <%= link_to dog_path(current_dog), class: "nav-icon", title: "Profil" do %>
-      <%= image_tag current_page?(dog_path(current_dog)) ? "user-dog_doggy.svg" : "user-dog.svg", style: "width: 24px; height: 24px;" %>
+      <% if current_dog.present? %>
+        <%= link_to dog_path(current_dog), class: "nav-icon", title: "Profil" do %>
+          <%= image_tag current_page?(dog_path(current_dog)) ? "user-dog_doggy.svg" : "user-dog.svg", style: "width: 24px; height: 24px;" %>
+        <% end %>
+      <% else %>
+        <%= link_to new_dog_path, class: "nav-icon", title: "Créer profil" do %>
+          <%= image_tag "user-dog.svg", style: "width: 24px; height: 24px;" %>
+        <% end %>
       <% end %>
 
 </nav>

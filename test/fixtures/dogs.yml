@@ -1,0 +1,27 @@
+rex:
+  name: Rex
+  breed: Labrador
+  age: 3
+  gender: Mâle
+  description: Un chien adorable et très joueur qui aime les longues balades en forêt.
+  user: alice
+  energy_level: Dynamique
+  canine_sociability: Sociable
+  human_sociability: Très affectueux
+  size: Grand
+  temperament: Joueur
+  favorite_activity: Jeux
+
+buddy:
+  name: Buddy
+  breed: Beagle
+  age: 2
+  gender: Mâle
+  description: Un chien curieux et plein d'énergie, toujours partant pour l'aventure en plein air.
+  user: bob
+  energy_level: Dynamique
+  canine_sociability: Sociable
+  human_sociability: Amical
+  size: Moyen
+  temperament: Aventurier
+  favorite_activity: Randonnée

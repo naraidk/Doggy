@@ -1,0 +1,7 @@
+rex_post:
+  content: Bonjour à tous les chiens du quartier !
+  dog: rex
+
+buddy_post:
+  content: Belle journée pour une promenade en forêt !
+  dog: buddy

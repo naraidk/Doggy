@@ -13,8 +13,8 @@ class AiMessagesController < ApplicationController
       build_conversation_history(except_message_id: @ai_message.id)
 
       response = @ruby_llm_chat
-        .with_instructions(assistant_instructions)
-        .ask(@ai_message.content)
+                 .with_instructions(assistant_instructions)
+                 .ask(@ai_message.content)
 
       @assistant_message = @ai_chat.ai_messages.create!(
         role: "assistant",
@@ -47,8 +47,8 @@ class AiMessagesController < ApplicationController
   private
 
   def set_ai_chat
-  @ai_chat = AiChat.find(params[:ai_chat_id])
-end
+    @ai_chat = AiChat.find(params[:ai_chat_id])
+  end
 
   def ai_message_params
     params.require(:ai_message).permit(:content)

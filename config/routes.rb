@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  get "swipes/index"
-  get "swipes/create"
   devise_for :users
-
 
   root to: "posts#index"
 
@@ -22,23 +19,18 @@ Rails.application.routes.draw do
   # changer de chien
   post "select_dog/:dog_id", to: "dogs#select", as: :select_dog
 
-
-   # CONVERSATIONS ENTRE CHIENS
+  # CONVERSATIONS ENTRE CHIENS
   resources :conversations, only: [:index, :show, :create] do
     resources :messages, only: [:create]
   end
 
   # FEED (posts, comments, woufs)
   resources :posts, only: [:index, :new, :create, :show, :destroy] do
-    resources :woufs, only: [:create, :destroy]
-    resources :comments, only: [:index, :create, :destroy]
-  end
-
-# Pop up de post
-  resources :posts do
     member do
       get :post_panel
     end
+    resources :woufs, only: [:create, :destroy]
+    resources :comments, only: [:index, :create, :destroy]
   end
 
 

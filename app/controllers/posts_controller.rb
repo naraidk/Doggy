@@ -20,12 +20,10 @@ class PostsController < ApplicationController
     end
   end
 
-
   def post_panel
     @post = Post.find(params[:id])
     render partial: "posts/panel", locals: { post: @post }
   end
-
 
   def create
     @post = Post.new(post_params)

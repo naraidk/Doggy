@@ -1,0 +1,4 @@
+rex_likes_buddy:
+  dog: rex
+  target_dog: buddy
+  liked: true

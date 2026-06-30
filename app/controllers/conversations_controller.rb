@@ -18,8 +18,6 @@ class ConversationsController < ApplicationController
     @message = Message.new
   end
 
-  
-
   def create
     dog_one = current_user.dogs.find(params[:dog_one_id])
     dog_two = Dog.find(params[:dog_two_id])

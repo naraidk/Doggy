@@ -1,0 +1,4 @@
+user_msg:
+  ai_chat: rex_chat
+  role: user
+  content: Mon chien tousse souvent, est-ce grave ?

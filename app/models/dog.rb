@@ -69,9 +69,9 @@ class Dog < ApplicationRecord
     ["Petit", "Moyen", "Grand"]
   end
 
-  def temperament_score(a, b)
-    return 0 if a.blank? || b.blank?
-    return 100 if a == b
+  def temperament_score(val_a, val_b)
+    return 0 if val_a.blank? || val_b.blank?
+    return 100 if val_a == val_b
 
     compatible = {
       "Joueur" => ["Aventurier", "Affectueux"],
@@ -81,12 +81,12 @@ class Dog < ApplicationRecord
       "Indépendant" => ["Protecteur", "Aventurier"]
     }
 
-    compatible[a]&.include?(b) ? 80 : 40
+    compatible[val_a]&.include?(val_b) ? 80 : 40
   end
 
-  def activity_score(a, b)
-    return 0 if a.blank? || b.blank?
-    return 100 if a == b
+  def activity_score(val_a, val_b)
+    return 0 if val_a.blank? || val_b.blank?
+    return 100 if val_a == val_b
 
     close_activities = {
       "Promenade tranquille" => ["Randonnée"],
@@ -96,6 +96,6 @@ class Dog < ApplicationRecord
       "Baignade" => ["Jeux"]
     }
 
-    close_activities[a]&.include?(b) ? 50 : 0
+    close_activities[val_a]&.include?(val_b) ? 50 : 0
   end
 end

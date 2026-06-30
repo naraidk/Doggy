@@ -95,6 +95,22 @@ font-style: italic;
     transition: transform 0.2s ease;
 }
 
+.dog-profile-details {
+  min-width: 0;
+}
+
+.dog-profile-details .dog-detail-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-left: 0;
+}
+
+.dog-profile-details .dog-detail-item strong {
+  min-width: 5rem;
+}
+
 .message:hover {
     animation: légerRebond 0.4s ease-in-out;
     cursor: pointer;
