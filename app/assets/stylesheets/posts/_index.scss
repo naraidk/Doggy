@@ -89,8 +89,27 @@
   z-index: 10;
 }
 
+@media (min-width: 992px) {
+  .card.post-card,
+  .post-card.card {
+    width: 50% !important;
+    max-width: 760px;
+    margin: 2rem auto !important;
+    height: 50vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+  }
+
+  .post-card > .card-body,
+  .post-card > .px-4,
+  .post-card > .actions {
+    width: 100%;
+  }
+}
+
 .panel-body {
   overflow-y: auto;
   padding-bottom: 40px;
 }
-
