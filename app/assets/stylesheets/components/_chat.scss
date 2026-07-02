@@ -15,6 +15,18 @@
   flex-shrink: 0;
 }
 
+@media (min-width: 992px) {
+  .chat {
+    width: 40% !important;
+    max-width: 40% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+}
+
+
+
 .messages {
   flex: 1;
   overflow-y: auto;

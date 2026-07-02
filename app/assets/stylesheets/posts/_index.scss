@@ -90,22 +90,27 @@
 }
 
 @media (min-width: 992px) {
-  .card.post-card,
-  .post-card.card {
+  .card .post-card {
     width: 50% !important;
-    max-width: 760px;
+    max-width: 50% !important;
     margin: 2rem auto !important;
-    height: 50vh !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: stretch !important;
+    display: block !important;
+    box-sizing: border-box !important;
   }
 
   .post-card > .card-body,
   .post-card > .px-4,
-  .post-card > .actions {
-    width: 100%;
+  .post-card > .actions,
+  .post-card .post-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .post-card .post-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
   }
 }
 

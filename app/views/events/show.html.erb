@@ -90,7 +90,7 @@
   <i class="fa-solid fa-list"></i>
 <% end %>
 
-<div class="mx-3 my-3"
+<div class="card mx-3 my-3"
      data-controller="map"
      data-map-events-value="<%= [@event].to_json %>"
      data-map-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
@@ -110,53 +110,3 @@
                 },
               class: "btn text-doggy rounded-4" %>
     </div>
-
-
-<!--
-
-    <div class="card-body">
-      <h1><%#= @event.title %></h1>
-
-      <p class="badge text-doggy""> <%#= @event.city %></p>
-      <p> <%#= @event.date.strftime("%d/%m/%Y à %H:%M") %></p>
-      <p> Organisé par <strong><%#= @event.dog.name %></strong></p>
-
-      <hr>
-      <div class="badge text-black">
-            <p><%#= @event.description %></p>
-      </div>
-            <hr>
-
-      <%# already_joined = @event.dogs.where(id: current_user.dogs.ids).exists? %>-->
-<!---->
-      <%# if already_joined %>
-<!--        <p class="text-success">Ton chien est déjà inscrit à cet événement.</p>-->
-      <%# else %>
-        <%#= button_to "Participer",
-            event_event_participants_path(@event),
-            method: :post,
-            class: "btn btn-doggy text-white rounded-4" %>
-      <%# end %>
-<!--    </div>
-
-  <div class="border-top border-light-subtle bg-white rounded-bottom-6 px-4 py-2">
-    <h3>Participants</h3>
-
-    <%# if @event.event_participants.any? %>-->
-      <%# @event.event_participants.each do |participant| %>
-<!--        <div class="card mb-2">
-          <div class="card-body">
-            <%#= participant.dog.name %>-->
-<!--          </div>
-        </div>
-      <%# end %>-->
-    <%# else %>
-<!--      <p class="text-muted">Aucun participant pour le moment.</p>-->
-    <%# end %>
-<!--  </div>
-</div>
-
-<%#= link_to events_path, class: "btn-floating-map" do %>-->
-<!--  <i class="fa-solid fa-list"></i>-->
-<%# end %>
-<!---->

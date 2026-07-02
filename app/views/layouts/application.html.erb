@@ -21,7 +21,7 @@
     <!-- <link rel="icon" href="/icon.svg" type="image/svg+xml"> -->
     <!-- <link rel="apple-touch-icon" href="/icon.png"> -->
 
-    <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
+    <link rel="manifest" href="/manifest.json">
     <!-- DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,8 +41,10 @@
       <% end %>
 
   <main style="padding-bottom: 80px; padding-top: 20px;">
-  <%= yield %>
-</main>
+    <!-- <div class="app-container"> -->
+      <%= yield %>
+    <!-- </div> -->
+  </main>
 
       <% if user_signed_in? %>
       <%= render 'shared/navbar' %>
