@@ -33,23 +33,7 @@
 
       </div>
     </div>
-    <div>
-        <% if post.dog.user == current_user %>
-          <%= button_to post_path(post),
-                method: :delete,
-                class: "delete-button text-doggy-danger fs-6",
-                form: { data: { turbo_confirm: "Es-tu sûr de vouloir supprimer ce post ?" } } do %>
-          <i class="fa-solid fa-trash"></i>
-          <% end %>
-        <% else %>
-        <%= button_to conversations_path,
-            method: :post,
-            params: { dog_one_id: current_dog.id, dog_two_id: post.dog.id },
-            class: "delete-button text-doggy-danger fs-6" do %>
-          <%= image_tag "messages.svg", style: "width: 18px; opacity: 0.20;" %>
-        <% end %>
-        <% end %>
-    </div>
+
   </div>
 
   <div class="px-4 pt-1">

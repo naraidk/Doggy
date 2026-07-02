@@ -1,5 +1,5 @@
 <turbo-frame id="post_panel">
-  <div class="post-panel" data-controller="panel">
+  <div class="post-panel panel-responsive" data-controller="panel">
 
     <!-- HEADER -->
     <div class="panel-header d-flex align-items-center justify-content-between px-3 py-2">
@@ -21,7 +21,7 @@
         <div class="d-flex align-items-center mb-2">
 
           <strong class="text-doggy"><%= post.dog.name %></strong>
-          <br>
+          <!-- <br> -->
           <span class="text-muted ms-2">
              il y a <%= time_ago_in_words(post.created_at) %></span>
         </div>
@@ -31,6 +31,7 @@
         <!-- WOUFS -->
         <div class="d-flex align-items-center gap-2 mb-3">
           <span class="text-muted"><%= post.woufs.count %> woufs</span>
+
         </div>
 
         <hr>
@@ -54,8 +55,19 @@
             </div>
           </div>
         <% end %>
-
-
+          <hr>
+          <br>
+        <!-- Delete post -->
+          <div class="delete-container">
+              <% if post.dog.user == current_user %>
+                <%= button_to post_path(post),
+                      method: :delete,
+                      class: "delete-button text-doggy-danger fs-6",
+                      form: { data: { turbo_confirm: "Es-tu sûr de vouloir supprimer ce post ?" } } do %>
+                <i class="fa-solid fa-trash"></i>
+                <% end %>
+              <% end %>
+          </div>
       </div>
     </div>
 

@@ -15,19 +15,19 @@
               input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
 
   <%= f.input :breed,
-              label: "Race",
-              wrapper_html: { class: "mb-3" },
-              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+            label: "Race",
+            collection: ["Berger Australien", "Golden Retriever", "Labrador Retriever", "Bouledogue Français", "Teckel", "Chihuahua", "Shiba Inu", "Border Collie", "Husky Sibérien", "Cavalier King Charles", "Beagle", "Jack Russell Terrier", "Yorkshire Terrier", "Boxer", "Dalmatien", "Rottweiler", "Schnauzer", "Cocker Spaniel", "Bichon Frisé", "Mastiff"],
+            prompt: "Choisir une race" %>
 
   <%= f.input :gender,
               label: "Sexe",
-              wrapper_html: { class: "mb-3" },
-              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+              collection: ["Mâle", "Femelle"],
+              prompt: "Choisir un sexe" %>
 
   <%= f.input :age,
               label: "Âge",
-              wrapper_html: { class: "mb-3" },
-              input_html: { class: "form-control-lg bg-white border-doggy shadow-sm" } %>
+              collection: (1..25),
+              prompt: "Choisir un âge" %>
 
 
 <%= f.input :size,

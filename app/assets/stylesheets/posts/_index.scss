@@ -5,6 +5,13 @@
   border-radius: 10px;
 }
 
+.delete-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .actions {
   display: flex;
   align-items: center;
@@ -117,4 +124,21 @@
 .panel-body {
   overflow-y: auto;
   padding-bottom: 40px;
+}
+
+/* Mobile: full width */
+.panel-responsive {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Desktop: 40% width and centered */
+@media (min-width: 992px) {
+  .panel-responsive {
+    width: 40% !important;
+    max-width: 40% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
