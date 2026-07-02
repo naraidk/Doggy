@@ -25,6 +25,7 @@
     </div>
 
   </div>
+
 <!-- Action Buttons -->
 <div class="bg-white rounded-bottom-6 px-4 py-3">
   <div class="d-flex gap-2">
@@ -38,16 +39,35 @@
     </div>
   </div>
 </div>
-</div>
 
-
+<br>
 <!-- Dog(s) that you own -->
-<div class="card border-light rounded-6 shadow-sm mb-3 mx-3">
   <% @dogs.each do |dog| %>
-  <% bg_url = dog.avatar.attached? ? url_for(dog.avatar) : nil %>
-  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= bg_url %>');">
-    <h3 class="fw-bold"><%= link_to dog.name, dog_path(dog),
-        class: "text-white" %><% dog.name %></h3>
-  </div>
-  <% end %>
-</div>
+    <div class="d-flex align-items-center gap-3 p-3">
+
+      <!-- AVATAR CLIQUABLE -->
+      <% if dog.avatar.attached? %>
+        <%= link_to dog_path(dog) do %>
+          <%= cl_image_tag dog.avatar.key,
+                transformation: [
+                  { width: 120, height: 120, crop: "thumb", gravity: "face", quality: "auto" }
+                ],
+                class: "rounded-circle object-fit-cover",
+                style: "width: 120px; height: 120px; flex-shrink: 0; border: 4px solid #f86120;",
+                alt: dog.name %>
+        <% end %>
+      <% else %>
+        <%= link_to dog_path(dog) do %>
+          <%= image_tag "dogs_pic.jpg",
+                class: "rounded-circle object-fit-cover",
+                style: "width: 120px; height: 120px; flex-shrink: 0; border: 4px solid #f86120;" %>
+        <% end %>
+      <% end %>
+
+      <!-- NOM CLIQUABLE -->
+      <h1 class="fw-bold mb-0">
+        <%= link_to dog.name, dog_path(dog), class: "text-dark text-decoration-underline" %>
+      </h1>
+
+    </div>
+  <% end %></div>
