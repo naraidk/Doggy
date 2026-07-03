@@ -1,6 +1,6 @@
-<div class="comments-panel panel-responsive" data-controller="comments" data-comments-post-id-value="<%= @post.id %>">
+<div class="comments-panel panel-responsive" data-controller="comments" data-comments-post-id-value="<%= post.id %>">
   <div class="panel-header d-flex justify-content-between px-4 pt-2">
-    <span class="fw-light fs-6">Commentaires sur <strong><%= @post.dog.name %></strong></span>
+    <span class="fw-light fs-6">Commentaires sur <strong><%= post.dog.name %></strong></span>
     <button class="close-panel" data-action="click->comments#close">✕</button>
   </div>
 
@@ -8,7 +8,7 @@
 
     <div class="post">
 
-      <% @comments.each do |comment| %>
+      <% comments.each do |comment| %>
         <div class="comment" id="<%= dom_id(comment) %>">
 
               <!-- Avatar du chien -->
@@ -40,7 +40,7 @@
 
 
           <% if comment.dog == current_dog %>
-            <%= button_to [@post, comment],
+            <%= button_to [post, comment],
                 method: :delete,
                 class: "delete-comment-btn text-doggy-danger",
                 data: { turbo_confirm: "Supprimer ce commentaire ?" } do %>
@@ -53,7 +53,7 @@
     </div>
 
     <div class="panel-footer">
-      <%= form_with model: [@post, Comment.new] do |f| %>
+      <%= form_with model: [post, Comment.new] do |f| %>
 
           <!-- Avatar dog -->
           <% if current_user.dogs.count > 1 %>

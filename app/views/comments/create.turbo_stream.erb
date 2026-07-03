@@ -1,6 +1,8 @@
 <turbo-stream action="update" target="comments_panel">
   <template>
-    <%= render partial: "comments/panel", formats: [:html] %>
+    <%= render partial: "comments/panel",
+               formats: [:html],
+               locals: { post: @post, comments: @comments } %>
   </template>
 </turbo-stream>
 
