@@ -3,3 +3,7 @@ Doggy est un réseau social conçu pour les propriétaires de chiens, où chaque
 Doggy is a social network designed for dog owners, where every dog can become a true star within a dedicated community. Built with Ruby on Rails, the platform lets users create dog profiles, share photos and posts, exchange messages, upload images, and connect with fellow dog lovers while discovering new furry friends.
 
 ![image alt](https://github.com/naraidk/Doggy/blob/10d03cedc43d9d9632e2efefaaae7b51579011e5/DoggyPresentation.png)
+
+## Demo
+
+https://github.com/user-attachments/assets/6a23d1ec-d833-4f67-a7a3-909f2b593b62
