@@ -1,3 +1,5 @@
+<img width="1092" height="621" alt="Image" src="https://github.com/user-attachments/assets/9f4bba05-3681-4d5f-8bfc-918e9efcdc61" />
+
 ## Doggy — A Social Network for Dogs
 Doggy is a social network made for dog owners who want their pups to shine. Every dog gets its own profile, can share photos, post updates, send messages, and meet other friendly dogs in the community. It’s basically the place where dogs become local celebrities and humans just manage their accounts.
 
